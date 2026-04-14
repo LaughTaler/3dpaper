@@ -1,0 +1,1069 @@
+% ****** Start of file aipsamp.tex ******
+%
+%   This file is part of the AIP files in the AIP distribution for REVTeX 4.
+%   Version 4.1 of REVTeX, October 2009
+%
+%   Copyright (c) 2009 American Institute of Physics.
+%
+%   See the AIP README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+% 
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex  aipsamp
+%  2)  bibtex aipsamp
+%  3)  latex  aipsamp
+%  4)  latex  aipsamp
+%
+% Use this file as a source of example code for your aip document.
+% Use the file aiptemplate.tex as a template for your document.
+\documentclass[%
+ aip,
+% jmp,
+% bmf,
+% sd,
+% rsi,
+ amsmath,amssymb,
+%preprint,%
+ reprint,%
+%author-year,%
+%author-numerical,%
+% Conference Proceedings
+]{revtex4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{etoolbox}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{float}
+
+%% Apr 2021: AIP requests that the corresponding 
+%% email to be moved after the affiliations
+\makeatletter
+\def\@email#1#2{%
+ \endgroup
+ \patchcmd{\titleblock@produce}
+  {\frontmatter@RRAPformat}
+  {\frontmatter@RRAPformat{\produce@RRAP{*#1\href{mailto:#2}{#2}}}\frontmatter@RRAPformat}
+  {}{}
+}%
+\makeatother
+\begin{document}
+
+\preprint{AIP/123-QED}
+
+\title[Sample title]{Sample Title:\\with Forced Linebreak}
+% Force line breaks with \\
+\author{A. Author}
+ \altaffiliation[Also at ]{Physics Department, XYZ University.}%Lines break automatically or can be forced with \\
+\author{B. Author}%
+ \email{Second.Author@institution.edu.}
+\affiliation{ 
+Authors' institution and/or address%\\This line break forced with \textbackslash\textbackslash
+}%
+
+\author{C. Author}
+ \homepage{http://www.Second.institution.edu/~Charlie.Author.}
+\affiliation{%
+Second institution and/or address%\\This line break forced% with \\
+}%
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+An article usually includes an abstract, a concise summary of the work
+covered at length in the main body of the article. It is used for
+secondary publications and for information retrieval purposes. 
+\end{abstract}
+
+\maketitle
+
+\begin{quotation}
+The ``lead paragraph'' is encapsulated with the \LaTeX\ 
+\verb+quotation+ environment and is formatted as a single paragraph before the first section heading. 
+(The \verb+quotation+ environment reverts to its usual meaning after the first sectioning command.) 
+Note that numbered references are allowed in the lead paragraph.
+%
+The lead paragraph will only be found in an article being prepared for the journal \textit{Chaos}.
+\end{quotation}
+
+% \section{\label{sec:level1}First-level heading:\protect\\ The line
+% break was forced \lowercase{via} \textbackslash\textbackslash}
+
+% This sample document demonstrates proper use of REV\TeX~4.1 (and
+% \LaTeXe) in manuscripts prepared for submission to AIP
+% journals. Further information can be found in the documentation included in the distribution or available at
+% \url{http://authors.aip.org} and in the documentation for 
+% REV\TeX~4.1 itself.
+
+% When commands are referred to in this example file, they are always
+% shown with their required arguments, using normal \TeX{} format. In
+% this format, \verb+#1+, \verb+#2+, etc. stand for required
+% author-supplied arguments to commands. For example, in
+% \verb+\section{#1}+ the \verb+#1+ stands for the title text of the
+% author's section heading, and in \verb+\title{#1}+ the \verb+#1+
+% stands for the title text of the paper.
+
+% Line breaks in section headings at all levels can be introduced using
+% \textbackslash\textbackslash. A blank input line tells \TeX\ that the
+% paragraph has ended. 
+
+% \subsection{\label{sec:level2}Second-level heading: Formatting}
+
+% This file may be formatted in both the \texttt{preprint} (the default) and
+% \texttt{reprint} styles; the latter format may be used to 
+% mimic final journal output. Either format may be used for submission
+% purposes; however, for peer review and production, AIP will format the
+% article using the \texttt{preprint} class option. Hence, it is
+% essential that authors check that their manuscripts format acceptably
+% under \texttt{preprint}. Manuscripts submitted to AIP that do not
+% format correctly under the \texttt{preprint} option may be delayed in
+% both the editorial and production processes.
+
+% The \texttt{widetext} environment will make the text the width of the
+% full page, as on page~\pageref{eq:wideeq}. (Note the use the
+% \verb+\pageref{#1}+ to get the page number right automatically.) The
+% width-changing commands only take effect in \texttt{twocolumn}
+% formatting. It has no effect if \texttt{preprint} formatting is chosen
+% instead.
+
+% \subsubsection{\label{sec:level3}Third-level heading: Citations and Footnotes}
+
+% Citations in text refer to entries in the Bibliography;
+% they use the commands \verb+\cite{#1}+ or \verb+\onlinecite{#1}+. 
+% Because REV\TeX\ uses the \verb+natbib+ package of Patrick Daly, 
+% its entire repertoire of commands are available in your document;
+% see the \verb+natbib+ documentation for further details.
+% The argument of \verb+\cite+ is a comma-separated list of \emph{keys};
+% a key may consist of letters and numerals. 
+
+% By default, citations are numerical; \cite{feyn54} author-year citations are an option. 
+% To give a textual citation, use \verb+\onlinecite{#1}+: (Refs.~\onlinecite{witten2001,epr,Bire82}). 
+% REV\TeX\ ``collapses'' lists of consecutive numerical citations when appropriate. 
+% REV\TeX\ provides the ability to properly punctuate textual citations in author-year style;
+% this facility works correctly with numerical citations only with \texttt{natbib}'s compress option turned off. 
+% To illustrate, we cite several together \cite{feyn54,witten2001,epr,Berman1983}, 
+% and once again (Refs.~\onlinecite{epr,feyn54,Bire82,Berman1983}). 
+% Note that, when numerical citations are used, the references were sorted into the same order they appear in the bibliography. 
+
+% A reference within the bibliography is specified with a \verb+\bibitem{#1}+ command,
+% where the argument is the citation key mentioned above. 
+% \verb+\bibitem{#1}+ commands may be crafted by hand or, preferably,
+% generated by using Bib\TeX. 
+% The AIP styles for REV\TeX~4 include Bib\TeX\ style files
+% \verb+aipnum.bst+ and \verb+aipauth.bst+, appropriate for
+% numbered and author-year bibliographies,
+% respectively. 
+% REV\TeX~4 will automatically choose the style appropriate for 
+% the document's selected class options: the default is numerical, and
+% you obtain the author-year style by specifying a class option of \verb+author-year+.
+
+% This sample file demonstrates a simple use of Bib\TeX\ 
+% via a \verb+\bibliography+ command referencing the \verb+aipsamp.bib+ file.
+% Running Bib\TeX\ (in this case \texttt{bibtex
+% aipsamp}) after the first pass of \LaTeX\ produces the file
+% \verb+aipsamp.bbl+ which contains the automatically formatted
+% \verb+\bibitem+ commands (including extra markup information via
+% \verb+\bibinfo+ commands). If not using Bib\TeX, the
+% \verb+thebibiliography+ environment should be used instead.
+
+% \paragraph{Fourth-level heading is run in.}%
+% Footnotes are produced using the \verb+\footnote{#1}+ command. 
+% Numerical style citations put footnotes into the 
+% bibliography\footnote{Automatically placing footnotes into the bibliography requires using BibTeX to compile the bibliography.}.
+% Author-year and numerical author-year citation styles (each for its own reason) cannot use this method. 
+% Note: due to the method used to place footnotes in the bibliography, \emph{you
+% must re-run BibTeX every time you change any of your document's
+% footnotes}. 
+
+% \section{Math and Equations}
+% Inline math may be typeset using the \verb+$+ delimiters. Bold math
+% symbols may be achieved using the \verb+bm+ package and the
+% \verb+\bm{#1}+ command it supplies. For instance, a bold $\alpha$ can
+% be typeset as \verb+$\bm{\alpha}$+ giving $\bm{\alpha}$. Fraktur and
+% Blackboard (or open face or double struck) characters should be
+% typeset using the \verb+\mathfrak{#1}+ and \verb+\mathbb{#1}+ commands
+% respectively. Both are supplied by the \texttt{amssymb} package. For
+% example, \verb+$\mathbb{R}$+ gives $\mathbb{R}$ and
+% \verb+$\mathfrak{G}$+ gives $\mathfrak{G}$
+
+% In \LaTeX\ there are many different ways to display equations, and a
+% few preferred ways are noted below. Displayed math will center by
+% default. Use the class option \verb+fleqn+ to flush equations left.
+
+% Below we have numbered single-line equations, the most common kind: 
+% \begin{eqnarray}
+% \chi_+(p)\alt{\bf [}2|{\bf p}|(|{\bf p}|+p_z){\bf ]}^{-1/2}
+% \left(
+% \begin{array}{c}
+% |{\bf p}|+p_z\\
+% px+ip_y
+% \end{array}\right)\;,
+% \\
+% \left\{%
+%  \openone234567890abc123\alpha\beta\gamma\delta1234556\alpha\beta
+%  \frac{1\sum^{a}_{b}}{A^2}%
+% \right\}%
+% \label{eq:one}.
+% \end{eqnarray}
+% Note the open one in Eq.~(\ref{eq:one}).
+
+% Not all numbered equations will fit within a narrow column this
+% way. The equation number will move down automatically if it cannot fit
+% on the same line with a one-line equation:
+% \begin{equation}
+% \left\{
+%  ab12345678abc123456abcdef\alpha\beta\gamma\delta1234556\alpha\beta
+%  \frac{1\sum^{a}_{b}}{A^2}%
+% \right\}.
+% \end{equation}
+
+% When the \verb+\label{#1}+ command is used [cf. input for
+% Eq.~(\ref{eq:one})], the equation can be referred to in text without
+% knowing the equation number that \TeX\ will assign to it. Just
+% use \verb+\ref{#1}+, where \verb+#1+ is the same name that used in
+% the \verb+\label{#1}+ command.
+
+% Unnumbered single-line equations can be typeset
+% using the \verb+\[+, \verb+\]+ format:
+% \[g^+g^+ \rightarrow g^+g^+g^+g^+ \dots ~,~~q^+q^+\rightarrow
+% q^+g^+g^+ \dots ~. \]
+
+% \subsection{Multiline equations}
+
+% Multiline equations are obtained by using the \verb+eqnarray+
+% environment.  Use the \verb+\nonumber+ command at the end of each line
+% to avoid assigning a number:
+% \begin{eqnarray}
+% {\cal M}=&&ig_Z^2(4E_1E_2)^{1/2}(l_i^2)^{-1}
+% \delta_{\sigma_1,-\sigma_2}
+% (g_{\sigma_2}^e)^2\chi_{-\sigma_2}(p_2)\nonumber\\
+% &&\times
+% [\epsilon_jl_i\epsilon_i]_{\sigma_1}\chi_{\sigma_1}(p_1),
+% \end{eqnarray}
+% \begin{eqnarray}
+% \sum \vert M^{\text{viol}}_g \vert ^2&=&g^{2n-4}_S(Q^2)~N^{n-2}
+%         (N^2-1)\nonumber \\
+%  & &\times \left( \sum_{i<j}\right)
+%   \sum_{\text{perm}}
+%  \frac{1}{S_{12}}
+%  \frac{1}{S_{12}}
+%  \sum_\tau c^f_\tau~.
+% \end{eqnarray}
+% \textbf{Note:} Do not use \verb+\label{#1}+ on a line of a multiline
+% equation if \verb+\nonumber+ is also used on that line. Incorrect
+% cross-referencing will result. Notice the use \verb+\text{#1}+ for
+% using a Roman font within a math environment.
+
+% To set a multiline equation without \emph{any} equation
+% numbers, use the \verb+\begin{eqnarray*}+,
+% \verb+\end{eqnarray*}+ format:
+% \begin{eqnarray*}
+% \sum \vert M^{\text{viol}}_g \vert ^2&=&g^{2n-4}_S(Q^2)~N^{n-2}
+%         (N^2-1)\\
+%  & &\times \left( \sum_{i<j}\right)
+%  \left(
+%   \sum_{\text{perm}}\frac{1}{S_{12}S_{23}S_{n1}}
+%  \right)
+%  \frac{1}{S_{12}}~.
+% \end{eqnarray*}
+% To obtain numbers not normally produced by the automatic numbering,
+% use the \verb+\tag{#1}+ command, where \verb+#1+ is the desired
+% equation number. For example, to get an equation number of
+% (\ref{eq:mynum}),
+% \begin{equation}
+% g^+g^+ \rightarrow g^+g^+g^+g^+ \dots ~,~~q^+q^+\rightarrow
+% q^+g^+g^+ \dots ~. \tag{2.6$'$}\label{eq:mynum}
+% \end{equation}
+
+% A few notes on \verb=\tag{#1}=. \verb+\tag{#1}+ requires
+% \texttt{amsmath}. The \verb+\tag{#1}+ must come before the
+% \verb+\label{#1}+, if any. The numbering set with \verb+\tag{#1}+ is
+% \textit{transparent} to the automatic numbering in REV\TeX{};
+% therefore, the number must be known ahead of time, and it must be
+% manually adjusted if other equations are added. \verb+\tag{#1}+ works
+% with both single-line and multiline equations. \verb+\tag{#1}+ should
+% only be used in exceptional case - do not use it to number all
+% equations in a paper.
+
+% Enclosing single-line and multiline equations in
+% \verb+\begin{subequations}+ and \verb+\end{subequations}+ will produce
+% a set of equations that are ``numbered'' with letters, as shown in
+% Eqs.~(\ref{subeq:1}) and (\ref{subeq:2}) below:
+% \begin{subequations}
+% \label{eq:whole}
+% \begin{equation}
+% \left\{
+%  abc123456abcdef\alpha\beta\gamma\delta1234556\alpha\beta
+%  \frac{1\sum^{a}_{b}}{A^2}
+% \right\},\label{subeq:1}
+% \end{equation}
+% \begin{eqnarray}
+% {\cal M}=&&ig_Z^2(4E_1E_2)^{1/2}(l_i^2)^{-1}
+% (g_{\sigma_2}^e)^2\chi_{-\sigma_2}(p_2)\nonumber\\
+% &&\times
+% [\epsilon_i]_{\sigma_1}\chi_{\sigma_1}(p_1).\label{subeq:2}
+% \end{eqnarray}
+% \end{subequations}
+% Putting a \verb+\label{#1}+ command right after the
+% \verb+\begin{subequations}+, allows one to
+% reference all the equations in a subequations environment. For
+% example, the equations in the preceding subequations environment were
+% Eqs.~(\ref{eq:whole}).
+
+% \subsubsection{Wide equations}
+% The equation that follows is set in a wide format, i.e., it spans
+% across the full page. The wide format is reserved for long equations
+% that cannot be easily broken into four lines or less:
+% \begin{widetext}
+% \begin{equation}
+% {\cal R}^{(\text{d})}=
+%  g_{\sigma_2}^e
+%  \left(
+%    \frac{[\Gamma^Z(3,21)]_{\sigma_1}}{Q_{12}^2-M_W^2}
+%   +\frac{[\Gamma^Z(13,2)]_{\sigma_1}}{Q_{13}^2-M_W^2}
+%  \right)
+%  + x_WQ_e
+%  \left(
+%    \frac{[\Gamma^\gamma(3,21)]_{\sigma_1}}{Q_{12}^2-M_W^2}
+%   +\frac{[\Gamma^\gamma(13,2)]_{\sigma_1}}{Q_{13}^2-M_W^2}
+%  \right)\;. \label{eq:wideeq}
+% \end{equation}
+% \end{widetext}
+% This is typed to show the output is in wide format.
+% (Since there is no input line between \verb+\equation+ and
+% this paragraph, there is no paragraph indent for this paragraph.)
+\section{\label{sec:level1}Methodology}
+% \protect\\ 
+% The line
+% break was forced \lowercase{via} \textbackslash\textbackslash}
+\subsection{\label{sec:level2}Pipeline of 3D Anisotropic Mesh Generation}
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{figs/pipline.pdf}
+\caption{\label{fig:pip}
+automatically numbered.}
+\end{figure}
+Our paper proposes an automated framework for generating 3D anisotropic, semi-structured boundary layer meshes. Diverging from the conventional paradigm of global Partial Differential Equation (PDE) solvers , this framework adopts a neural field generation approach driven by boundary information. This section outlines the complete, highly automated workflow for generating 3D hybrid anisotropic meshes for specific geometries.
+\begin{enumerate}
+    \item \textbf{3D Surface Parsing and Spatial Discretization:}Read a 3D volume mesh file containing a single boundary layer, and utilize spatial volume mesh generation alongside curvature-weight-driven surface sampling to generate the set of physical spatial sampling points for subsequent neural network training.
+    \item \textbf{Construction of the Global Geometric Guidance Field (GGGF):}By leveraging KD-Tree acceleration coupled with local barycentric coordinate interpolation, a robust Global Geometric Guidance Field is constructed within the computational domain. This field provides high-quality geometric priors to guide the neural network training.
+    \item \textbf{Training of the Multiresolution Boundary-Constrained Neural Field (MBCNF):}We construct and train a boundary-informed neural network based on a multiresolution hash encoding method, termed the Multiresolution Boundary-Constrained Neural Field. A composite loss function—integrating boundary cosine similarity and a Laplacian smoothing physical loss—is employed. This formulation guides the network to learn a continuous and smooth 3D correction vector field, ultimately enabling the prediction of the boundary layer growth direction for target points across the entire global domain.
+    \item \textbf{High-Quality 3D Advancing Front Generation:}The MBCNF is utilized to predict the corrective growth directions for the boundary layer. By dynamically adjusting the distance-based weighting between the predicted correction and the rigid boundary constraints, the method effectively steers the layer-by-layer extrusion of the prismatic boundary layer mesh. Coupled with a rigorous tetrahedral quality inspection equipped with a specified tolerance, this step guarantees high mesh quality even in geometrically complex convex and concave regions. Ultimately, this yields a 3D anisotropic prismatic boundary layer mesh suitable for engineering computations.
+\end{enumerate}
+% \subsubsection{\label{sec:level3}Third-level heading: Citations and Footnotes}
+% REV\TeX{} will automatically number sections, equations, figure
+% captions, and tables. In order to reference them in text, use the
+% \verb+\label{#1}+ and \verb+\ref{#1}+ commands. To reference a
+% particular page, use the \verb+\pageref{#1}+ command.
+% The \verb+\label{#1}+ should appear in a section heading, within an
+% equation, or in a table or figure caption. The \verb+\ref{#1}+ command
+% is used in the text where the citation is to be displayed.  Some
+% examples: Section~\ref{sec:level1} on page~\pageref{sec:level1},
+% Table~\ref{tab:table1},%
+\subsection{\label{sec:level2}Curvature-Driven Spatial Sampling Strategy}
+To empower the neural network to effectively capture sharp and intricate geometric features, and to synergize with the subsequent Laplacian smoothing loss function, a comprehensive non-uniform spatial sampling mechanism is established:
+\begin{itemize}
+    \item \textbf{Volumetric Discretization of the Computational Domain:}Utilizing the tetrahedral tessellation techniques provided by the TetGen library, a discrete point sequence is generated within the annular domain ($\Omega$) bounded by the inner and outer boundaries. Concurrently, a hierarchical point distribution is enforced along the wall-normal direction to adequately resolve the gradient variations transitioning from the inner to the outer boundary.
+    \item \textbf{Geometric Singularity Identification:}Regions exhibiting drastic geometric variations are identified by evaluating the discrete curvature. For the target sampling point sets located on the inner boundary and within the annular physical domain $\Omega$, this curvature is assessed utilizing the normal vector set $\mathbf{N}_{adj}$ from their $k$ adjacent faces (for spatial points within $\Omega$, the adjacent faces are determined via mapping to the nearest inner boundary).
+    \item \textbf{Importance Weighting Function:}As shown in the formula\ref{eq:sampling_weight}, a sampling weight $W_i$ is defined to quantitatively represent these geometric singularities. During the subsequent sampling phase for the point sets on the inner boundary and within the domain $\Omega$, a probabilistic sampling strategy is executed based on these computed weights.
+    \begin{equation}
+        W_i = 1.0 - \min_{n \in N_{\text{adj}}} (\mathbf{n} \cdot \mathbf{n}_{\text{ref}}) + \epsilon
+    \label{eq:sampling_weight}
+    \end{equation}
+    And a regularization constant is incorporated into the formulation to strictly prevent zero weights, thereby ensuring comprehensive sampling coverage across the entire global domain.
+    \item \textbf{Uniform Sampling for the Outer Boundary:}Conversely, a uniform sampling approach is adopted for the outer boundary to maintain baseline geometric constraints.
+\end{itemize}
+\subsection{\label{sec:level2}Global Geometric Guidance Field}
+To alleviate the training burden on the neural network, we construct a Multiresolution Boundary-Constrained Neural Field (MBCNF), denoted as $\mathbf{u}_{mbcnf}$, which is intrinsically defined by the normal vectors of the inner boundary ($\mathbf{n}_{inner}$). This field dynamically modulates the strength of spatial constraints via a distance function $f(d)$. Specifically, it imposes a strong orthogonal prior in the near-wall region to guarantee the quality of the generated boundary layer. Conversely, in the far-field region, it serves as a baseline field that couples with the residual field predicted by the neural network to asymptotically approach the target direction of the outer boundary. This formulation bypasses the necessity for the model to approximate complex geometric manifold features from scratch. Instead, it casts the prediction objective into a residual learning paradigm, wherein the neural network is solely tasked with learning and predicting the local residuals between the geometric prior field and the target field.
+
+The construction procedure for $\mathbf{u}_{mbcnf}$ is detailed as follows: For an arbitrary spatial point $\mathbf{p}$ located on or outside the inner boundary, a KD-Tree spatial index is employed to retrieve its $K$ nearest triangular faces on the inner boundary. We compute the exact projection of point $\mathbf{p}$ onto each respective face along with its corresponding barycentric coordinates. Subsequently, incorporating the Euclidean distances between point $\mathbf{p}$ and these $K$ adjacent faces, an Inverse Distance Weighting (IDW) scheme is applied to seamlessly fuse the discrete normal information from these faces. This procedure establishes a globally continuous initial reference field. Finally, by superimposing the corrective vector predicted by the neural network onto this initial field, the definitive growth normal vector is obtained (as formulated in Section 3.4).
+\subsection{\label{sec:level2}Multiresolution Boundary-Constrained Neural Field}
+Traditional coordinate-based networks relying on Multi-Layer Perceptrons (MLPs) are fundamentally bottlenecked by the inherent "spectral bias," rendering them inadequate for accurately resolving potential high-frequency, complex geometric features within the boundary layer regions of intricate 3D models. To circumvent this limitation, our paper introduces a multiresolution hash encoding architecture. By leveraging learnable, hierarchical hash tables, this architecture decouples spatial geometric features into multi-scale local basis functions, thereby significantly enhancing the model's representational capacity for localized geometric details.
+\begin{itemize}
+    \item \textbf{Suppression of Numerical Oscillations via $C^2$ Continuous Interpolation: }Conventional hash encoding schemes typically employ linear interpolation, which intrinsically causes the output field to forfeit first- and second-order derivative continuity across hash grid boundaries. During the evaluation of Laplacian smoothing constraints, such discontinuities readily precipitate singularities in the physical loss formulation. This subsequently induces non-physical numerical oscillations in the generated vector field that unacceptably align with the underlying hash grid. To address this critical issue, we introduce a $C^2$ continuous, higher-order smooth interpolation function. From a foundational mathematical perspective, this function strictly guarantees the global $C^2$ continuity of the predicted vector field, $\mathbf{u}_{pred}(\mathbf{p})$. Consequently, it perfectly accommodates the computational requirements of second-order partial differential operators and effectively suppresses non-physical abrupt mutations along the spatial extrusion directions.
+    \item \textbf{Hard Constraint Formulation via Boundary-Informed Neural Networks (BINN):}A boundary-augmented formulation is employed to re-parameterize the predictive output of the neural network:
+    \begin{equation}
+        u_{pred}(p) = \gamma \cdot u_{bce}(p) + f(d) \cdot \Phi(p; \theta)
+        \label{eq:u_pred}
+    \end{equation}
+    where $\mathbf{u}_{mbcnf}(\mathbf{p})$ denotes the global geometric guidance field(GGGF) constructed via surface manifold projection, and $\Phi(\mathbf{p}; \theta)$ represents the corrective vector field predicted by the multiresolution hash network. The core distance modulation function, $f(d)$, establishes a distance-driven dynamic confidence mechanism. As a spatial point approaches the geometric boundary ($d \to 0$), the weighting of the residual term $\Phi$ smoothly decays to absolute zero. This elegantly ensures that the predicted field $\mathbf{u}_{pred}(\mathbf{p})$ automatically and rigorously degenerates into the exact Dirichlet boundary condition. This mathematical construction not only inherently enforces a "hard constraint" on the orthogonality of the near-wall mesh but also profoundly simplifies the neural network's optimization objective. By shifting the paradigm from approximating a complex, full-scale geometric field to merely learning low-frequency localized deviations, it significantly accelerates the convergence process.
+\end{itemize}
+\subsection{\label{sec:level2}Loss Functions}
+\begin{itemize}
+    \item \textbf{Boundary Cosine Loss:}o quantify the directional discrepancy between the predicted vector field and the target normal vectors, a weighted cosine similarity metric is employed as the geometric boundary loss:
+    \begin{equation}
+        L_{BC} = \int_{\partial\Omega} \left( 1 - \frac{\mathbf{u}_{pred} \cdot \mathbf{n}_{target}}{\|\mathbf{u}_{pred}\| \|\mathbf{n}_{target}\|} \right) d\Gamma
+    \end{equation}
+    \item \textbf{Laplacian Smoothing Loss:}To prevent the intersection of internal field lines and the formation of singularities, thereby ensuring a seamless geometric transition of the boundary layer mesh from the inner to the outer boundary, a physical regularization term based on the finite difference operator, $\nabla^2 \mathbf{u}$, is introduced. This term rigorously enforces a spatial smoothness constraint across the vector field and is efficiently executed via large-scale parallel finite difference computations on the GPU.
+\end{itemize}
+\subsection{\label{sec:level2}Advancing Front Mesh Generation}
+As shown in the formula \ref{eq:new_point}, we employ the Advancing Front Method (AFM) to guide the boundary layer nodes in generating volumetric mesh elements after acquiring the converged predictive corrective vector field, $\mathbf{u}_{pred}$.The new point for the subsequent layer is computed by advancing along the normalized vector field direction from each corresponding point on the current front.
+\begin{equation}
+    p_j^{(i+1)} = p_j^{(i)} + h_i \cdot \frac{u_{\text{pred}}(p_j^{(i)})}{\|u_{\text{pred}}(p_j^{(i)})\|}
+    \label{eq:new_point}
+\end{equation}
+The step length (layer thickness) $h_i$
+is determined by the initial thickness $h_0$ and a growth rate $r: h_i = h_0 · r^i$.
+
+To circumvent severe geometric defects—such as mesh self-intersections, elemental topological inversions, and saddle-face distortions—that frequently manifest during the advancement over complex 3D surfaces, we introduce a rigorous Two-Stage Manifold Quality Validation mechanism into the mesh topological growth pipeline:
+\begin{itemize}
+    \item \textbf{Macroscopic Topological Check:}During the initial phase of element generation, the algorithm extracts the base and top faces of the nascent prismatic element to compute their respective unit normal vectors, $\mathbf{n}_{base}$ and $\mathbf{n}_{top}$. By evaluating the dot product of these vectors, a geometric constraint is imposed on the macroscopic growth posture of the mesh. If $\mathbf{n}_{base} \cdot \mathbf{n}_{top} < -\epsilon$, the system identifies a severe "fold-over" or global topological inversion and directly intercepts the progression. This procedure fundamentally prevents non-physical folding of the growth direction at a macroscopic level.
+    \item \textbf{Microscopic Jacobian Tolerance Validation:}For prismatic elements that successfully pass the macroscopic check, the algorithm further executes a microscopic volume validation predicated on tetrahedral decomposition. The prism is identically decomposed into three non-overlapping tetrahedral subsets. The signed volume of each constituent tetrahedron, which is strictly proportional to the local Jacobian determinant, is computed via the scalar triple product of the spatial vectors: $\mathbf{v}_3 \cdot (\mathbf{v}_1 \times \mathbf{v}_2)$. The volume sign is rigorously preserved during computation to accurately delineate the topological orientation of the element within 3D space. If the accumulated total volume, $V_{total}$, yields a negative value, it signifies an overall elemental inversion.
+    \item \textbf{Dynamic Tolerance Mechanism for Local Distortion:}Recognizing that slight geometric distortions (e.g., the formation of saddle faces) on the lateral faces are inevitable when advancing through boundary regions characterized by high curvature or drastic convex-concave alternations, this study eschews the stringent "one-size-fits-all" criterion that demands all sub-tetrahedral volumes be strictly positive. Instead, a relative tolerance mechanism parametrically tied to the total volume (empirically set to $5\%$ in this paper) is introduced. The algorithm permits constituent tetrahedra to exhibit marginal negative volumes (i.e., $V_i \ge -|V_{total}| \times 5\%$). The mesh is deemed invalid only when the negative volume induced by local distortion exceeds this specified threshold. While mathematically ensuring the preservation of the mesh manifold structure, this mechanism significantly bolsters the survivability and advancing robustness of the AFM algorithm in extremely complex geometric domains.
+\end{itemize}
+
+
+\section{\label{sec:level1}Experiments and Results}
+% \protect\\ 
+% The line
+% break was forced \lowercase{via} \textbackslash\textbackslash}
+
+\subsection{\label{sec:level2}Experimental Setup}
+
+\begin{table*}[hbt]
+    \centering
+    \caption{Key Implementation Details of the Proposed Framework}
+    \label{tab:hyperparameters}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Parameter} & \textbf{Value} \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{HashGrid Architecture}} \\
+        Input layer neurous & Input layer neurons: 3 (3D spatial coordinates $x, y, z$)\\
+        Output layer neurons & 32 (16 levels $\times$ 2 features per level)\\
+        Weight initialization & Uniform distribution\\
+        Number of hash levels ($L$) & 16 \\
+        Base resolution ($N_{\min}$) & 16 \\
+        Maximum resolution ($N_{\max}$) & 2048 \\
+        Hash table size ($\log_2 T$) & 19 \\
+        Feature dimensions per level ($F$) & 2 \\
+        \midrule
+        \multicolumn{2}{l}{\textit{Tiny MLP Architecture}} \\
+        Input layer neurons&32 (Concatenated multi-resolution hash features)\\
+        Hidden layers& 2 layers (64, 64 neurons)\\
+        Output layer neurons& 3 (3D normal correction vector)\\
+        Activation function & SiLU (Swish)\\
+        Weight initialization& Kaiming uniform \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Training Hyperparameters}} \\
+        Total training epochs & 75000 \\
+        Learning rate (Hash embedding) & $1 \times 10^{-2}$ \\
+        Learning rate (Hash network) & $1 \times 10^{-3}$ \\
+        Learning rate scheduler &StepLR (step size=2000, gamma=0.8) \\
+        Optimizer &  Adam\\
+        Batch size & 1024 \\
+        Stopping criteria &Fixed epoch count (75000) \\
+        Number of domain points & 5,000 \\
+        Number of inner boundary points & 5,000 \\
+        Number of outer boundary points & 500 \\
+        % $K$-nearest neighbors & 20 \\
+        % Exponential decay rate & 20.0 \\
+        Device  & NVIDIA RTX 3050Ti GPU / CPU (fallback) \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Loss Function Weights}} \\
+        Inner boundary weight ($\lambda_{\text{bc\_inner}}$) & 1.0 \\
+        Outer boundary weight ($\lambda_{\text{bc\_outer}}$) & 0.001 \\
+        PDE loss weight ($\lambda_{\text{pde}}$) & 0.001 \\
+        \midrule
+        \multicolumn{2}{l}{\textbf{Mesh Generation Parameters}} \\
+        Number of layers & 10 \\
+        First layer thickness & $5 \times 10^{-5}$ \\
+        Growth rate & 1.2 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+All models were implemented in PyTorch and trained on an NVIDIA RTX 3050Ti GPU (with CPU fallback capability). The proposed neural network architecture consists of two tightly coupled components: a multi-resolution HashGrid encoder and a Tiny MLP decoder. Specifically, the HashGrid takes 3D spatial coordinates ($x, y, z$) as input and maps them into a 32-dimensional concatenated feature vector utilizing 16 hash levels (with 2 feature dimensions per level). This encoded multiresolution feature vector is subsequently fed into the input layer of the Tiny MLP. The Tiny MLP comprises two hidden layers with 64 neurons each and utilizes the SiLU (Swish) activation function to predict the final 3D normal correction vector.The core hyperparameters, including loss weights and mesh generation settings, are summarized in Table \ref{tab:hyperparameters}.
+
+Key parameters for the framework were set as follows:
+
+\begin{itemize}
+    \item \textbf{Geometric Features:} The K-Nearest Neighbors algorithm used $K = 20$ neighbors to robustly interpolate the target surface normals and calculate the weighted average distance.
+    
+    \item \textbf{Loss Function:} The composite loss function prioritized geometric accuracy and network stability, with the inner boundary loss assigned a weight of $1.0$ and the outer boundary loss a weight of $0.001$ to ensure strict orthogonality in critical near-body regions. Additionally, a PDE loss weight of $1 \times 10^{-3}$ was incorporated to mitigate local distortions.
+    
+    \item \textbf{Mesh Generation:} The advancing-front algorithm was configured to generate $30$ layers with a highly refined initial thickness of $5 \times 10^{-5}$ and a layer-to-layer growth rate of $1.2$.
+\end{itemize}
+
+\subsection{\label{sec:level2}Mesh Generation Results}
+To comprehensively evaluate the robustness of the proposed framework in handling extreme geometric features, we applied our method to five representative complex 3D models. As illustrated in Figure [X]a, we highlight the detailed body-fitted mesh generation results within multi-scale abrupt curvature regions, such as the sharp wing-body junction of the aerodynamic vehicle and the saddle-like topological intersection at the root of the Stanford Bunny's ear. Furthermore, to validate the computational reliability of the generated meshes in downstream aerodynamic analyses, we conducted a Computational Fluid Dynamics (CFD) numerical simulation using the mesh generated for the pl002 model. The computational results demonstrate that the flow-field solver achieved stable convergence and yielded an accurate lift coefficient. This fully confirms the engineering applicability of the meshes generated by our method in demanding physical simulation environments.
+
+\begin{figure}[htbp]
+\centering
+% 第1行
+\begin{minipage}[b]{0.45\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figs/ac001show_big.png}
+  \subcaption{1}\label{fig:sub1}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{figs/ac001show_small.png}
+  \subcaption{2}\label{fig:sub2}
+\end{minipage}
+
+% \vspace{\baselineskip}  % 行间距
+
+% % 第2行
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-c}
+%   \subcaption{子图 3}\label{fig:sub3}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image}
+%   \subcaption{子图 4}\label{fig:sub4}
+% \end{minipage}
+
+% \vspace{\baselineskip}
+
+% % 第3行
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-a}
+%   \subcaption{子图 5}\label{fig:sub5}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-b}
+%   \subcaption{子图 6}\label{fig:sub6}
+% \end{minipage}
+
+% \vspace{\baselineskip}
+
+% % 第4行
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-c}
+%   \subcaption{子图 7}\label{fig:sub7}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image}
+%   \subcaption{子图 8}\label{fig:sub8}
+% \end{minipage}
+
+% \vspace{\baselineskip}
+
+% % 第5行
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-a}
+%   \subcaption{子图 9}\label{fig:sub9}
+% \end{minipage}
+% \hfill
+% \begin{minipage}[b]{0.45\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{example-image-b}
+%   \subcaption{子图 10}\label{fig:sub10}
+% \end{minipage}
+
+\caption{minipage}
+\label{fig:grid2}
+\end{figure}
+
+\subsection{\label{sec:level2}Ablation Studies}
+To validate the effectiveness of the key components in our proposed method, we designed and conducted three sets of ablation studies.
+
+\subsubsection{\label{sec:level3}Impacts of Boundary Cosine Loss}
+\begin{figure}[hbt]
+    \centering
+    \begin{subfigure}[b]{0.15\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/angleloss1.pdf}
+        \caption{Unit Norm Penalty}
+        \label{fig:angleloss1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.15\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/angleloss2.pdf}
+        \caption{Cosine Similarity Loss}
+        \label{fig:angleloss2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.15\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/angleloss3.pdf}
+        \caption{Squared Chord Length Loss}
+        \label{fig:angleloss3}
+    \end{subfigure}
+    \caption{Ablation study on the Boundary Cosine Loss for the 3D plane.(a)Unit Norm Penalty.(b)Cosine Similarity Loss.(c)Squared Chord Length Loss.}
+    \label{fig:angleloss}
+\end{figure}
+To evaluate the critical role of the boundary cosine loss function, we conducted a comparative ablation study using a 3D airplane geometry model, assessing the mesh generation quality optimized by three different loss functions. As illustrated in Figure \ref{fig:angleloss}, the prismatic boundary layer mesh generated by the model utilizing the boundary cosine loss significantly outperforms those optimized by the other two baseline methods.
+
+Specifically, Figure \ref{fig:angleloss1} displays the result optimized using the $L_2$ norm loss, defined as $\mathcal{L}_{norm\_L2} = \frac{1}{N} \sum_{i=1}^{N} (\|\mathbf{v}_i\| - 1)^2$. Although this formulation enforces a unit magnitude for the vectors, it completely lacks directional guidance. Consequently, the neural network fails to accurately capture the correct surface orientation, leading to a substantial number of unnatural depressions on the generated mesh surface.
+
+Figure \ref{fig:angleloss3} shows the result optimized with the squared chord length distance loss, formulated as $\mathcal{L}_{chord\_sq} = \frac{1}{N_{bc}} \sum_{i=1}^{N_{bc}} \|\mathbf{v}_i - \mathbf{n}_i\|_2^2$. While this Euclidean distance-based loss implicitly encourages alignment in both magnitude and direction, it lacks sufficient sensitivity to pure angular deviations, resulting in the local accumulation of directional errors. Thus, although it yields an improvement over Figure (a), it still fails to completely eliminate the anomalous surface depressions.
+
+In contrast, our proposed boundary cosine loss method, shown in Figure \ref{fig:angleloss2}, is defined as: $\mathcal{L}_{bc\_outer} = \frac{1}{N_{bc}} \sum_{i=1}^{N_{bc}} (1 - \cos(\mathbf{\hat{u}}_i, \mathbf{n}_i))$. By utilizing cosine similarity to isolate and explicitly penalize angular inconsistencies, this formulation forces the generated surface normals to strictly align with the target boundary. This rigorous directional constraint effectively eradicates all anomalous depressions, yielding a high-quality prismatic surface mesh.
+
+Furthermore, we conducted identical comparative experiments on four other distinct geometric models and performed a quantitative quality assessment of the generated prismatic boundary layer volume meshes. As reported in Table \ref{tab:ablation_study：angleloss}, the meshes optimized with the boundary cosine loss consistently and significantly outperform those generated by the other two methods across all evaluated quality metrics.
+
+\begin{table}[]
+    \centering
+    \caption{Comparison of Average mesh quality between three loss functions}
+    \label{tab:ablation_study：angleloss}
+    \renewcommand{\arraystretch}{1.2} % 稍微拉宽行距，显得不拥挤
+    \begin{tabular}{l c c c c c c}
+        \toprule
+        \multirow{2}{*}{\textbf{Models}} & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} & \multicolumn{3}{c}{\textbf{Equiangle Skewness}}\\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+        &cosine&chord&norm&cosine&chord&norm\\
+        \midrule
+        ac001    &0.9718&0.9689&0.9631&0.2319&0.2343&0.2404\\
+        ms001    &0.9140&0.9040&0.9012&0.3360&0.3404&0.3454\\
+        pl001    &0.9870&0.9704&0.9709&0.1662&0.1942&0.2557\\
+        pl002    &0.9670&0.9544&0.9440&0.1865&0.2058&0.2199\\
+        rabbit   &0.8609&0.8583&0.8212&0.2689&0.2733&0.3202\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{\label{sec:level3}Impacts of PDE loss}
+\begin{table*}[htbp]
+    \centering
+    \caption{Quantitative comparison of mesh quality with and without PDE loss regularization across different layer configurations.}
+    \label{tab:mesh_quality_pdeloss}
+    \renewcommand{\arraystretch}{1.2} % 稍微增加行高，提升阅读体验
+    \begin{tabular}{l cccc c cccc} 
+        \toprule
+        \multirow{3}{*}{\textbf{Models}} & \multicolumn{4}{c}{\textbf{10 Layers}} & & \multicolumn{4}{c}{\textbf{20 Layers}} \\
+        \cmidrule{2-5} \cmidrule{7-10}
+        & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}} & & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}} \\
+        \cmidrule{2-3} \cmidrule{4-5} \cmidrule{7-8} \cmidrule{9-10}
+        & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$ & & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$ \\
+        \midrule
+        ac001  & 0.9714 & 0.9718 & 0.2319 & 0.2319 & & 0.9612 & 0.9644 & 0.3321 & 0.3292 \\
+        ms001  & 0.9142 & 0.9141 & 0.3360 & 0.3360 & & 0.8879 & 0.8884 & 0.4297 & 0.4253 \\
+        pl001  & 0.9866 & 0.9870 & 0.1670 & 0.1662 & & 0.9448 & 0.9455 & 0.2399 & 0.2389 \\
+        pl002  & 0.9663 & 0.9670 & 0.1874 & 0.1865 & & 0.9574 & 0.9592 & 0.2520 & 0.2487 \\
+        rabbit & 0.8608 & 0.8609 & 0.2690 & 0.2689 & & 0.8608 & 0.8631 & 0.2735 & 0.2697 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+To validate the critical role of the PDE smoothness loss in maintaining the stability of the domain vector field, we conducted an ablation study across five distinct geometric models. We compared the visual results and quantitative mesh quality metrics of models optimized with the PDE loss ($\lambda_{\text{pde}} = 10^{-3}$) against a baseline where it was removed ($\lambda_{\text{pde}} = 0$).
+
+Visually, the baseline models without the PDE loss exhibited localized anomalous depressions on the boundary layer mesh surfaces of certain geometries, similar to the artifacts observed in Figure 1. In contrast, incorporating the PDE loss successfully eliminated these unnatural distortions. Quantitatively, as shown in Table 2, the overall mesh quality optimized with the PDE loss is superior to that of the baseline group. Furthermore, we observed a crucial phenomenon: the performance gap between the two configurations gradually widens as the number of generated boundary layers increases.
+
+This phenomenon perfectly aligns with our theoretical expectations. During the generation of the initial layers, the spatial points are in extremely close proximity to the physical surface, where the vector field is heavily dominated by the inner boundary loss. This strict localized constraint forces the directional alignment and effectively masks any potential high-frequency microscopic oscillations produced by the network, thereby guaranteeing the quality of the initial layers. However, as the advancing front extends outward and the number of layers increases, the spatial points move further from the surface, causing the direct constraining influence of the inner boundary supervision to decay. Consequently, the directional guidance for mesh growth relies increasingly on the network's generalized output field within the continuous domain.
+
+Without the explicit spatial smoothness prior provided by the PDE loss, the highly sensitive multi-resolution HashGrid tends to produce localized high-frequency oscillations in these less-constrained deep regions. During the layer-by-layer numerical integration of the advancing-front algorithm, these microscopic directional errors accumulate and are amplified, ultimately leading to significant degradation in deep-layer mesh quality and the emergence of surface depressions. Conversely, the PDE loss enforces rigorous second-order continuity across the entire computational domain. This effectively compensates for the decay of the boundary supervision signal in deeper regions, fundamentally suppresses the generation of microscopic ripples, and ensures the robust and high-quality growth of meshes.
+
+\begin{table}[hbt]
+    \centering
+    \caption{Comparison of Average mesh quality between different layers for the rabbit}
+    \label{tab:ablation_study：pdeloss}
+    \renewcommand{\arraystretch}{1.2} % 稍微拉宽行距，显得不拥挤
+    \begin{tabular}{l c c c c}
+        \toprule
+        \multirow{2}{*}{\textbf{layer}} & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}}\\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$\\
+        \midrule
+        10    &0.8609&0.8609&0.2689&0.2689\\
+        15    &0.8611&0.8614&0.2692&0.2688\\
+        20    &0.8614&0.8622&0.2701&0.2687\\
+        25    &0.8608&0.8631&0.2735&0.2697\\
+        30    &0.8561&0.8622&0.2848&0.2766\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{\label{sec:level3}Impacts of Multi-resolution Hash Encoding}
+
+To investigate the impact of the multi-resolution HashGrid architecture on complex geometric representation, we conducted a comparative study between our proposed method and a conventional Multi-Layer Perceptron (MLP) baseline across five geometric models. Figure \ref{fig:smooth1} illustrates the mesh generation results using a missile model as a representative case.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/smooth1.pdf}
+        \caption{MLP}
+        \label{fig:smooth1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/smooth2.pdf}
+        \caption{HashGrid}
+        \label{fig:smooth2}
+    \end{subfigure}
+    \caption{Ablation study between HashGrid and MLP for the missile.(a)MLP.(b)HashGrid.}
+    \label{fig:smooth}
+\end{figure}
+
+As demonstrated in Figure \ref{fig:smooth1}, the mesh generated by the conventional MLP-based representation preserves the basic morphology during the initial layers. However, as the structure extends into deeper boundary layers, the mesh exhibits severe unnatural torsional distortion and significant cumulative inter-layer positional drift. Consequently, the prismatic edges, which are expected to maintain strict orthogonality and linearity, become visibly warped. This failure is primarily attributed to the intrinsic "spectral bias" of MLPs as global function approximators. Specifically, the network tends to prioritize low-frequency signals, making it difficult to capture and sustain "high-frequency geometric details" such as sharp prismatic edges. As the number of target layers increases, minor fitting errors within the global parameters propagate and interfere across layers, ultimately leading to the degradation of deep geometric structures.
+
+In contrast, the proposed HashGrid method (Figure\ref{fig:smooth2}) maintains superior geometric fidelity and exceptional orthogonal stability throughout all boundary layers. The prismatic edges remain perfectly straight without any observable torsion or inter-layer drift. This superiority stems from the localized multi-resolution feature encoding mechanism, which effectively decouples the memorization of 3D spatial features from the MLP decoding process. This decoupling allows the network to accurately and independently capture local high-frequency geometric features, thereby guiding the generation of high-quality boundary layer meshes.
+
+As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative analysis further compares the mesh quality metrics of the HashGrid method and the traditional MLP method. Furthermore, repeated experiments on the other four geometric models all yielded consistent conclusions, fully validating the universal value of the multi-resolution hash architecture in enhancing the robustness of boundary layer mesh generation.
+
+\begin{table*}[t]
+    \centering
+    \caption{Comparison of Average mesh quality between MLP and HashGrid for the missile.}
+    \label{tab:mesh_quality_comparison_smooth}
+    \renewcommand{\arraystretch}{1.15} % 稍微增加行距使其更美观
+    \begin{tabular}{c c c c c c c c c c}
+    % \begin{tabular}{p{cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm}}
+        \toprule
+        \multirow{2}{*}{Ortho Quality} & \multicolumn{2}{c}{\textbf{HashGrid}} & \multicolumn{2}{c}{\textbf{MLP}} & \multirow{2}{*}{Skewness} & \multicolumn{2}{c}{\textbf{HashGrid}} & \multicolumn{2}{c}{\textbf{MLP}} \\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+        & Count & \% & Count & \% & & Count & \% & Count & \% \\
+        \midrule
+        0-0.1     &3694  &0.40 &4115  &0.46 &0-0.1  &119109&13.17&109221&12.08 \\
+        0.1-0.2   &3334  &0.37 &3548  &0.39 &0.1-0.2&207463&22.95&214734&23.75 \\
+        0.2-0.3   &3024  &0.33 &3236  &0.36 &0.2-0.3&156183&17.27&162820&18.01 \\
+        0.3-0.4   &4929  &0.55 &5349  &0.59 &0.3-0.4&113201&12.52&109935&12.16 \\
+        0.4-0.5   &8233  &0.91 &8521  &0.94 &0.4-0.5&91957 &10.17&90006 &9.96  \\
+        0.5-0.6   &15579 &1.72 &15971 &1.77 &0.5-0.6&71338 &7.89 &71704 &7.93  \\
+        0.6-0.7   &31423 &3.48 &32581 &3.60 &0.6-0.7&62614 &6.93 &61040 &6.75  \\
+        0.7-0.8   &74283 &8.22 &76874 &8.50 &0.7-0.8&50313 &5.56 &50066 &5.54  \\
+        0.8-0.9   &120503&13.33&104366&11.54&0.8-0.9&20490 &2.27 &22830 &2.53  \\
+        0.9-1     &639158&70.70&649539&71.84&0.9-1  &11432 &1.26 &11744 &1.30  \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+
+
+% \begin{table}
+% \caption{\label{tab:table1}This is a narrow table which fits into a
+% text column when using \texttt{twocolumn} formatting. Note that
+% REV\TeX~4 adjusts the intercolumn spacing so that the table fills the
+% entire width of the column. Table captions are numbered
+% automatically. This table illustrates left-aligned, centered, and
+% right-aligned columns.  }
+% \begin{ruledtabular}
+% \begin{tabular}{lcr}
+% Left\footnote{Note a.}&Centered\footnote{Note b.}&Right\\
+% \hline
+% 1 & 2 & 3\\
+% 10 & 20 & 30\\
+% 100 & 200 & 300\\
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+% and Fig.~\ref{fig:epsart}.
+
+% \section{Figures and Tables}
+% Figures and tables are typically ``floats''; \LaTeX\ determines their
+% final position via placement rules. 
+% \LaTeX\ isn't always successful in automatically placing floats where you wish them.
+
+% Figures are marked up with the \texttt{figure} environment, the content of which
+% imports the image (\verb+\includegraphics+) followed by the figure caption (\verb+\caption+).
+% The argument of the latter command should itself contain a \verb+\label+ command if you
+% wish to refer to your figure with \verb+\ref+.
+
+% Import your image using either the \texttt{graphics} or
+% \texttt{graphix} packages. These packages both define the
+% \verb+\includegraphics{#1}+ command, but they differ in the optional
+% arguments for specifying the orientation, scaling, and translation of the figure.
+% Fig.~\ref{fig:epsart}%
+% \begin{figure}
+% \includegraphics{fig_1}% Here is how to import EPS art
+% \caption{\label{fig:epsart} A figure caption. The figure captions are
+% automatically numbered.}
+% \end{figure}
+% is small enough to fit in a single column, while
+% Fig.~\ref{fig:wide}%
+% \begin{figure*}
+% \includegraphics{fig_2}% Here is how to import EPS art
+% \caption{\label{fig:wide}Use the \texttt{figure*} environment to get a wide
+% figure, spanning the page in \texttt{twocolumn} formatting.}
+% \end{figure*}
+% is too wide for a single column,
+% so instead the \texttt{figure*} environment has been used.
+
+% The analog of the \texttt{figure} environment is \texttt{table}, which uses
+% the same \verb+\caption+ command.
+% However, you should type your caption command first within the \texttt{table}, 
+% instead of last as you did for \texttt{figure}.
+
+% The heart of any table is the \texttt{tabular} environment,
+% which represents the table content as a (vertical) sequence of table rows,
+% each containing a (horizontal) sequence of table cells. 
+% Cells are separated by the \verb+&+ character;
+% the row terminates with \verb+\\+. 
+% The required argument for the \texttt{tabular} environment
+% specifies how data are displayed in each of the columns. 
+% For instance, a column
+% may be centered (\verb+c+), left-justified (\verb+l+), right-justified (\verb+r+),
+% or aligned on a decimal point (\verb+d+). 
+% (Table~\ref{tab:table4}%
+% \begin{table}
+% \caption{\label{tab:table4}Numbers in columns Three--Five have been
+% aligned by using the ``d'' column specifier (requires the
+% \texttt{dcolumn} package). 
+% Non-numeric entries (those entries without
+% a ``.'') in a ``d'' column are aligned on the decimal point. 
+% Use the
+% ``D'' specifier for more complex layouts. }
+% \begin{ruledtabular}
+% \begin{tabular}{ccddd}
+% One&Two&\mbox{Three}&\mbox{Four}&\mbox{Five}\\
+% \hline
+% one&two&\mbox{three}&\mbox{four}&\mbox{five}\\
+% He&2& 2.77234 & 45672. & 0.69 \\
+% C\footnote{Some tables require footnotes.}
+%   &C\footnote{Some tables need more than one footnote.}
+%   & 12537.64 & 37.66345 & 86.37 \\
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+% illustrates the use of decimal column alignment.)
+
+% Extra column-spacing may be be specified as well, although
+% REV\TeX~4 sets this spacing so that the columns fill the width of the
+% table.
+% Horizontal rules are typeset using the \verb+\hline+
+% command.
+% The doubled (or Scotch) rules that appear at the top and
+% bottom of a table can be achieved by enclosing the \texttt{tabular}
+% environment within a \texttt{ruledtabular} environment.
+% Rows whose columns span multiple columns can be typeset using \LaTeX's
+% \verb+\multicolumn{#1}{#2}{#3}+ command
+% (for example, see the first row of Table~\ref{tab:table3}).%
+% \begin{table*}
+% \caption{\label{tab:table3}This is a wide table that spans the page
+% width in \texttt{twocolumn} mode. It is formatted using the
+% \texttt{table*} environment. It also demonstrates the use of
+% \textbackslash\texttt{multicolumn} in rows with entries that span
+% more than one column.}
+% \begin{ruledtabular}
+% \begin{tabular}{ccccc}
+%  &\multicolumn{2}{c}{$D_{4h}^1$}&\multicolumn{2}{c}{$D_{4h}^5$}\\
+%  Ion&1st alternative&2nd alternative&lst alternative
+% &2nd alternative\\ \hline
+%  K&$(2e)+(2f)$&$(4i)$ &$(2c)+(2d)$&$(4f)$ \\
+%  Mn&$(2g)$\footnote{The $z$ parameter of these positions is $z\sim\frac{1}{4}$.}
+%  &$(a)+(b)+(c)+(d)$&$(4e)$&$(2a)+(2b)$\\
+%  Cl&$(a)+(b)+(c)+(d)$&$(2g)$\footnote{This is a footnote in a table that spans the full page
+% width in \texttt{twocolumn} mode. It is supposed to set on the full width of the page, just as the caption does. }
+%  &$(4e)^{\text{a}}$\\
+%  He&$(8r)^{\text{a}}$&$(4j)^{\text{a}}$&$(4g)^{\text{a}}$\\
+%  Ag& &$(4k)^{\text{a}}$& &$(4h)^{\text{a}}$\\
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table*}
+
+% The tables in this document illustrate various effects.
+% Tables that fit in a narrow column are contained in a \texttt{table}
+% environment.
+% Table~\ref{tab:table3} is a wide table, therefore set with the
+% \texttt{table*} environment.
+% Lengthy tables may need to break across pages.
+% A simple way to allow this is to specify
+% the \verb+[H]+ float placement on the \texttt{table} or
+% \texttt{table*} environment.
+% Alternatively, using the standard \LaTeXe\ package \texttt{longtable} 
+% gives more control over how tables break and allows headers and footers 
+% to be specified for each page of the table.
+% An example of the use of \texttt{longtable} can be found
+% in the file \texttt{summary.tex} that is included with the REV\TeX~4
+% distribution.
+
+% There are two methods for setting footnotes within a table (these
+% footnotes will be displayed directly below the table rather than at
+% the bottom of the page or in the bibliography).
+% The easiest
+% and preferred method is just to use the \verb+\footnote{#1}+
+% command. This will automatically enumerate the footnotes with
+% lowercase roman letters.
+% However, it is sometimes necessary to have
+% multiple entries in the table share the same footnote.
+% In this case,
+% create the footnotes using
+% \verb+\footnotemark[#1]+ and \verb+\footnotetext[#1]{#2}+.
+% \texttt{\#1} is a numeric value.
+% Each time the same value for \texttt{\#1} is used, 
+% the same mark is produced in the table. 
+% The \verb+\footnotetext[#1]{#2}+ commands are placed after the \texttt{tabular}
+% environment. 
+% Examine the \LaTeX\ source and output for Tables~\ref{tab:table1} and 
+% \ref{tab:table2}%
+% \begin{table}
+% \caption{\label{tab:table2}A table with more columns still fits
+% properly in a column. Note that several entries share the same
+% footnote. Inspect the \LaTeX\ input for this table to see
+% exactly how it is done.}
+% \begin{ruledtabular}
+% \begin{tabular}{cccccccc}
+%  &$r_c$ (\AA)&$r_0$ (\AA)&$\kappa r_0$&
+%  &$r_c$ (\AA) &$r_0$ (\AA)&$\kappa r_0$\\
+% \hline
+% Cu& 0.800 & 14.10 & 2.550 &Sn\footnotemark[1]
+% & 0.680 & 1.870 & 3.700 \\
+% Ag& 0.990 & 15.90 & 2.710 &Pb\footnotemark[2]
+% & 0.450 & 1.930 & 3.760 \\
+% Au& 1.150 & 15.90 & 2.710 &Ca\footnotemark[3]
+% & 0.750 & 2.170 & 3.560 \\
+% Mg& 0.490 & 17.60 & 3.200 &Sr\footnotemark[4]
+% & 0.900 & 2.370 & 3.720 \\
+% Zn& 0.300 & 15.20 & 2.970 &Li\footnotemark[2]
+% & 0.380 & 1.730 & 2.830 \\
+% Cd& 0.530 & 17.10 & 3.160 &Na\footnotemark[5]
+% & 0.760 & 2.110 & 3.120 \\
+% Hg& 0.550 & 17.80 & 3.220 &K\footnotemark[5]
+% &  1.120 & 2.620 & 3.480 \\
+% Al& 0.230 & 15.80 & 3.240 &Rb\footnotemark[3]
+% & 1.330 & 2.800 & 3.590 \\
+% Ga& 0.310 & 16.70 & 3.330 &Cs\footnotemark[4]
+% & 1.420 & 3.030 & 3.740 \\
+% In& 0.460 & 18.40 & 3.500 &Ba\footnotemark[5]
+% & 0.960 & 2.460 & 3.780 \\
+% Tl& 0.480 & 18.90 & 3.550 & & & & \\
+% \end{tabular}
+% \end{ruledtabular}
+% \footnotetext[1]{Here's the first, from Ref.~\onlinecite{feyn54}.}
+% \footnotetext[2]{Here's the second.}
+% \footnotetext[3]{Here's the third.}
+% \footnotetext[4]{Here's the fourth.}
+% \footnotetext[5]{And etc.}
+% \end{table}
+% for an illustration. 
+
+% All AIP journals require that the initial citation of
+% figures or tables be in numerical order.
+% \LaTeX's automatic numbering of floats is your friend here:
+% just put each \texttt{figure} environment immediately following 
+% its first reference (\verb+\ref+), as we have done in this example file. 
+
+% \begin{acknowledgments}
+% We wish to acknowledge the support of the author community in using
+% REV\TeX{}, offering suggestions and encouragement, testing new versions,
+% \dots.
+% \end{acknowledgments}
+
+% \section*{Data Availability Statement}
+
+% AIP Publishing believes that all datasets underlying the conclusions of the paper should be available to readers. Authors are encouraged to deposit their datasets in publicly available repositories or present them in the main manuscript. All research articles must include a data availability statement stating where the data can be found. In this section, authors should add the respective statement from the chart below based on the availability of data in their paper.
+
+% \begin{center}
+% \renewcommand\arraystretch{1.2}
+% \begin{tabular}{| >{\raggedright\arraybackslash}p{0.3\linewidth} | >{\raggedright\arraybackslash}p{0.65\linewidth} |}
+% \hline
+% \textbf{AVAILABILITY OF DATA} & \textbf{STATEMENT OF DATA AVAILABILITY}\\  
+% \hline
+% Data available on request from the authors
+% &
+% The data that support the findings of this study are available from the corresponding author upon reasonable request.
+% \\\hline
+% Data available in article or supplementary material
+% &
+% The data that support the findings of this study are available within the article [and its supplementary material].
+% \\\hline
+% Data openly available in a public repository that issues datasets with DOIs
+% &
+% The data that support the findings of this study are openly available in [repository name] at http://doi.org/[doi], reference number [reference number].
+% \\\hline
+% Data openly available in a public repository that does not issue DOIs
+% &
+% The data that support the findings of this study are openly available in [repository name], reference number [reference number].
+% \\\hline
+% Data sharing not applicable – no new data generated
+% &
+% Data sharing is not applicable to this article as no new data were created or analyzed in this study.
+% \\\hline
+% Data generated at a central, large scale facility
+% &
+% Raw data were generated at the [facility name] large scale facility. Derived data supporting the findings of this study are available from the corresponding author upon reasonable request.
+% \\\hline
+% Embargo on data due to commercial restrictions
+% &
+% The data that support the findings will be available in [repository name] at [DOI link] following an embargo from the date of publication to allow for commercialization of research findings.
+% \\\hline
+% Data available on request due to privacy/ethical restrictions
+% &
+% The data that support the findings of this study are available on request from the corresponding author. The data are not publicly available due [state restrictions such as privacy or ethical restrictions].
+% \\\hline
+% Data subject to third party restrictions
+% &
+% The data that support the findings of this study are available from [third party]. Restrictions apply to the availability of these data, which were used under license for this study. Data are available from the authors upon reasonable request and with the permission of [third party].
+% \\\hline
+% \end{tabular}
+% \end{center}
+
+% \appendix
+
+% \section{Appendixes}
+
+% To start the appendixes, use the \verb+\appendix+ command.
+% This signals that all following section commands refer to appendixes
+% instead of regular sections. Therefore, the \verb+\appendix+ command
+% should be used only once---to set up the section commands to act as
+% appendixes. Thereafter normal section commands are used. The heading
+% for a section can be left empty. For example,
+% \begin{verbatim}
+% \appendix
+% \section{}
+% \end{verbatim}
+% will produce an appendix heading that says ``APPENDIX A'' and
+% \begin{verbatim}
+% \appendix
+% \section{Background}
+% \end{verbatim}
+% will produce an appendix heading that says ``APPENDIX A: BACKGROUND''
+% (note that the colon is set automatically).
+
+% If there is only one appendix, then the letter ``A'' should not
+% appear. This is suppressed by using the star version of the appendix
+% command (\verb+\appendix*+ in the place of \verb+\appendix+).
+
+% \section{A little more on appendixes}
+
+% Observe that this appendix was started by using
+% \begin{verbatim}
+% \section{A little more on appendixes}
+% \end{verbatim}
+
+% Note the equation number in an appendix:
+% \begin{equation}
+% E=mc^2.
+% \end{equation}
+
+% \subsection{\label{app:subsec}A subsection in an appendix}
+
+% You can use a subsection or subsubsection in an appendix. Note the
+% numbering: we are now in Appendix~\ref{app:subsec}.
+
+% \subsubsection{\label{app:subsubsec}A subsubsection in an appendix}
+% Note the equation numbers in this appendix, produced with the
+% subequations environment:
+% \begin{subequations}
+% \begin{eqnarray}
+% E&=&mc, \label{appa}
+% \\
+% E&=&mc^2, \label{appb}
+% \\
+% E&\agt& mc^3. \label{appc}
+% \end{eqnarray}
+% \end{subequations}
+% They turn out to be Eqs.~(\ref{appa}), (\ref{appb}), and (\ref{appc}).
+
+% \nocite{*}
+% \bibliography{aipsamp}% Produces the bibliography via BibTeX.
+
+\end{document}
+%
+% ****** End of file aipsamp.tex ******
