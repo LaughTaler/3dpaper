@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1776388081.93845 "d:/1ljk/3dpaper/aipsamp.tex" "aipsamp.pdf" "aipsamp" 1776388117.77491 0
+["pdflatex"] 1778551815.96859 "d:/1ljk/3dpaper/aipsamp.tex" "aipsamp.pdf" "aipsamp" 1778551853.17233 0
   "aip4-1.rtx" 1776219183 62924 bf92ecfa6582cd56ac89ec391de9aa41 ""
-  "aipsamp.aux" 1776388117 6020 c0b821bc7cd29042ee4f7cf4574c834d "pdflatex"
-  "aipsamp.tex" 1776388081 70357 89f20ae638e0ca69c05a1d6696e8d620 ""
+  "aipsamp.aux" 1778551853 6020 c0b821bc7cd29042ee4f7cf4574c834d "pdflatex"
+  "aipsamp.tex" 1778551815 70746 065980cfffed22edd31311119c585cad ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1776303415 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1776303240 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1776303603 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -128,12 +128,14 @@
   "c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1776305370 5587484 f8c68a611032439b64384a9c9a056676 ""
   "c:/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1776305463 3636408 b504cd39c025fa72f764bc8a70ded9dc ""
   "c:/texlive/2026/texmf.cnf" 1776305352 713 e69b156964470283e0530f5060668171 ""
-  "d:/1ljk/3dpaper/aipsamp.tex" 1776388081 70357 89f20ae638e0ca69c05a1d6696e8d620 ""
+  "d:/1ljk/3dpaper/aipsamp.tex" 1778551815 70746 065980cfffed22edd31311119c585cad ""
   "figs/ac001show_big.png" 1776219183 15969460 ef58c9a3eb78ad5f26d00d4a0b2464c6 ""
   "figs/ac001show_small.png" 1776219183 12443796 35a331155d6cbddb83a389dd17cf12f7 ""
   "figs/angleloss1.pdf" 1776219183 1491486 de208b69973155ed5dc5cb6ccbf7f11a ""
   "figs/angleloss2.pdf" 1776219183 2118288 989acdebc7b090c9aee15d93637085a9 ""
   "figs/angleloss3.pdf" 1776219183 1212497 7c428c816fc79780b446fbb8437a72b8 ""
+  "figs/iteration-cd.png" 1778550992 11583 05a145a106d49f8b5d1e1ec9870413bf ""
+  "figs/iteration-cl.png" 1778550949 11819 4c02b7ca8227d13cb4ffde085ce0d491 ""
   "figs/ms001show_big.png" 1776219183 18953841 53e6daed00e4bce7acb248f2ac1a20e8 ""
   "figs/ms001show_small.png" 1776219183 12135972 b76344fc28a2b930cb888e72c091f4b0 ""
   "figs/pipline.pdf" 1776219183 5564297 034d4c7adde06fd7aad2ab48ad51cff6 ""

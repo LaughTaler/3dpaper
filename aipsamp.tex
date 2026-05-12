@@ -589,33 +589,43 @@ Key parameters for the framework were set as follows:
 
 \begin{figure*}[ht]
     \centering
-    \begin{subfigure}[b]{0.24\textwidth}
+    % 第一列：图 a
+    \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/pl002show_big.png}
         \subcaption{pl002-global}
         \label{fig:row4_1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
+    % 第二列：图 b
+    \begin{subfigure}[b]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/pl002show_small.png}
         \subcaption{pl002-local}
         \label{fig:row4_2}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/rabbitshow_big.png}
-        \subcaption{Method C}
-        \label{fig:row4_3}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/rabbitshow_small.png}
-        \subcaption{Method D}
-        \label{fig:row4_4}
-    \end{subfigure}
+    % 第三列：图 c 和 d 上下堆叠
+    \begin{minipage}[b]{0.32\textwidth}
+        % 图 c
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figs/iteration-cl.png}
+            \subcaption{Lift Coefficient Convergence}
+            \label{fig:row4_3}
+        \end{subfigure}
+        
+        % 添加一点垂直间距防止两张图贴在一起，可根据需要调整数值
+        \vspace{0.5cm} 
+        
+        % 图 d
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figs/iteration-cd.png}
+            \subcaption{Drag Coefficient Convergence}
+            \label{fig:row4_4}
+        \end{subfigure}
+    \end{minipage}
     
     \caption{Mesh generation and CFD simulation results for pl002. (a) pl002-global, (b) pl002-local, (c) Method C, (d) Method D.}
     \label{fig:1x4_comparison}

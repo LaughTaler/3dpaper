@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.16)  17 APR 2026 09:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.16)  12 MAY 2026 10:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -549,45 +549,43 @@ Package pdftex.def Info: figs/rabbitshow_small.png  used on input line 581.
 <figs/pl002show_big.png, id=98, 3472.975pt x 2942.995pt>
 File: figs/pl002show_big.png Graphic file (type png)
 <use figs/pl002show_big.png>
-Package pdftex.def Info: figs/pl002show_big.png  used on input line 594.
-(pdftex.def)             Requested size: 122.4028pt x 103.68893pt.
+Package pdftex.def Info: figs/pl002show_big.png  used on input line 595.
+(pdftex.def)             Requested size: 163.20374pt x 138.26689pt.
 <figs/pl002show_small.png, id=99, 3472.975pt x 2942.995pt>
 File: figs/pl002show_small.png Graphic file (type png)
 <use figs/pl002show_small.png>
-Package pdftex.def Info: figs/pl002show_small.png  used on input line 601.
-(pdftex.def)             Requested size: 122.4028pt x 103.68893pt.
-File: figs/rabbitshow_big.png Graphic file (type png)
-<use figs/rabbitshow_big.png>
-Package pdftex.def Info: figs/rabbitshow_big.png  used on input line 608.
-(pdftex.def)             Requested size: 122.4028pt x 103.64404pt.
-File: figs/rabbitshow_small.png Graphic file (type png)
-<use figs/rabbitshow_small.png>
-Package pdftex.def Info: figs/rabbitshow_small.png  used on input line 615.
-(pdftex.def)             Requested size: 122.4028pt x 103.64404pt.
+Package pdftex.def Info: figs/pl002show_small.png  used on input line 603.
+(pdftex.def)             Requested size: 163.20374pt x 138.26689pt.
+<figs/iteration-cl.png, id=100, 643.80525pt x 257.763pt>
+File: figs/iteration-cl.png Graphic file (type png)
+<use figs/iteration-cl.png>
+Package pdftex.def Info: figs/iteration-cl.png  used on input line 613.
+(pdftex.def)             Requested size: 163.20374pt x 65.34128pt.
+<figs/iteration-cd.png, id=101, 643.80525pt x 257.763pt>
+File: figs/iteration-cd.png Graphic file (type png)
+<use figs/iteration-cd.png>
+Package pdftex.def Info: figs/iteration-cd.png  used on input line 624.
+(pdftex.def)             Requested size: 163.20374pt x 65.34128pt.
  [4] [5 <./figs/ac001show_big.png> <./figs/ac001show_small.png> <./figs/ms001show_big.png> <./figs/ms001show_small.png> <./figs/pl001show_big.png> <./figs/pl001show_small.png> <./figs/rabbitshow_big.png> <./figs/rabbitshow_small.png>]
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 627.
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 637.
 
-<figs/angleloss1.pdf, id=114, 151.3153pt x 192.72pt>
+<figs/angleloss1.pdf, id=116, 151.3153pt x 192.72pt>
 File: figs/angleloss1.pdf Graphic file (type pdf)
 <use figs/angleloss1.pdf>
-Package pdftex.def Info: figs/angleloss1.pdf  used on input line 716.
+Package pdftex.def Info: figs/angleloss1.pdf  used on input line 726.
 (pdftex.def)             Requested size: 76.49689pt x 97.43015pt.
-<figs/angleloss2.pdf, id=115, 151.3153pt x 192.72pt>
+<figs/angleloss2.pdf, id=117, 151.3153pt x 192.72pt>
 File: figs/angleloss2.pdf Graphic file (type pdf)
 <use figs/angleloss2.pdf>
-Package pdftex.def Info: figs/angleloss2.pdf  used on input line 723.
+Package pdftex.def Info: figs/angleloss2.pdf  used on input line 733.
 (pdftex.def)             Requested size: 76.49689pt x 97.43015pt.
-<figs/angleloss3.pdf, id=116, 151.3153pt x 192.72pt>
+<figs/angleloss3.pdf, id=118, 151.3153pt x 192.72pt>
 File: figs/angleloss3.pdf Graphic file (type pdf)
 <use figs/angleloss3.pdf>
-Package pdftex.def Info: figs/angleloss3.pdf  used on input line 730.
+Package pdftex.def Info: figs/angleloss3.pdf  used on input line 740.
 (pdftex.def)             Requested size: 76.49689pt x 97.43015pt.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 747.
-
-[6 <./figs/pl002show_big.png> <./figs/pl002show_small.png> <./figs/angleloss1.pdf> <./figs/angleloss2.pdf
+[6 <./figs/pl002show_big.png> <./figs/pl002show_small.png> <./figs/iteration-cl.png (PNG copy)> <./figs/iteration-cd.png (PNG copy)> <./figs/angleloss1.pdf> <./figs/angleloss2.pdf
 
 pdfTeX warning: pdflatex.exe (file ./figs/angleloss2.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figs/angleloss3.pdf
@@ -595,17 +593,18 @@ pdfTeX warning: pdflatex.exe (file ./figs/angleloss2.pdf): PDF inclusion: multip
 pdfTeX warning: pdflatex.exe (file ./figs/angleloss3.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 789.
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 757.
 
-<figs/smooth1.pdf, id=155, 150.5625pt x 203.25937pt>
+<figs/smooth1.pdf, id=157, 150.5625pt x 203.25937pt>
 File: figs/smooth1.pdf Graphic file (type pdf)
 <use figs/smooth1.pdf>
-Package pdftex.def Info: figs/smooth1.pdf  used on input line 826.
+Package pdftex.def Info: figs/smooth1.pdf  used on input line 836.
 (pdftex.def)             Requested size: 117.29782pt x 158.35867pt.
-<figs/smooth2.pdf, id=156, 150.5625pt x 203.25937pt>
+<figs/smooth2.pdf, id=158, 150.5625pt x 203.25937pt>
 File: figs/smooth2.pdf Graphic file (type pdf)
 <use figs/smooth2.pdf>
-Package pdftex.def Info: figs/smooth2.pdf  used on input line 833.
+Package pdftex.def Info: figs/smooth2.pdf  used on input line 843.
 (pdftex.def)             Requested size: 117.29782pt x 158.35867pt.
 [7 <./figs/smooth1.pdf> <./figs/smooth2.pdf
 
@@ -621,18 +620,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7583 strings out of 467525
- 113537 string characters out of 5423209
- 552223 words of memory out of 5000000
- 36354 multiletter control sequences out of 15000+600000
+ 7599 strings out of 467525
+ 113987 string characters out of 5423209
+ 553223 words of memory out of 5000000
+ 36370 multiletter control sequences out of 15000+600000
  705692 words of font info for 174 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,12n,79p,1144b,554s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 71i,12n,79p,1144b,599s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfso0900.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx0900.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on aipsamp.pdf (9 pages, 102122848 bytes).
+Output written on aipsamp.pdf (9 pages, 102146712 bytes).
 PDF statistics:
- 260 PDF objects out of 1000 (max. 8388607)
+ 262 PDF objects out of 1000 (max. 8388607)
  139 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
