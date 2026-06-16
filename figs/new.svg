@@ -1,0 +1,305 @@
+# Reconstructed High-Impact Pipeline Figure (SVG)
+
+```svg
+<svg width="1800" height="1050" viewBox="0 0 1800 1050" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef2f7"/>
+    </linearGradient>
+
+    <linearGradient id="stage1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </linearGradient>
+
+    <linearGradient id="stage2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dcfce7"/>
+      <stop offset="100%" stop-color="#86efac"/>
+    </linearGradient>
+
+    <linearGradient id="stage3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fdba74"/>
+    </linearGradient>
+
+    <linearGradient id="stage4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fee2e2"/>
+      <stop offset="100%" stop-color="#fca5a5"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.15"/>
+    </filter>
+
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#334155"/>
+    </marker>
+
+    <marker id="smallArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#475569"/>
+    </marker>
+
+    <style>
+      .title { font-family: Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 700; fill: #0f172a; }
+      .subtitle { font-family: Helvetica, Arial, sans-serif; font-size: 18px; fill: #475569; }
+      .stageTitle { font-family: Helvetica, Arial, sans-serif; font-size: 26px; font-weight: 700; fill: #0f172a; }
+      .stageDesc { font-family: Helvetica, Arial, sans-serif; font-size: 17px; fill: #1e293b; }
+      .miniTitle { font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 700; fill: #111827; }
+      .miniText { font-family: Helvetica, Arial, sans-serif; font-size: 15px; fill: #334155; }
+      .equation { font-family: 'Times New Roman', serif; font-size: 18px; fill: #1f2937; }
+      .footer { font-family: Helvetica, Arial, sans-serif; font-size: 15px; fill: #64748b; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1050" fill="url(#bg)"/>
+
+  <text x="80" y="70" class="title">Neural-Field-Driven 3D Anisotropic Boundary Layer Mesh Generation Pipeline</text>
+  <text x="80" y="105" class="subtitle">Automated framework integrating curvature-aware sampling, geometric guidance fields, multiresolution neural encoding, and robust advancing-front extrusion.</text>
+
+  <!-- Main flow backbone -->
+  <line x1="250" y1="520" x2="1550" y2="520" stroke="#94a3b8" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- STAGE 1 -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="170" rx="28" ry="28" width="360" height="700" fill="url(#stage1)" stroke="#60a5fa" stroke-width="3"/>
+  </g>
+
+  <circle cx="120" cy="220" r="28" fill="#2563eb"/>
+  <text x="109" y="229" font-size="24" font-weight="700" fill="white">1</text>
+
+  <text x="170" y="225" class="stageTitle">Curvature-Driven Spatial Sampling</text>
+
+  <text x="100" y="280" class="stageDesc">Input Geometry &amp; Surface Parsing</text>
+
+  <!-- geometry sketch -->
+  <polygon points="130,340 270,290 335,390 240,470 125,420" fill="#bfdbfe" stroke="#3b82f6" stroke-width="3" opacity="0.95"/>
+  <polygon points="240,470 335,390 335,500 230,560 125,420" fill="#93c5fd" stroke="#2563eb" stroke-width="3" opacity="0.9"/>
+
+  <!-- sampled points -->
+  <g opacity="0.85">
+    <circle cx="150" cy="630" r="2.2" fill="#1d4ed8"/>
+    <circle cx="160" cy="640" r="2.2" fill="#1d4ed8"/>
+    <circle cx="170" cy="650" r="2.2" fill="#1d4ed8"/>
+    <circle cx="180" cy="660" r="2.2" fill="#1d4ed8"/>
+    <circle cx="190" cy="670" r="2.2" fill="#1d4ed8"/>
+    <circle cx="210" cy="620" r="2.2" fill="#1d4ed8"/>
+    <circle cx="220" cy="630" r="2.2" fill="#1d4ed8"/>
+    <circle cx="230" cy="640" r="2.2" fill="#1d4ed8"/>
+    <circle cx="240" cy="650" r="2.2" fill="#1d4ed8"/>
+    <circle cx="250" cy="660" r="2.2" fill="#1d4ed8"/>
+    <circle cx="260" cy="670" r="2.2" fill="#1d4ed8"/>
+    <circle cx="270" cy="680" r="2.2" fill="#1d4ed8"/>
+    <circle cx="280" cy="690" r="2.2" fill="#1d4ed8"/>
+    <circle cx="290" cy="700" r="2.2" fill="#1d4ed8"/>
+    <circle cx="300" cy="710" r="2.2" fill="#1d4ed8"/>
+  </g>
+
+  <line x1="250" y1="520" x2="250" y2="590" stroke="#1d4ed8" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="95" y="745" rx="18" ry="18" width="310" height="95" fill="rgba(255,255,255,0.72)" stroke="#60a5fa" stroke-width="2"/>
+
+  <text x="115" y="780" class="miniTitle">Key Operations</text>
+  <text x="115" y="810" class="miniText">• TetGen volumetric discretization</text>
+  <text x="115" y="833" class="miniText">• Curvature-weighted importance sampling</text>
+
+  <!-- stage 1 to stage 2 -->
+  <line x1="430" y1="520" x2="500" y2="520" stroke="#334155" stroke-width="7" marker-end="url(#arrow)"/>
+
+  <!-- STAGE 2 -->
+  <g filter="url(#shadow)">
+    <rect x="500" y="170" rx="28" ry="28" width="360" height="700" fill="url(#stage2)" stroke="#22c55e" stroke-width="3"/>
+  </g>
+
+  <circle cx="550" cy="220" r="28" fill="#16a34a"/>
+  <text x="539" y="229" font-size="24" font-weight="700" fill="white">2</text>
+
+  <text x="600" y="225" class="stageTitle">Global Geometric Guidance Field</text>
+
+  <!-- KD tree illustration -->
+  <rect x="570" y="300" width="110" height="110" rx="10" fill="#f0fdf4" stroke="#166534" stroke-width="2"/>
+  <line x1="625" y1="300" x2="625" y2="410" stroke="#166534" stroke-width="2"/>
+  <line x1="570" y1="355" x2="680" y2="355" stroke="#166534" stroke-width="2"/>
+  <line x1="625" y1="355" x2="585" y2="325" stroke="#166534" stroke-width="2"/>
+  <line x1="625" y1="355" x2="660" y2="325" stroke="#166534" stroke-width="2"/>
+  <line x1="585" y1="325" x2="575" y2="390" stroke="#166534" stroke-width="2"/>
+  <line x1="660" y1="325" x2="670" y2="390" stroke="#166534" stroke-width="2"/>
+
+  <text x="565" y="445" class="miniTitle">KD-Tree Search</text>
+
+  <!-- continuous field -->
+  <path d="M730 320 C760 350, 760 420, 730 450 C700 480, 700 550, 740 600" fill="none" stroke="#15803d" stroke-width="8" stroke-linecap="round"/>
+  <path d="M700 330 C730 360, 730 430, 700 460 C670 490, 670 560, 710 610" fill="none" stroke="#22c55e" stroke-width="4" opacity="0.7"/>
+  <path d="M760 330 C790 360, 790 430, 760 460 C730 490, 730 560, 770 610" fill="none" stroke="#22c55e" stroke-width="4" opacity="0.7"/>
+
+  <text x="620" y="655" class="miniTitle">Continuous GGGF Construction</text>
+
+  <!-- interpolation equation box -->
+  <rect x="545" y="715" rx="18" ry="18" width="270" height="105" fill="rgba(255,255,255,0.72)" stroke="#22c55e" stroke-width="2"/>
+  <text x="565" y="750" class="miniTitle">IDW + Barycentric Fusion</text>
+  <text x="565" y="785" class="equation">u_MBCNF(p) = γu_GGGF(p) + f(d)Φ(p;θ)</text>
+
+  <!-- stage 2 to stage 3 -->
+  <line x1="860" y1="520" x2="930" y2="520" stroke="#334155" stroke-width="7" marker-end="url(#arrow)"/>
+
+  <!-- STAGE 3 -->
+  <g filter="url(#shadow)">
+    <rect x="930" y="170" rx="28" ry="28" width="410" height="700" fill="url(#stage3)" stroke="#f59e0b" stroke-width="3"/>
+  </g>
+
+  <circle cx="980" cy="220" r="28" fill="#ea580c"/>
+  <text x="969" y="229" font-size="24" font-weight="700" fill="white">3</text>
+
+  <text x="1030" y="225" class="stageTitle">Multiresolution Boundary-Constrained Neural Field</text>
+
+  <!-- hash encoding -->
+  <g>
+    <rect x="990" y="300" width="120" height="28" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+    <rect x="1010" y="345" width="120" height="28" fill="#fdba74" stroke="#c2410c" stroke-width="2"/>
+    <rect x="1030" y="390" width="120" height="28" fill="#fb923c" stroke="#c2410c" stroke-width="2"/>
+    <rect x="1050" y="435" width="120" height="28" fill="#f97316" stroke="#c2410c" stroke-width="2"/>
+    <text x="985" y="500" class="miniTitle">Multiscale Hash Encoding</text>
+  </g>
+
+  <!-- MLP -->
+  <g>
+    <circle cx="1240" cy="320" r="13" fill="#7c2d12"/>
+    <circle cx="1240" cy="365" r="13" fill="#7c2d12"/>
+    <circle cx="1240" cy="410" r="13" fill="#7c2d12"/>
+
+    <circle cx="1295" cy="300" r="13" fill="#9a3412"/>
+    <circle cx="1295" cy="345" r="13" fill="#9a3412"/>
+    <circle cx="1295" cy="390" r="13" fill="#9a3412"/>
+    <circle cx="1295" cy="435" r="13" fill="#9a3412"/>
+
+    <circle cx="1350" cy="335" r="13" fill="#c2410c"/>
+    <circle cx="1350" cy="380" r="13" fill="#c2410c"/>
+
+    <line x1="1240" y1="320" x2="1295" y2="300" stroke="#7c2d12"/>
+    <line x1="1240" y1="320" x2="1295" y2="345" stroke="#7c2d12"/>
+    <line x1="1240" y1="365" x2="1295" y2="345" stroke="#7c2d12"/>
+    <line x1="1240" y1="365" x2="1295" y2="390" stroke="#7c2d12"/>
+    <line x1="1240" y1="410" x2="1295" y2="390" stroke="#7c2d12"/>
+    <line x1="1240" y1="410" x2="1295" y2="435" stroke="#7c2d12"/>
+
+    <line x1="1295" y1="300" x2="1350" y2="335" stroke="#7c2d12"/>
+    <line x1="1295" y1="345" x2="1350" y2="335" stroke="#7c2d12"/>
+    <line x1="1295" y1="390" x2="1350" y2="380" stroke="#7c2d12"/>
+    <line x1="1295" y1="435" x2="1350" y2="380" stroke="#7c2d12"/>
+
+    <text x="1210" y="500" class="miniTitle">Tiny MLP Decoder</text>
+  </g>
+
+  <!-- loss functions -->
+  <rect x="980" y="590" rx="22" ry="22" width="320" height="180" fill="rgba(255,255,255,0.72)" stroke="#ea580c" stroke-width="2.5"/>
+
+  <text x="1010" y="630" class="miniTitle">Composite Physics-Guided Loss</text>
+
+  <path d="M1030 690 C1050 650, 1080 730, 1100 690" fill="none" stroke="#2563eb" stroke-width="5"/>
+  <text x="1000" y="735" class="miniText">Boundary Cosine Loss</text>
+
+  <path d="M1180 670 q-15 -25 -30 0 q-15 25 -30 0" fill="none" stroke="#7c3aed" stroke-width="5"/>
+  <path d="M1180 710 q-15 -25 -30 0 q-15 25 -30 0" fill="none" stroke="#7c3aed" stroke-width="5"/>
+  <text x="1130" y="735" class="miniText">Laplacian PDE Smoothing</text>
+
+  <text x="985" y="810" class="equation">L = λ_bcL_bc + λ_pde∇²u</text>
+
+  <!-- stage 3 to stage 4 -->
+  <line x1="1340" y1="520" x2="1410" y2="520" stroke="#334155" stroke-width="7" marker-end="url(#arrow)"/>
+
+  <!-- STAGE 4 -->
+  <g filter="url(#shadow)">
+    <rect x="1410" y="170" rx="28" ry="28" width="320" height="700" fill="url(#stage4)" stroke="#ef4444" stroke-width="3"/>
+  </g>
+
+  <circle cx="1460" cy="220" r="28" fill="#dc2626"/>
+  <text x="1449" y="229" font-size="24" font-weight="700" fill="white">4</text>
+
+  <text x="1510" y="225" class="stageTitle">Robust Advancing-Front Extrusion</text>
+
+  <!-- extrusion illustration -->
+  <polygon points="1495,360 1570,330 1630,370 1560,405" fill="#fca5a5" stroke="#991b1b" stroke-width="2"/>
+  <polygon points="1495,420 1570,390 1630,430 1560,465" fill="#f87171" stroke="#991b1b" stroke-width="2"/>
+  <polygon points="1495,480 1570,450 1630,490 1560,525" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+
+  <line x1="1560" y1="405" x2="1560" y2="445" stroke="#7f1d1d" stroke-width="4" marker-end="url(#smallArrow)"/>
+  <line x1="1560" y1="465" x2="1560" y2="505" stroke="#7f1d1d" stroke-width="4" marker-end="url(#smallArrow)"/>
+
+  <text x="1475" y="575" class="miniTitle">Layer-by-Layer Prismatic Growth</text>
+
+  <!-- validation -->
+  <rect x="1450" y="635" rx="18" ry="18" width="240" height="165" fill="rgba(255,255,255,0.72)" stroke="#dc2626" stroke-width="2"/>
+
+  <text x="1470" y="670" class="miniTitle">Two-Stage Quality Validation</text>
+
+  <text x="1470" y="708" class="miniText">✓ Topological fold-over check</text>
+  <text x="1470" y="738" class="miniText">✓ Jacobian determinant validation</text>
+  <text x="1470" y="768" class="miniText">✓ Dynamic tolerance mechanism</text>
+
+  <!-- final output -->
+  <line x1="1730" y1="520" x2="1780" y2="520" stroke="#334155" stroke-width="7" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1460" y="900" width="280" height="90" rx="22" ry="22" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
+  </g>
+
+  <text x="1500" y="940" class="miniTitle">Final Output</text>
+  <text x="1495" y="970" class="miniText">High-quality 3D anisotropic</text>
+  <text x="1510" y="992" class="miniText">boundary layer mesh</text>
+
+  <!-- Bottom summary strip -->
+  <rect x="70" y="930" width="1300" height="45" rx="16" ry="16" fill="#0f172a" opacity="0.92"/>
+
+  <text x="95" y="959" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="600">
+    Geometry-aware Sampling → Global Guidance Prior → Multiscale Neural Residual Learning → Physics-Constrained Mesh Extrusion
+  </text>
+
+  <text x="80" y="1020" class="footer">
+    Designed for high-impact journal visualization: compact information hierarchy, explicit algorithmic causality, physics-informed neural representation, and publication-grade vector layout.
+  </text>
+</svg>
+```
+
+---
+
+## Design Rationale
+
+This reconstruction completely reorganizes the original figure into a clearer four-stage scientific workflow with:
+
+1. Strong left-to-right causal flow.
+2. Reduced visual clutter and fewer redundant insets.
+3. Explicit mapping between:
+
+   * Geometry preprocessing
+   * GGGF construction
+   * HashGrid + neural field learning
+   * Advancing-front mesh generation
+4. Publication-oriented hierarchy:
+
+   * Large stage blocks
+   * Unified color semantics
+   * Minimal but informative mathematical annotations
+   * Balanced whitespace and alignment
+5. Emphasis on the core novelty:
+
+   * Neural-field-driven boundary layer generation
+   * Residual learning formulation
+   * PDE smoothing
+   * Robust quality validation
+
+## Recommended Usage
+
+* Save the SVG block as:
+  `pipeline_reconstructed.svg`
+* Import directly into:
+
+  * Adobe Illustrator
+  * Inkscape
+  * Figma
+  * PowerPoint
+  * LaTeX (`\includesvg` or `inkscape` workflow)
+* Export to PDF for journal submission.
+
+## Suggested Caption
+
+"Overview of the proposed neural-field-driven framework for automated 3D anisotropic boundary-layer mesh generation. The pipeline consists of four tightly coupled stages: (1) curvature-aware volumetric sampling, (2) construction of the global geometric guidance field (GGGF), (3) multiresolution boundary-constrained neural field learning with physics-guided losses, and (4) robust advancing-front extrusion with topology-aware quality validation."

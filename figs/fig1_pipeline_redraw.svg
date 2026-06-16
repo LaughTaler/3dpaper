@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, Helvetica, sans-serif; fill: #202832; }
+      .panel-title { font: 700 22px Arial, Helvetica, sans-serif; fill: #202832; }
+      .subtitle { font: 15px Arial, Helvetica, sans-serif; fill: #5f6f80; }
+      .label { font: 17px Arial, Helvetica, sans-serif; fill: #202832; }
+      .small { font: 14px Arial, Helvetica, sans-serif; fill: #5f6f80; }
+      .formula { font: italic 16px Georgia, 'Times New Roman', serif; fill: #202832; }
+      .panel { stroke: #c4ced8; stroke-width: 2; }
+      .thin { stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+      .mesh { stroke: #356690; stroke-width: 2; fill: none; }
+      .sample { fill: #2f6f9f; opacity: 0.78; }
+      .vec { stroke: #3e8f6f; stroke-width: 2.2; marker-end: url(#arrow-green); }
+      .arrow { stroke: #506070; stroke-width: 3; marker-end: url(#arrow-main); fill: none; }
+    </style>
+    <marker id="arrow-main" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#506070"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#3e8f6f"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#a44f4f"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="520" fill="#ffffff"/>
+  <text x="800" y="42" text-anchor="middle" class="title">Automated neural-field pipeline for 3D anisotropic boundary-layer mesh generation</text>
+
+  <!-- Panels -->
+  <g id="stage-1-sampling">
+    <rect x="24" y="70" width="285" height="380" rx="24" class="panel" fill="#e7f0f7"/>
+    <text x="166.5" y="112" text-anchor="middle" class="panel-title">1. Geometry sampling</text>
+    <text x="166.5" y="140" text-anchor="middle" class="subtitle">curvature-weighted point sets</text>
+
+    <!-- simplified airfoil / surface -->
+    <path d="M70 226 C118 210 198 211 249 224 C194 231 122 232 70 226 Z" fill="#99b8cc" stroke="#557f9b" class="thin"/>
+    <path d="M70 226 C130 225 197 226 249 224" fill="none" stroke="#d5e4ec" class="thin"/>
+
+    <!-- non-uniform samples concentrated near high curvature -->
+    <circle cx="188" cy="224" r="3.1" class="sample"/><circle cx="198" cy="221" r="3.5" class="sample"/>
+    <circle cx="206" cy="229" r="3.2" class="sample"/><circle cx="216" cy="218" r="3.8" class="sample"/>
+    <circle cx="224" cy="235" r="3.4" class="sample"/><circle cx="233" cy="224" r="3.1" class="sample"/>
+    <circle cx="240" cy="241" r="3.2" class="sample"/><circle cx="248" cy="229" r="3.5" class="sample"/>
+    <circle cx="256" cy="251" r="3.0" class="sample"/><circle cx="264" cy="237" r="2.8" class="sample"/>
+    <circle cx="214" cy="247" r="2.5" class="sample"/><circle cx="229" cy="260" r="2.5" class="sample"/>
+    <circle cx="244" cy="270" r="2.3" class="sample"/><circle cx="258" cy="282" r="2.2" class="sample"/>
+    <circle cx="190" cy="245" r="2.2" class="sample"/><circle cx="205" cy="262" r="2.1" class="sample"/>
+    <circle cx="178" cy="235" r="2.2" class="sample"/><circle cx="220" cy="278" r="2.0" class="sample"/>
+
+    <text x="166.5" y="358" text-anchor="middle" class="label">Input surface / initial layer</text>
+    <text x="166.5" y="386" text-anchor="middle" class="label">to training samples</text>
+  </g>
+
+  <g id="stage-2-gggf">
+    <rect x="337" y="70" width="285" height="380" rx="24" class="panel" fill="#e8f4ed"/>
+    <text x="479.5" y="112" text-anchor="middle" class="panel-title">2. GGGF construction</text>
+    <text x="479.5" y="140" text-anchor="middle" class="subtitle">KD-tree search and barycentric IDW</text>
+
+    <rect x="397" y="175" width="165" height="54" rx="12" fill="#ffffff" stroke="#9fb8a9" stroke-width="2"/>
+    <text x="479.5" y="209" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#3e8f6f">KD-tree + IDW</text>
+
+    <!-- vector field -->
+    <g opacity="0.9">
+      <line x1="404" y1="260" x2="448" y2="247" class="vec"/><line x1="456" y1="260" x2="501" y2="246" class="vec"/><line x1="508" y1="260" x2="552" y2="247" class="vec"/>
+      <line x1="404" y1="286" x2="449" y2="272" class="vec"/><line x1="456" y1="286" x2="502" y2="273" class="vec"/><line x1="508" y1="286" x2="553" y2="274" class="vec"/>
+      <line x1="404" y1="312" x2="449" y2="300" class="vec"/><line x1="456" y1="312" x2="502" y2="300" class="vec"/><line x1="508" y1="312" x2="553" y2="301" class="vec"/>
+      <line x1="404" y1="338" x2="449" y2="329" class="vec"/><line x1="456" y1="338" x2="502" y2="329" class="vec"/><line x1="508" y1="338" x2="553" y2="330" class="vec"/>
+    </g>
+    <text x="479.5" y="374" text-anchor="middle" class="label">continuous geometric prior</text>
+    <text x="479.5" y="402" text-anchor="middle" class="formula">u_GGGF(p)</text>
+  </g>
+
+  <g id="stage-3-mbcnf">
+    <rect x="650" y="70" width="285" height="380" rx="24" class="panel" fill="#f8efe2"/>
+    <text x="792.5" y="112" text-anchor="middle" class="panel-title">3. MBCNF training</text>
+    <text x="792.5" y="140" text-anchor="middle" class="subtitle">HashGrid residual neural field</text>
+
+    <!-- hash grid stack -->
+    <g transform="translate(720,178)" stroke="#b9782f" stroke-width="2" fill="#f2bd82">
+      <polygon points="0,28 82,10 112,26 30,45" opacity="0.95"/>
+      <polygon points="24,58 121,36 154,54 54,76" opacity="0.9"/>
+      <polygon points="54,92 171,66 207,87 88,112" opacity="0.84"/>
+    </g>
+    <text x="792.5" y="198" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#b9782f">multi-resolution HashGrid</text>
+
+    <!-- MLP -->
+    <g id="tiny-mlp" fill="#f6cfaa" stroke="#b9782f" stroke-width="2">
+      <rect x="735" y="292" width="115" height="25" rx="12"/>
+      <rect x="735" y="323" width="115" height="25" rx="12"/>
+      <rect x="735" y="354" width="115" height="25" rx="12"/>
+    </g>
+    <text x="792.5" y="342" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#b9782f">Tiny MLP</text>
+
+    <rect x="695" y="383" width="195" height="46" rx="14" fill="#ffffff" stroke="#d6a06a" stroke-width="2"/>
+    <text x="792.5" y="404" text-anchor="middle" class="formula">u_pred = u_GGGF + f(d)Phi(p;theta)</text>
+    <text x="792.5" y="423" text-anchor="middle" class="small">cosine loss + Laplacian loss</text>
+  </g>
+
+  <g id="stage-4-afm">
+    <rect x="963" y="70" width="285" height="380" rx="24" class="panel" fill="#f5e9e8"/>
+    <text x="1105.5" y="112" text-anchor="middle" class="panel-title">4. Advancing front</text>
+    <text x="1105.5" y="140" text-anchor="middle" class="subtitle">prediction-guided layer extrusion</text>
+
+    <!-- extrusion vectors -->
+    <g stroke="#a44f4f" stroke-width="4" marker-end="url(#arrow-red)" fill="none">
+      <line x1="1051" y1="256" x2="1072" y2="225"/>
+      <line x1="1080" y1="249" x2="1103" y2="214"/>
+      <line x1="1110" y1="242" x2="1135" y2="204"/>
+      <line x1="1140" y1="235" x2="1167" y2="193"/>
+    </g>
+
+    <!-- prismatic layer stack -->
+    <polygon points="1035,317 1112,286 1168,314 1092,347" fill="#d8bc61" stroke="#755a2c" stroke-width="2"/>
+    <polygon points="1056,295 1132,266 1188,293 1113,326" fill="#d6a957" stroke="#755a2c" stroke-width="2"/>
+    <polygon points="1076,274 1153,246 1208,271 1132,304" fill="#ba6254" stroke="#755a2c" stroke-width="2"/>
+
+    <!-- quality validation -->
+    <rect x="1027" y="370" width="78" height="48" fill="#efe5b4" stroke="#43515f" stroke-width="2"/>
+    <rect x="1144" y="370" width="78" height="48" fill="#edd1ce" stroke="#43515f" stroke-width="2"/>
+    <text x="1066" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#3e8f6f">valid</text>
+    <text x="1183" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#a44f4f">reject</text>
+    <text x="1105.5" y="438" text-anchor="middle" class="small">two-stage manifold quality check</text>
+  </g>
+
+  <g id="stage-5-output">
+    <rect x="1276" y="70" width="285" height="380" rx="24" class="panel" fill="#eef1f4"/>
+    <text x="1418.5" y="112" text-anchor="middle" class="panel-title">5. Final mesh</text>
+    <text x="1418.5" y="140" text-anchor="middle" class="subtitle">anisotropic prismatic boundary layer</text>
+
+    <!-- final mesh outline and grid -->
+    <path d="M1361 346 L1381 245 L1432 192 L1495 236 L1467 322 Z" class="mesh" fill="#dce6f0"/>
+    <path d="M1361 346 C1402 337 1432 324 1467 322" class="mesh"/>
+    <line x1="1371" y1="318" x2="1486" y2="322" class="mesh" opacity="0.75"/>
+    <line x1="1378" y1="289" x2="1491" y2="295" class="mesh" opacity="0.75"/>
+    <line x1="1384" y1="260" x2="1495" y2="268" class="mesh" opacity="0.75"/>
+    <line x1="1396" y1="231" x2="1480" y2="250" class="mesh" opacity="0.75"/>
+    <line x1="1385" y1="345" x2="1395" y2="230" class="mesh" opacity="0.7"/>
+    <line x1="1413" y1="338" x2="1426" y2="199" class="mesh" opacity="0.7"/>
+    <line x1="1441" y1="329" x2="1451" y2="210" class="mesh" opacity="0.7"/>
+
+    <!-- zoom inset -->
+    <rect x="1450" y="316" width="75" height="58" fill="#ffffff" stroke="#43515f" stroke-width="2"/>
+    <line x1="1460" y1="328" x2="1515" y2="318" class="mesh"/>
+    <line x1="1460" y1="343" x2="1518" y2="332" class="mesh"/>
+    <line x1="1460" y1="358" x2="1518" y2="347" class="mesh"/>
+    <line x1="1460" y1="372" x2="1518" y2="362" class="mesh"/>
+
+    <text x="1418.5" y="405" text-anchor="middle" class="label">high-quality 3D anisotropic</text>
+    <text x="1418.5" y="432" text-anchor="middle" class="label">prismatic mesh</text>
+  </g>
+
+  <!-- main flow arrows -->
+  <path d="M314 260 L335 260" class="arrow"/>
+  <path d="M627 260 L648 260" class="arrow"/>
+  <path d="M940 260 L961 260" class="arrow"/>
+  <path d="M1253 260 L1274 260" class="arrow"/>
+
+  <text x="800" y="490" text-anchor="middle" class="small">
+    Boundary constraints define the near-wall direction; the learned residual field guides robust far-field layer growth.
+  </text>
+</svg>

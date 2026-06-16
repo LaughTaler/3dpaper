@@ -49,6 +49,14 @@ nobibnotes,
 \usepackage{multirow}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{algorithmic}
+\usepackage{enumitem}
+
+\newcounter{algorithm}
+\renewcommand{\thealgorithm}{\arabic{algorithm}}
+
+\setlist[itemize]{leftmargin=*, itemindent=0pt}
+\setlist[enumerate]{leftmargin=*, itemindent=0pt}
 
 % Apr 2021: AIP requests that the corresponding 
 % email to be moved after the affiliations
@@ -367,124 +375,438 @@ The lead paragraph will only be found in an article being prepared for the journ
 % \protect\\ 
 % The line
 % break was forced \lowercase{via} \textbackslash\textbackslash}
-\subsection{\label{sec:level2}Pipeline of 3D Anisotropic Mesh Generation}
+\subsection{\label{sec:level1-2}Pipeline of 3D Anisotropic Mesh Generation}
 \begin{figure}
-\includegraphics[width=0.5\textwidth]{figs/pipline.pdf}
-\caption{\label{fig:pip}
-automatically numbered.}
+    \includegraphics[width=0.5\textwidth]{figs/6new/pip.pdf}
+    \caption{\label{fig:pip}
+    Pipeline of 3D Anisotropic Mesh Generation.}
 \end{figure}
-Our paper proposes an automated framework for generating 3D anisotropic, semi-structured boundary layer meshes. Diverging from the conventional paradigm of global Partial Differential Equation (PDE) solvers , this framework adopts a neural field generation approach driven by boundary information. This section outlines the complete, highly automated workflow for generating 3D hybrid anisotropic meshes for specific geometries.
+Our paper proposes an automated framework for generating 3D anisotropic, semi-structured boundary layer meshes. 
+Diverging from the conventional paradigm of global Partial Differential Equation (PDE) solvers, this framework adopts a neural field generation approach driven by boundary information. 
+This section outlines the complete, highly automated workflow for generating 3D anisotropic meshes for specific geometries.
+An overview of the proposed pipeline is presented in Fig. \ref{fig:pip}.
 \begin{enumerate}
     \item \textbf{3D Surface Parsing and Spatial Discretization:}Read a 3D volume mesh file containing a single boundary layer, and utilize spatial volume mesh generation alongside curvature-weight-driven surface sampling to generate the set of physical spatial sampling points for subsequent neural network training.
     \item \textbf{Construction of the Global Geometric Guidance Field (GGGF):}By leveraging KD-Tree acceleration coupled with local barycentric coordinate interpolation, a robust Global Geometric Guidance Field is constructed within the computational domain. This field provides high-quality geometric priors to guide the neural network training.
-    \item \textbf{Training of the Multiresolution Boundary-Constrained Neural Field (MBCNF):}We construct and train a boundary-informed neural network based on a multiresolution hash encoding method, termed the Multiresolution Boundary-Constrained Neural Field. A composite loss function—integrating boundary cosine similarity and a Laplacian smoothing physical loss—is employed. This formulation guides the network to learn a continuous and smooth 3D correction vector field, ultimately enabling the prediction of the boundary layer growth direction for target points across the entire global domain.
-    \item \textbf{High-Quality 3D Advancing Front Generation:}The MBCNF is utilized to predict the corrective growth directions for the boundary layer. By dynamically adjusting the distance-based weighting between the predicted correction and the rigid boundary constraints, the method effectively steers the layer-by-layer extrusion of the prismatic boundary layer mesh. Coupled with a rigorous tetrahedral quality inspection equipped with a specified tolerance, this step guarantees high mesh quality even in geometrically complex convex and concave regions. Ultimately, this yields a 3D anisotropic prismatic boundary layer mesh suitable for engineering computations.
+    \item \textbf{Training of the Multiresolution Boundary-Constrained Neural Field (MBCNF):}We construct a boundary-informed neural field equipped with a multiresolution HashGrid encoder to predict the corrective growth direction over the 3D computational domain. Each spatial point is first normalized within the geometry-dependent bounding box and encoded by a hierarchy of learnable HashGrid levels, allowing the network to efficiently capture localized CAD features such as sharp curvature variations and concave-convex transitions. The concatenated multiscale HashGrid features are then decoded by a lightweight MLP to produce a residual correction field.
+
+    To ensure that the high local capacity of the multiresolution HashGrid encoder does not introduce non-physical grid-scale perturbations, the training objective combines boundary cosine similarity with a Laplacian smoothing loss. 
+    The latter acts as an explicit spatial smoothness prior and suppresses localized high-frequency microstructures that may arise from hash collisions or weakly constrained interior regions. 
+    In addition, a fifth-order smootherstep interpolation kernel is adopted in the HashGrid encoder to provide $C^2$-compatible transitions across grid cells, making the encoded field better suited for second-order Laplacian regularization. 
+    Finally, the learned residual field is coupled with the global geometric guidance field through a distance-dependent modulation function, so that the correction vanishes near the wall and gradually becomes active away from the boundary. 
+    This formulation preserves the near-wall orthogonality constraint while enabling the combined field to provide smooth, locally adaptive boundary-layer growth directions throughout the global domain.
+    \item \textbf{High-Quality 3D Advancing Layer Generation:}The trained MBCNF is used to evaluate the residual correction field, which is combined with the GGGF to obtain the final predicted growth directions for boundary-layer extrusion. By dynamically adjusting the distance-based weighting between the learned residual correction and the geometric boundary prior, the method effectively steers the layer-by-layer extrusion of the prismatic boundary layer mesh.
 \end{enumerate}
-% \subsubsection{\label{sec:level3}Third-level heading: Citations and Footnotes}
-% REV\TeX{} will automatically number sections, equations, figure
-% captions, and tables. In order to reference them in text, use the
-% \verb+\label{#1}+ and \verb+\ref{#1}+ commands. To reference a
-% particular page, use the \verb+\pageref{#1}+ command.
-% The \verb+\label{#1}+ should appear in a section heading, within an
-% equation, or in a table or figure caption. The \verb+\ref{#1}+ command
-% is used in the text where the citation is to be displayed.  Some
-% examples: Section~\ref{sec:level1} on page~\pageref{sec:level1},
-% Table~\ref{tab:table1},%
-\subsection{\label{sec:level2}Curvature-Driven Spatial Sampling Strategy}
-To empower the neural network to effectively capture sharp and intricate geometric features, and to synergize with the subsequent Laplacian smoothing loss function, a comprehensive non-uniform spatial sampling mechanism is established:
-\begin{itemize}
-    \item \textbf{Volumetric Discretization of the Computational Domain:}Utilizing the tetrahedral tessellation techniques provided by the TetGen library, a discrete point sequence is generated within the annular domain ($\Omega$) bounded by the inner and outer boundaries. Concurrently, a hierarchical point distribution is enforced along the wall-normal direction to adequately resolve the gradient variations transitioning from the inner to the outer boundary.
-    \item \textbf{Geometric Singularity Identification:}Regions exhibiting drastic geometric variations are identified by evaluating the discrete curvature. For the target sampling point sets located on the inner boundary and within the annular physical domain $\Omega$, this curvature is assessed utilizing the normal vector set $\mathbf{N}_{adj}$ from their $k$ adjacent faces (for spatial points within $\Omega$, the adjacent faces are determined via mapping to the nearest inner boundary).
-    \item \textbf{Importance Weighting Function:}As shown in the formula\ref{eq:sampling_weight}, a sampling weight $W_i$ is defined to quantitatively represent these geometric singularities. During the subsequent sampling phase for the point sets on the inner boundary and within the domain $\Omega$, a probabilistic sampling strategy is executed based on these computed weights.
+
+\subsection{\label{sec:level1-3}Curvature-Driven Spatial Sampling Strategy}
+To empower the neural network to effectively capture sharp and intricate geometric features, and to synergize with the subsequent Laplacian smoothing loss function, a comprehensive non-uniform spatial sampling mechanism is established.
+    
+    The sampling procedure begins with the discretization of the physical domain.
+    Utilizing the tetrahedral tessellation techniques provided by the TetGen library, a discrete point sequence is generated within the annular domain ($\Omega$) bounded by the inner and outer boundaries. Concurrently, a hierarchical point distribution is imposed along the wall-normal direction according to the final boundary-layer growth parameters, including the first-layer thickness, growth rate, and total number of layers. Specifically, sampling points are placed at selected cumulative layer heights along the inner-surface normals, so that they cover the entire boundary-layer growth region used in the subsequent advancing-layer generation. This domain-wide coverage provides effective supervision for the neural field throughout the extrusion region, enabling the network to learn appropriate growth-direction vectors at different wall-normal distances and to produce stable vector predictions during the complete boundary-layer growth process.
+    
+    After the spatial point set is constructed, geometric singularities are identified to guide non-uniform sampling.
+    Regions exhibiting drastic geometric variations are identified by evaluating the discrete curvature. For the target sampling point sets located on the inner boundary and within the annular physical domain $\Omega$, this curvature is assessed utilizing the normal vector set $\mathbf{N}_{adj}$ from their $k$ adjacent faces (for spatial points within $\Omega$, the adjacent faces are determined via mapping to the nearest inner boundary).
+    
+    The detected geometric variation is then converted into an importance weight for probabilistic sampling.
+    As shown in the formula \ref{eq:sampling_weight}, a sampling weight $W_i$ is defined to quantitatively represent these geometric singularities. During the subsequent sampling phase for the point sets on the inner boundary and within the domain $\Omega$, a probabilistic sampling strategy is executed based on these computed weights.
     \begin{equation}
         W_i = 1.0 - \min_{n \in N_{\text{adj}}} (\mathbf{n} \cdot \mathbf{n}_{\text{ref}}) + \epsilon
     \label{eq:sampling_weight}
     \end{equation}
-    And a regularization constant is incorporated into the formulation to strictly prevent zero weights, thereby ensuring comprehensive sampling coverage across the entire global domain.
-    \item \textbf{Uniform Sampling for the Outer Boundary:}Conversely, a uniform sampling approach is adopted for the outer boundary to maintain baseline geometric constraints.
-\end{itemize}
-\subsection{\label{sec:level2}Global Geometric Guidance Field}
-To alleviate the training burden on the neural network, we construct a Multiresolution Boundary-Constrained Neural Field (MBCNF), denoted as $\mathbf{u}_{mbcnf}$, which is intrinsically defined by the normal vectors of the inner boundary ($\mathbf{n}_{inner}$). This field dynamically modulates the strength of spatial constraints via a distance function $f(d)$. Specifically, it imposes a strong orthogonal prior in the near-wall region to guarantee the quality of the generated boundary layer. Conversely, in the far-field region, it serves as a baseline field that couples with the residual field predicted by the neural network to asymptotically approach the target direction of the outer boundary. This formulation bypasses the necessity for the model to approximate complex geometric manifold features from scratch. Instead, it casts the prediction objective into a residual learning paradigm, wherein the neural network is solely tasked with learning and predicting the local residuals between the geometric prior field and the target field.
+    A regularization constant is incorporated into the formulation to strictly prevent zero weights, thereby ensuring comprehensive sampling coverage across the entire global domain.
 
-The construction procedure for $\mathbf{u}_{mbcnf}$ is detailed as follows: For an arbitrary spatial point $\mathbf{p}$ located on or outside the inner boundary, a KD-Tree spatial index is employed to retrieve its $K$ nearest triangular faces on the inner boundary. We compute the exact projection of point $\mathbf{p}$ onto each respective face along with its corresponding barycentric coordinates. Subsequently, incorporating the Euclidean distances between point $\mathbf{p}$ and these $K$ adjacent faces, an Inverse Distance Weighting (IDW) scheme is applied to seamlessly fuse the discrete normal information from these faces. This procedure establishes a globally continuous initial reference field. Finally, by superimposing the corrective vector predicted by the neural network onto this initial field, the definitive growth normal vector is obtained (as formulated in Section 3.4).
-\subsection{\label{sec:level2}Multiresolution Boundary-Constrained Neural Field}
-Traditional coordinate-based networks relying on Multi-Layer Perceptrons (MLPs) are fundamentally bottlenecked by the inherent "spectral bias," rendering them inadequate for accurately resolving potential high-frequency, complex geometric features within the boundary layer regions of intricate 3D models. To circumvent this limitation, our paper introduces a multiresolution hash encoding architecture. By leveraging learnable, hierarchical hash tables, this architecture decouples spatial geometric features into multi-scale local basis functions, thereby significantly enhancing the model's representational capacity for localized geometric details.
-\begin{itemize}
-    \item \textbf{Suppression of Numerical Oscillations via $C^2$ Continuous Interpolation: }Conventional hash encoding schemes typically employ linear interpolation, which intrinsically causes the output field to forfeit first- and second-order derivative continuity across hash grid boundaries. During the evaluation of Laplacian smoothing constraints, such discontinuities readily precipitate singularities in the physical loss formulation. This subsequently induces non-physical numerical oscillations in the generated vector field that unacceptably align with the underlying hash grid. To address this critical issue, we introduce a $C^2$ continuous, higher-order smooth interpolation function. From a foundational mathematical perspective, this function strictly guarantees the global $C^2$ continuity of the predicted vector field, $\mathbf{u}_{pred}(\mathbf{p})$. Consequently, it perfectly accommodates the computational requirements of second-order partial differential operators and effectively suppresses non-physical abrupt mutations along the spatial extrusion directions.
-    \item \textbf{Hard Constraint Formulation via Boundary-Informed Neural Networks (BINN):}A boundary-augmented formulation is employed to re-parameterize the predictive output of the neural network:
+    Finally, the outer boundary is handled separately. A uniform sampling approach is adopted for this boundary to maintain the baseline geometric constraints.
+% \subsection{\label{sec:level2}Global Geometric Guidance Field}
+% To alleviate the training burden on the neural network, we construct a Multiresolution Boundary-Constrained Neural Field (MBCNF), denoted as $\mathbf{u}_{mbcnf}$, which is intrinsically defined by the normal vectors of the inner boundary ($\mathbf{n}_{inner}$). This field dynamically modulates the strength of spatial constraints via a distance function $f(d)$. Specifically, it imposes a strong orthogonal prior in the near-wall region to guarantee the quality of the generated boundary layer. Conversely, in the far-field region, it serves as a baseline field that couples with the residual field predicted by the neural network to asymptotically approach the target direction of the outer boundary. This formulation bypasses the necessity for the model to approximate complex geometric manifold features from scratch. Instead, it casts the prediction objective into a residual learning paradigm, wherein the neural network is solely tasked with learning and predicting the local residuals between the geometric prior field and the target field.
+
+% The construction procedure for $\mathbf{u}_{mbcnf}$ is detailed as follows: For an arbitrary spatial point $\mathbf{p}$ located on or outside the inner boundary, a KD-Tree spatial index is employed to retrieve its $K$ nearest triangular faces on the inner boundary. We compute the exact projection of point $\mathbf{p}$ onto each respective face along with its corresponding barycentric coordinates. Subsequently, incorporating the Euclidean distances between point $\mathbf{p}$ and these $K$ adjacent faces, an Inverse Distance Weighting (IDW) scheme is applied to seamlessly fuse the discrete normal information from these faces. This procedure establishes a globally continuous initial reference field. Finally, by superimposing the corrective vector predicted by the neural network onto this initial field, the definitive growth normal vector is obtained (as formulated in Section 3.4).
+\subsection{\label{sec:level1-4}Global Geometric Guidance Field}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/net/gggf.pdf}
+    \caption{\label{fig:gggf}
+    Global Geometric Guidance Field.}
+    \end{figure}
+
+To reduce the learning burden of the neural network and to explicitly embed reliable CAD boundary information into the prediction process, we construct a Global Geometric Guidance Field (GGGF) from the inner boundary surface.
+The GGGF serves as a geometry-driven prior for the boundary-layer growth direction. Instead of requiring the neural network to infer the entire spatial direction field from sparse boundary supervision alone, this field provides an explicit reference direction derived from the surface-normal distribution of the CAD geometry.
+The neural network is therefore guided to learn only the residual correction with respect to this geometric prior, as detailed in the subsequent multiresolution boundary-constrained neural field formulation.
+
+The complete construction procedure is summarized in Algorithm~\ref{alg:gggf_procedure}.
+For an arbitrary query point $\mathbf{p}$ located on or outside the inner boundary, the method first retrieves its neighboring triangular faces on the inner surface through a spatial tree index.
+In the implementation, the number of neighboring faces is set to $K=20$.
+For each retrieved triangle, the closest projection point from $\mathbf{p}$ to the triangle is computed.
+The barycentric coordinates of this projected point are then used to interpolate the vertex normals of the corresponding triangle, yielding a local surface-normal estimate associated with that triangle.
+This triangle-wise interpolation is important for CAD-derived surface meshes because it avoids directly using discontinuous face normals and provides a smoother local estimate of the wall-normal direction.
+
+Let $\mathbf{q}_{i}$ denote the closest projection of $\mathbf{p}$ onto the $i$-th neighboring triangle, and let $d_i=\|\mathbf{p}-\mathbf{q}_{i}\|_2$ be the corresponding projection distance. The interpolated unit normal obtained from the barycentric coordinates on this triangle is denoted as $\mathbf{n}_{i}(\mathbf{p})$. The final guidance direction is obtained by inverse-distance weighting:
+\begin{equation}
+    w_i(\mathbf{p}) =
+    \frac{(d_i+\epsilon)^{-1}}
+    {\sum_{j=1}^{K}(d_j+\epsilon)^{-1}},
+    \label{eq:gggf_weight}
+\end{equation}
+\begin{equation}
+    \mathbf{u}_{gggf}(\mathbf{p}) =
+    \frac{\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})}
+    {\left\|\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})\right\|_2+\epsilon}.
+    \label{eq:gggf_normal}
+\end{equation}
+The distance variable used by the subsequent boundary modulation is computed consistently as the weighted projection distance:
+\begin{equation}
+    d(\mathbf{p}) = \sum_{i=1}^{K} w_i(\mathbf{p}) d_i .
+    \label{eq:gggf_distance}
+\end{equation}
+Compared with a single nearest-face projection, this $K$-neighbor inverse-distance fusion is less sensitive to local triangulation irregularities or isolated noisy faces, while still preserving the local geometric characteristics of high-curvature and concave-convex regions. As a result, the GGGF provides a stable and physically meaningful baseline direction for the subsequent neural residual learning stage.
+
+\begin{center}
+    \begin{minipage}{0.96\columnwidth}
+    \refstepcounter{algorithm}
+    \label{alg:gggf_procedure}
+    \hrule height 0.8pt
+    \vspace{0.45em}
+    \noindent\textbf{Algorithm \thealgorithm. Construction of the Global Geometric Guidance Field}
+
+    \vspace{0.35em}
+    \small
+    \noindent\textbf{Input:}\\[-0.2em]
+    \begin{tabular}{@{\hspace{2.4em}}l@{}}
+        Inner boundary triangular mesh $\mathcal{M}_{in}=(V,F)$;\\
+        Vertex normal set $\mathcal{N}_v$;\\
+        Query point set $P=\{\mathbf{p}_i\}_{i=1}^{N_p}$;\\
+        Number of neighboring triangles $K$;\\
+        Numerical constant $\epsilon$.
+    \end{tabular}
+
+    \noindent\textbf{Output:}\\[-0.2em]
+    \begin{tabular}{@{\hspace{2.4em}}l@{}}
+        Weighted distance set $D=\{d(\mathbf{p}_i)\}_{i=1}^{N_p}$;\\
+        Global Geometric Guidance Field $U_{GGGF}=\{\mathbf{u}_{gggf}(\mathbf{p}_i)\}_{i=1}^{N_p}$.
+    \end{tabular}
+
+    \vspace{0.25em}
+    \begin{algorithmic}[1]
+        \STATE Build a spatial triangle search tree for the triangular faces of $\mathcal{M}_{in}$.
+
+        \FOR{each query point $\mathbf{p}_i \in P$}
+            \STATE Retrieve the $K$ nearest triangular faces $\{T_{i,k}\}_{k=1}^{K}$ from the search tree.
+            \STATE If fewer than $K$ faces are found, repeat the last valid face index until $K$ candidates are obtained.
+
+            \FOR{each neighboring triangle $T_{i,k}$}
+                \STATE Compute the closest projection point and projection distance:
+                \[
+                    \mathbf{q}_{i,k}=\Pi_{T_{i,k}}(\mathbf{p}_i),
+                    \qquad
+                    d_{i,k}=\|\mathbf{p}_i-\mathbf{q}_{i,k}\|_2 .
+                \]
+                \STATE Compute the barycentric coordinates $\boldsymbol{\beta}_{i,k}=(\beta_{i,k}^{1},\beta_{i,k}^{2},\beta_{i,k}^{3})$ of $\mathbf{q}_{i,k}$ on $T_{i,k}$.
+                \STATE Interpolate and normalize the local normal:
+                \[
+                    \mathbf{n}_{i,k}
+                    =
+                    \frac{
+                    \sum_{\ell=1}^{3}\beta_{i,k}^{\ell}\mathbf{n}_{i,k}^{\ell}
+                    }{
+                    \left\|\sum_{\ell=1}^{3}\beta_{i,k}^{\ell}\mathbf{n}_{i,k}^{\ell}\right\|_2+\epsilon
+                    } .
+                \]
+            \ENDFOR
+
+            \STATE Compute inverse-distance weights:
+            \[
+                w_{i,k}
+                =
+                \frac{(d_{i,k}+\epsilon)^{-1}}
+                {\sum_{m=1}^{K}(d_{i,m}+\epsilon)^{-1}} .
+            \]
+
+            \STATE Compute the weighted projection distance:
+            \[
+                d(\mathbf{p}_i)
+                =
+                \sum_{k=1}^{K}w_{i,k}d_{i,k}.
+            \]
+
+            \STATE Fuse and normalize the local normals to obtain the GGGF direction:
+            \[
+                \mathbf{u}_{gggf}(\mathbf{p}_i)
+                =
+                \frac{
+                \sum_{k=1}^{K}w_{i,k}\mathbf{n}_{i,k}
+                }{
+                \left\|\sum_{k=1}^{K}w_{i,k}\mathbf{n}_{i,k}\right\|_2+\epsilon
+                } .
+            \]
+
+            \STATE Store $d(\mathbf{p}_i)$ in $D$ and $\mathbf{u}_{gggf}(\mathbf{p}_i)$ in $U_{GGGF}$.
+        \ENDFOR
+
+        \RETURN $D$ and $U_{GGGF}$.
+    \end{algorithmic}
+    \vspace{0.2em}
+    \hrule height 0.8pt
+    \end{minipage}
+\end{center}
+
+\subsection{\label{sec:level1-5}Multiresolution Boundary-Constrained Neural Field}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=1\textwidth]{figs/net/net.pdf}
+    \caption{Multiresolution Boundary-Constrained Neural Field for Anisotropic Boundary-Layer Mesh Generation}
+    \label{fig:net}
+\end{figure*}
+Traditional coordinate-based neural networks based on Multi-Layer Perceptrons (MLPs) are often limited by their inherent spectral bias, which makes them inefficient in resolving localized high-frequency geometric variations in complex CAD-derived boundary-layer domains. 
+To overcome this limitation, we introduce a Boundary-Constrained Neural Field equipped with a multiresolution HashGrid encoder. 
+Fig. \ref{fig:net} shows the overall architecture of the neural field.
+Instead of directly mapping Cartesian coordinates to growth directions using a deep global MLP, each spatial point $\mathbf{p}=(x,y,z)$ is first normalized within a geometry-dependent bounding box and encoded by a hierarchy of learnable HashGrid levels.
+These hierarchical HashGrid levels decompose the spatial representation into multi-scale local basis functions, thereby improving the model's ability to represent sharp curvature variations, concave-convex transitions, and other localized CAD features.
+
+In our implementation, the HashGrid encoder contains 16 resolution levels, with two trainable feature channels at each level.
+For each level, the eight neighboring lattice vertices of the query point are indexed through a spatial hash function, and the interpolated features from all levels are concatenated into a compact 32-dimensional multiscale descriptor.
+This descriptor is then decoded by a lightweight MLP with two 64-neuron hidden layers and SiLU activations to predict a residual correction vector.
+By transferring most of the local geometric representation burden from the decoder to the multiresolution HashGrid levels, the proposed architecture captures complex local geometric features without requiring an excessively deep global MLP.
+
+To prevent hash-induced numerical oscillations, the HashGrid-encoded neural field is further regularized by a smoothness-aware formulation.
+Although the multiresolution HashGrid encoder provides strong local representational capacity, it also requires careful regularization. As discussed in the Instant-NGP work, fine HashGrid levels inevitably involve hash collisions, where different spatial locations may share the same hash-table entry. The multiresolution HashGrid hierarchy helps the network resolve most collision-induced ambiguity during optimization, but residual collision artifacts may still appear as grid-scale microstructures or localized high-frequency perturbations. 
+In boundary-layer mesh generation, such perturbations are particularly harmful: even a small directional error in the predicted vector field can be repeatedly accumulated during layer-by-layer advancing-layer integration, leading to warped prism edges, local depressions, or degradation of orthogonality in deeper layers.
+
+To address this issue, we introduce a Laplacian smoothing loss as an explicit spatial smoothness prior for the HashGrid-encoded neural field.
+The loss penalizes the squared magnitude of the second-order differential operator, $\nabla^2 \mathbf{u}$, evaluated by finite differences over sampled interior points.
+This term suppresses localized high-frequency oscillations that are not fully constrained by the boundary cosine losses, especially in regions away from the inner wall where the direct boundary supervision becomes weaker.
+In this way, the model retains the expressive advantage of the HashGrid encoder while preventing its high-capacity local representation from producing physically inconsistent directional fluctuations.
+
+To further make the encoded field compatible with Laplacian regularization, we replace the conventional linear interpolation used in standard HashGrid encoders with the fifth-order smootherstep kernel,
     \begin{equation}
-        u_{pred}(p) = \gamma \cdot u_{bce}(p) + f(d) \cdot \Phi(p; \theta)
+        S_2(t)=6t^5-15t^4+10t^3 .
+        \label{eq:smootherstep}
+    \end{equation}
+Linear interpolation only guarantees function-value continuity and introduces first-derivative discontinuities at grid-cell boundaries, which is undesirable for a vector field constrained by a second-order differential operator.
+Cubic smoothstep improves first-order smoothness, but its second derivative remains discontinuous across cell boundaries.
+In contrast, the fifth-order smootherstep has zero first- and second-order derivatives at both endpoints, which reduces derivative discontinuities at cell boundaries and improves the stability of finite-difference Laplacian evaluation.
+Higher-order smoothstep kernels could provide stronger smoothness, but they would increase computational cost and may over-smooth the localized high-frequency geometric details that the HashGrid encoder is designed to capture.
+Therefore, the fifth-order smootherstep is selected as a balanced interpolation scheme: it suppresses grid-boundary artifacts and derivative discontinuities while preserving the local representational capacity required for complex CAD boundary-layer mesh generation.
+
+The decoded residual field is not used directly as an unconstrained growth direction.
+Instead, the final growth-direction prediction is re-parameterized as a boundary-informed combination of the geometric prior and the learned residual correction, in which the learned correction is coupled with the Global Geometric Guidance Field:
+    \begin{equation}
+        \mathbf{u}_{pred}(\mathbf{p}) =
+        \gamma \mathbf{u}_{gggf}(\mathbf{p}) +
+        f(d)\Phi(\mathbf{p};\theta).
         \label{eq:u_pred}
     \end{equation}
-    where $\mathbf{u}_{mbcnf}(\mathbf{p})$ denotes the global geometric guidance field(GGGF) constructed via surface manifold projection, and $\Phi(\mathbf{p}; \theta)$ represents the corrective vector field predicted by the multiresolution hash network. The core distance modulation function, $f(d)$, establishes a distance-driven dynamic confidence mechanism. As a spatial point approaches the geometric boundary ($d \to 0$), the weighting of the residual term $\Phi$ smoothly decays to absolute zero. This elegantly ensures that the predicted field $\mathbf{u}_{pred}(\mathbf{p})$ automatically and rigorously degenerates into the exact Dirichlet boundary condition. This mathematical construction not only inherently enforces a "hard constraint" on the orthogonality of the near-wall mesh but also profoundly simplifies the neural network's optimization objective. By shifting the paradigm from approximating a complex, full-scale geometric field to merely learning low-frequency localized deviations, it significantly accelerates the convergence process.
-\end{itemize}
-\subsection{\label{sec:level2}Loss Functions}
-\begin{itemize}
-    \item \textbf{Boundary Cosine Loss:}o quantify the directional discrepancy between the predicted vector field and the target normal vectors, a weighted cosine similarity metric is employed as the geometric boundary loss:
+Here, $\mathbf{u}_{gggf}(\mathbf{p})$ denotes the Global Geometric Guidance Field constructed by surface-normal projection and inverse-distance interpolation, $\Phi(\mathbf{p};\theta)$ is the residual correction predicted by the HashGrid-encoded neural network, and $\gamma$ controls the contribution of the geometric prior. 
+(\(\gamma\) is set to 1.0 in all experiments)
+The distance modulation function is defined as
     \begin{equation}
-        L_{BC} = \int_{\partial\Omega} \left( 1 - \frac{\mathbf{u}_{pred} \cdot \mathbf{n}_{target}}{\|\mathbf{u}_{pred}\| \|\mathbf{n}_{target}\|} \right) d\Gamma
+        f(d)=1-\exp(-\alpha d),
+        \label{eq:distance_modulation}
     \end{equation}
-    \item \textbf{Laplacian Smoothing Loss:}To prevent the intersection of internal field lines and the formation of singularities, thereby ensuring a seamless geometric transition of the boundary layer mesh from the inner to the outer boundary, a physical regularization term based on the finite difference operator, $\nabla^2 \mathbf{u}$, is introduced. This term rigorously enforces a spatial smoothness constraint across the vector field and is efficiently executed via large-scale parallel finite difference computations on the GPU.
-\end{itemize}
-\subsection{\label{sec:level2}Advancing Front Mesh Generation}
-As shown in the formula \ref{eq:new_point}, we employ the Advancing Front Method (AFM) to guide the boundary layer nodes in generating volumetric mesh elements after acquiring the converged predictive corrective vector field, $\mathbf{u}_{pred}$.The new point for the subsequent layer is computed by advancing along the normalized vector field direction from each corresponding point on the current front.
+where $d=d(\mathbf{p})$ is the weighted projection distance to the inner boundary computed from the GGGF construction and $\alpha$ controls the decay rate.
+
+As $d \to 0$, $f(d)$ smoothly approaches zero, forcing the residual correction to vanish near the wall. Consequently, the predicted direction degenerates to the boundary-consistent geometric prior, which imposes the near-wall orthogonality constraint in a hard manner.
+Away from the wall, $f(d)$ increases and allows the residual field to compensate for local deviations between the projected inner-boundary normal field and the desired outer-boundary direction.
+This formulation reduces the learning burden of the neural network by shifting the prediction target from a complex full-scale vector field to a boundary-constrained residual field, producing a smooth and locally adaptive growth-direction field suitable for robust anisotropic boundary-layer mesh generation.
+
+% \subsection{\label{sec:level2}Loss Functions}
+% \begin{itemize}
+%     \item \textbf{Boundary Cosine Loss:}o quantify the directional discrepancy between the predicted vector field and the target normal vectors, a weighted cosine similarity metric is employed as the geometric boundary loss:
+%     \begin{equation}
+%         L_{BC} = \int_{\partial\Omega} \left( 1 - \frac{\mathbf{u}_{pred} \cdot \mathbf{n}_{target}}{\|\mathbf{u}_{pred}\| \|\mathbf{n}_{target}\|} \right) d\Gamma
+%     \end{equation}
+%     \item \textbf{Laplacian Smoothing Loss:}To prevent the intersection of internal field lines and the formation of singularities, thereby ensuring a seamless geometric transition of the boundary layer mesh from the inner to the outer boundary, a physical regularization term based on the finite difference operator, $\nabla^2 \mathbf{u}$, is introduced. This term rigorously enforces a spatial smoothness constraint across the vector field and is efficiently executed via large-scale parallel finite difference computations on the GPU.
+% \end{itemize}
+\subsection{\label{sec:level1-6}Loss Functions}
+
+The training objective is designed to simultaneously enforce boundary-direction consistency and interior-field smoothness.
+Since the boundary-layer mesh is generated by advancing nodes along the predicted vector field, both the angular accuracy and the spatial regularity of this field directly affect the orthogonality and robustness of the resulting prismatic layers.
+The total loss is defined as
 \begin{equation}
-    p_j^{(i+1)} = p_j^{(i)} + h_i \cdot \frac{u_{\text{pred}}(p_j^{(i)})}{\|u_{\text{pred}}(p_j^{(i)})\|}
+    \mathcal{L}_{total}
+    =
+    \lambda_{in}\mathcal{L}_{in}
+    +
+    \lambda_{out}\mathcal{L}_{out}
+    +
+    \lambda_{s}\mathcal{L}_{smooth},
+    \label{eq:total_loss}
+\end{equation}
+where $\mathcal{L}_{in}$ and $\mathcal{L}_{out}$ denote the inner- and outer-boundary cosine losses, respectively (see Fig. \ref{fig:anglelossf}),
+ and $\mathcal{L}_{smooth}$ denotes the Laplacian smoothing loss imposed on the HashGrid-encoded residual field.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figs/net/angle.pdf}
+    \caption{\label{fig:anglelossf}
+    Inner/Outer boundary cosine loss.}
+    \end{figure}
+
+    The inner-boundary loss imposes a strong near-wall directional constraint.
+    For points sampled on the inner boundary, the residual correction predicted by the HashGrid-encoded neural network is required to align with the target inner-boundary normals.
+    This loss is written as
+    \begin{equation}
+        \mathcal{L}_{in}
+        =
+        \frac{1}{N_{in}}
+        \sum_{i=1}^{N_{in}}
+        \left(
+        1-
+        \frac{
+        \Phi(\mathbf{p}^{in}_i;\theta)\cdot \mathbf{n}^{in}_i
+        }{
+        \left\|\Phi(\mathbf{p}^{in}_i;\theta)\right\|_2
+        \left\|\mathbf{n}^{in}_i\right\|_2+\epsilon
+        }
+        \right),
+        \label{eq:loss_inner}
+    \end{equation}
+    where $\mathbf{p}^{in}_i$ denotes the $i$-th inner-boundary sample, $\mathbf{n}^{in}_i$ is the corresponding target wall-normal vector, and $\epsilon$ is a small numerical constant. This term is assigned the dominant weight in training because the first few boundary layers are highly sensitive to the accuracy of the wall-normal direction. Preserving near-wall orthogonality is therefore treated as the primary geometric requirement.
+
+    The outer-boundary loss constrains the composite predicted direction at the outer boundary.
+    Unlike the inner-boundary term, this loss is applied to the boundary-informed field obtained by combining the Global Geometric Guidance Field with the neural residual correction:
+    \begin{equation}
+        \mathbf{u}_{pred}(\mathbf{p})
+        =
+        \gamma\mathbf{u}_{gggf}(\mathbf{p})
+        +
+        f(d)\Phi(\mathbf{p};\theta).
+        \label{eq:loss_upred}
+    \end{equation}
+    The outer-boundary loss is then defined as
+    \begin{equation}
+        \mathcal{L}_{out}
+        =
+        \frac{1}{N_{out}}
+        \sum_{i=1}^{N_{out}}
+        \left(
+        1-
+        \frac{
+        \mathbf{u}_{pred}(\mathbf{p}^{out}_i)\cdot \mathbf{n}^{out}_i
+        }{
+        \left\|\mathbf{u}_{pred}(\mathbf{p}^{out}_i)\right\|_2
+        \left\|\mathbf{n}^{out}_i\right\|_2+\epsilon
+        }
+        \right),
+        \label{eq:loss_outer}
+    \end{equation}
+    where $\mathbf{p}^{out}_i$ denotes the $i$-th outer-boundary sample and $\mathbf{n}^{out}_i$ is the corresponding target direction. This term guides the learned vector field to smoothly transition from the inner-wall normal prior toward the desired outer-boundary direction.
+    In the implementation, $\lambda_{out}$ is set smaller than $\lambda_{in}$, reflecting its role as a far-field guidance term rather than a dominant near-wall constraint.
+
+    Both boundary losses are formulated using cosine similarity rather than a direct Euclidean vector loss.
+    This choice is motivated by the nature of boundary-layer mesh generation: the advancing-layer procedure depends primarily on the direction of the vector field, while the step length is independently controlled by the prescribed layer thickness.
+    A cosine loss explicitly penalizes angular misalignment and is insensitive to irrelevant magnitude variations, making it more suitable for enforcing normal-direction consistency than a standard $L_2$ loss.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{figs/net/laplace_smooth.pdf}
+        \caption{\label{fig:laplacef}
+        Laplacian smoothing loss.}
+    \end{figure}
+    To regularize the interior vector field, a Laplacian smoothing loss is introduced over randomly sampled domain points. 
+    The corresponding smoothing mechanism is illustrated in Fig. \ref{fig:laplacef}.
+    This term penalizes the squared magnitude of the second-order spatial variation of the residual field predicted by the HashGrid-encoded neural network:
+    \begin{equation}
+        \mathcal{L}_{smooth}
+        =
+        \frac{1}{N_{\Omega}}
+        \sum_{i=1}^{N_{\Omega}}
+        \left\|
+        \nabla^2 \Phi(\mathbf{p}^{\Omega}_i;\theta)
+        \right\|_2^2,
+        \label{eq:loss_smooth}
+    \end{equation}
+    where $\mathbf{p}^{\Omega}_i$ denotes an interior sample point in the computational domain. In practice, the Laplacian operator is approximated by central finite differences along the three coordinate directions:
+    \begin{equation}
+        \nabla^2 \Phi(\mathbf{p};\theta)
+        \approx
+        \sum_{k=1}^{3}
+        \frac{
+        \Phi(\mathbf{p}+\delta\mathbf{e}_k;\theta)
+        -
+        2\Phi(\mathbf{p};\theta)
+        +
+        \Phi(\mathbf{p}-\delta\mathbf{e}_k;\theta)
+        }{\delta^2},
+        \label{eq:laplacian_fd}
+    \end{equation}
+    where $\mathbf{e}_k$ is the unit vector along the $k$-th coordinate direction and $\delta$ is the finite-difference step size.
+
+    The use of this loss is particularly important for the multiresolution HashGrid encoder. Although the HashGrid encoder provides strong local representational capacity, hash collisions and weak interior supervision may produce localized high-frequency perturbations.
+    Such perturbations can accumulate during layer-by-layer mesh advancement and lead to distorted prism elements in deeper layers.
+    The Laplacian smoothing loss suppresses these non-physical oscillations and encourages the residual field to vary smoothly throughout the computational domain. 
+    For GPU efficiency, this term is evaluated on mini-batches of interior samples during training.
+
+\subsection{\label{sec:level1-7}Advancing-Layer Method Mesh Generation}
+
+After the converged growth-direction field $\mathbf{u}_{pred}$ is obtained, the anisotropic boundary-layer mesh is generated by a layer-by-layer advancing procedure.
+This stage follows the advancing-layer strategy adopted in boundary-informed anisotropic meshing methods~\cite{anisoMeshNet}, where the learned vector field is used to guide the extrusion of boundary nodes from the wall surface into the computational domain.
+In contrast to conventional normal-smoothing-based extrusion, the advancing direction in our method is provided by the final field \(\mathbf{u}_{pred}\), which combines the near-wall geometric prior with the learned residual correction predicted by the trained MBCNF.
+
+Let $\mathbf{p}_{j}^{(i)}$ denote the position of the $j$-th node on the $i$-th advancing front. The node position on the next layer is computed by advancing along the normalized predicted direction:
+\begin{equation}
+    \mathbf{p}_{j}^{(i+1)}
+    =
+    \mathbf{p}_{j}^{(i)}
+    +
+    h_i
+    \frac{
+    \mathbf{u}_{pred}\left(\mathbf{p}_{j}^{(i)}\right)
+    }{
+    \left\|
+    \mathbf{u}_{pred}\left(\mathbf{p}_{j}^{(i)}\right)
+    \right\|_2
+    },
     \label{eq:new_point}
 \end{equation}
-The step length (layer thickness) $h_i$
-is determined by the initial thickness $h_0$ and a growth rate $r: h_i = h_0 · r^i$.
+where $h_i$ is the thickness of the $i$-th boundary layer. Following the common geometric-growth setting used in advancing-layer mesh generation, the layer thickness is defined as
+\begin{equation}
+    h_i = h_0 r^i,
+    \label{eq:layer_thickness}
+\end{equation}
+where $h_0$ is the first-layer thickness and $r$ is the prescribed layer-to-layer growth rate.
 
-To circumvent severe geometric defects—such as mesh self-intersections, elemental topological inversions, and saddle-face distortions—that frequently manifest during the advancement over complex 3D surfaces, we introduce a rigorous Two-Stage Manifold Quality Validation mechanism into the mesh topological growth pipeline:
-\begin{itemize}
-    \item \textbf{Macroscopic Topological Check:}During the initial phase of element generation, the algorithm extracts the base and top faces of the nascent prismatic element to compute their respective unit normal vectors, $\mathbf{n}_{base}$ and $\mathbf{n}_{top}$. By evaluating the dot product of these vectors, a geometric constraint is imposed on the macroscopic growth posture of the mesh. If $\mathbf{n}_{base} \cdot \mathbf{n}_{top} < -\epsilon$, the system identifies a severe "fold-over" or global topological inversion and directly intercepts the progression. This procedure fundamentally prevents non-physical folding of the growth direction at a macroscopic level.
-    \item \textbf{Microscopic Jacobian Tolerance Validation:}For prismatic elements that successfully pass the macroscopic check, the algorithm further executes a microscopic volume validation predicated on tetrahedral decomposition. The prism is identically decomposed into three non-overlapping tetrahedral subsets. The signed volume of each constituent tetrahedron, which is strictly proportional to the local Jacobian determinant, is computed via the scalar triple product of the spatial vectors: $\mathbf{v}_3 \cdot (\mathbf{v}_1 \times \mathbf{v}_2)$. The volume sign is rigorously preserved during computation to accurately delineate the topological orientation of the element within 3D space. If the accumulated total volume, $V_{total}$, yields a negative value, it signifies an overall elemental inversion.
-    \item \textbf{Dynamic Tolerance Mechanism for Local Distortion:}Recognizing that slight geometric distortions (e.g., the formation of saddle faces) on the lateral faces are inevitable when advancing through boundary regions characterized by high curvature or drastic convex-concave alternations, this study eschews the stringent "one-size-fits-all" criterion that demands all sub-tetrahedral volumes be strictly positive. Instead, a relative tolerance mechanism parametrically tied to the total volume (empirically set to $5\%$ in this paper) is introduced. The algorithm permits constituent tetrahedra to exhibit marginal negative volumes (i.e., $V_i \ge -|V_{total}| \times 5\%$). The mesh is deemed invalid only when the negative volume induced by local distortion exceeds this specified threshold. While mathematically ensuring the preservation of the mesh manifold structure, this mechanism significantly bolsters the survivability and advancing robustness of the AFM algorithm in extremely complex geometric domains.
-\end{itemize}
+Starting from the triangular faces of the inner boundary surface, each active front is advanced according to Eq.~\eqref{eq:new_point}.
+Corresponding nodes between two consecutive fronts are connected to form prismatic boundary-layer elements. Repeating this process for a prescribed number of layers yields a structured stack of anisotropic prism elements aligned with the predicted growth-direction field. Therefore, the mesh generation stage inherits the geometric simplicity of the advancing-layer method while replacing the traditional hand-crafted marching normal field with the proposed neural field, enabling boundary-layer extrusion over complex three-dimensional CAD geometries.
 
+\section{\label{sec:level2}Experiments and Results}
 
-\section{\label{sec:level1}Experiments and Results}
-% \protect\\ 
-% The line
-% break was forced \lowercase{via} \textbackslash\textbackslash}
+\subsection{\label{sec:level2-1}Experimental Setup}
 
-\subsection{\label{sec:level2}Experimental Setup}
-
-\begin{table*}[hbt]
+\begin{table*}[!ht]
     \centering
-    \caption{Key Implementation Details of the Proposed Framework}
+    \caption{Key implementation details of the proposed framework}
     \label{tab:hyperparameters}
     \begin{tabular}{ll}
         \toprule
         \textbf{Parameter} & \textbf{Value} \\
         \midrule
-        \multicolumn{2}{l}{\textbf{HashGrid Architecture}} \\
-        Input layer neurous & Input layer neurons: 3 (3D spatial coordinates $x, y, z$)\\
+        \multicolumn{2}{l}{\textbf{Multiresolution HashGrid Encoder}} \\
+        Input layer neurons & 3 (3D spatial coordinates $x, y, z$)\\
         Output layer neurons & 32 (16 levels $\times$ 2 features per level)\\
         Weight initialization & Uniform distribution\\
         Number of hash levels ($L$) & 16 \\
         Base resolution ($N_{\min}$) & 16 \\
-        Maximum resolution ($N_{\max}$) & 2048 \\
+        Maximum resolution ($N_{\max}$) & 512 \\
         Hash table size ($\log_2 T$) & 19 \\
         Feature dimensions per level ($F$) & 2 \\
         \midrule
-        \multicolumn{2}{l}{\textit{Tiny MLP Architecture}} \\
-        Input layer neurons&32 (Concatenated multi-resolution hash features)\\
+        \multicolumn{2}{l}{\textbf{Tiny MLP Architecture}} \\
+        Input layer neurons&32 (Concatenated multiresolution HashGrid features)\\
         Hidden layers& 2 layers (64, 64 neurons)\\
-        Output layer neurons& 3 (3D normal correction vector)\\
+        Output layer neurons& 3 (residual correction vector)\\
         Activation function & SiLU (Swish)\\
         Weight initialization& Kaiming uniform \\
         \midrule
         \multicolumn{2}{l}{\textbf{Training Hyperparameters}} \\
         Total training epochs & 75000 \\
-        Learning rate (Hash embedding) & $1 \times 10^{-2}$ \\
-        Learning rate (Hash network) & $1 \times 10^{-3}$ \\
+        Learning rate (HashGrid embeddings) & $3 \times 10^{-3}$ \\
+        Learning rate (MLP decoder) & $1 \times 10^{-3}$ \\
         Learning rate scheduler &StepLR (step size=2000, gamma=0.8) \\
         Optimizer &  Adam\\
-        Batch size & 1024 \\
+        Batch size & 4096 \\
         Stopping criteria &Fixed epoch count (75000) \\
-        Number of domain points & 5,000 \\
-        Number of inner boundary points & 5,000 \\
+        Number of domain points & 10,000 \\
+        Number of inner boundary points & 10,000 \\
         Number of outer boundary points & 500 \\
         % $K$-nearest neighbors & 20 \\
         % Exponential decay rate & 20.0 \\
@@ -493,394 +815,402 @@ To circumvent severe geometric defects—such as mesh self-intersections, elemen
         \multicolumn{2}{l}{\textbf{Loss Function Weights}} \\
         Inner boundary weight ($\lambda_{\text{bc\_inner}}$) & 1.0 \\
         Outer boundary weight ($\lambda_{\text{bc\_outer}}$) & 0.001 \\
-        PDE loss weight ($\lambda_{\text{pde}}$) & 0.001 \\
+        Laplacian smoothing weight ($\lambda_{\mathrm{s}}$) & 0.05 \\
         \midrule
         \multicolumn{2}{l}{\textbf{Mesh Generation Parameters}} \\
-        Number of layers & 10 \\
+        Number of layers & 25 \\
         First layer thickness & $5 \times 10^{-5}$ \\
-        Growth rate & 1.2 \\
+        Growth rate & 1.15 \\
         \bottomrule
     \end{tabular}
 \end{table*}
 
-All models were implemented in PyTorch and trained on an NVIDIA RTX 3050Ti GPU (with CPU fallback capability). The proposed neural network architecture consists of two tightly coupled components: a multi-resolution HashGrid encoder and a Tiny MLP decoder. Specifically, the HashGrid takes 3D spatial coordinates ($x, y, z$) as input and maps them into a 32-dimensional concatenated feature vector utilizing 16 hash levels (with 2 feature dimensions per level). This encoded multiresolution feature vector is subsequently fed into the input layer of the Tiny MLP. The Tiny MLP comprises two hidden layers with 64 neurons each and utilizes the SiLU (Swish) activation function to predict the final 3D normal correction vector.The core hyperparameters, including loss weights and mesh generation settings, are summarized in Table \ref{tab:hyperparameters}.
+
+All models were implemented in PyTorch and trained on an NVIDIA RTX 3050Ti GPU (with CPU fallback capability). The proposed neural network architecture consists of two tightly coupled components: a multiresolution HashGrid encoder and a Tiny MLP decoder. Specifically, the HashGrid encoder takes 3D spatial coordinates ($x, y, z$) as input and maps them into a 32-dimensional concatenated feature vector using 16 HashGrid levels, with two feature dimensions at each level. This encoded multiresolution feature vector is subsequently fed into the input layer of the Tiny MLP. The Tiny MLP comprises two hidden layers with 64 neurons each and utilizes the SiLU (Swish) activation function to predict the 3D residual correction vector. 
+The core hyperparameters, including loss weights and mesh generation settings, are summarized in Table \ref{tab:hyperparameters}.
 
 Key parameters for the framework were set as follows:
 
 \begin{itemize}
     \item \textbf{Geometric Features:} The K-Nearest Neighbors algorithm used $K = 20$ neighbors to robustly interpolate the target surface normals and calculate the weighted average distance.
     
-    \item \textbf{Loss Function:} The composite loss function prioritized geometric accuracy and network stability, with the inner boundary loss assigned a weight of $1.0$ and the outer boundary loss a weight of $0.001$ to ensure strict orthogonality in critical near-body regions. Additionally, a PDE loss weight of $1 \times 10^{-3}$ was incorporated to mitigate local distortions.
+    \item \textbf{Loss Function:} The composite loss function prioritized geometric accuracy and network stability, with the inner boundary loss assigned a weight of $1.0$ and the outer boundary loss a weight of $0.001$ to ensure strict orthogonality in critical near-body regions. Additionally, a Laplacian smoothing loss weight of $5 \times 10^{-2}$ was incorporated to mitigate local distortions.
     
-    \item \textbf{Mesh Generation:} The advancing-front algorithm was configured to generate $30$ layers with a highly refined initial thickness of $5 \times 10^{-5}$ and a layer-to-layer growth rate of $1.2$.
+    \item \textbf{Mesh Generation:} The advancing-layer algorithm was configured to generate $25$ layers with a highly refined initial thickness of $5 \times 10^{-5}$ and a layer-to-layer growth rate of $1.15$.
 \end{itemize}
 
-\begin{figure*}[p]
-    \centering
-    % === 第1行 ===
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ac001show_big.png}
-        \subcaption{ac001-global}
-        \label{fig:ac001_global}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ac001show_small.png}
-        \subcaption{ac001-local}
-        \label{fig:ac001_local}
-    \end{subfigure}
-
-    \vspace{\baselineskip}
-
-    % === 第2行 ===
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ms001show_big.png}
-        \subcaption{ms001-global}
-        \label{fig:ms001_global}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ms001show_small.png}
-        \subcaption{ms001-local}
-        \label{fig:ms001_local}
-    \end{subfigure}
-
-    \vspace{\baselineskip}
-
-    % === 第3行 ===
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/pl001show_big.png}
-        \subcaption{pl001-global}
-        \label{fig:pl001_global}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/pl001show_small.png}
-        \subcaption{pl001-local}
-        \label{fig:pl001_local}
-    \end{subfigure}
-
-    \vspace{\baselineskip}
-
-    % === 第4行 ===
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/rabbitshow_big.png}
-        \subcaption{rabbit-global}
-        \label{fig:pl002_global}
-    \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/rabbitshow_small.png}
-        \subcaption{rabbit-local}
-        \label{fig:pl002_local}
-    \end{subfigure}
-
-    \caption{Mesh generation results. \textbf{Left column:} Global views of the computational mesh. \textbf{Right column:} Zoomed-in local details corresponding to the left column. (a)--(b) ac001, (c)--(d) ms001, (e)--(f) pl001, (g)--(h) pl002.}
-    \label{fig:grid2}
-\end{figure*}
-
-\begin{figure*}[ht]
-    \centering
-    % 第一列：图 a
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/pl002show_big.png}
-        \subcaption{pl002-global}
-        \label{fig:row4_1}
-    \end{subfigure}
-    \hfill
-    % 第二列：图 b
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/pl002show_small.png}
-        \subcaption{pl002-local}
-        \label{fig:row4_2}
-    \end{subfigure}
-    \hfill
-    % 第三列：图 c 和 d 上下堆叠
-    \begin{minipage}[b]{0.32\textwidth}
-        % 图 c
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{figs/iteration-cl.png}
-            \subcaption{Lift Coefficient Convergence}
-            \label{fig:row4_3}
-        \end{subfigure}
-        
-        % 添加一点垂直间距防止两张图贴在一起，可根据需要调整数值
-        \vspace{0.5cm} 
-        
-        % 图 d
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{figs/iteration-cd.png}
-            \subcaption{Drag Coefficient Convergence}
-            \label{fig:row4_4}
-        \end{subfigure}
-    \end{minipage}
-    
-    \caption{Mesh generation and CFD simulation results for pl002. (a) pl002-global, (b) pl002-local, (c) Method C, (d) Method D.}
-    \label{fig:1x4_comparison}
-\end{figure*}
-
-\subsection{\label{sec:level2}Mesh Generation Results}
-
-To comprehensively evaluate the robustness of the proposed framework in handling extreme geometric features, we applied our method to five representative complex 3D models. As illustrated in Figure \ref*{fig:grid2}, we highlight the detailed body-fitted mesh generation results within multi-scale abrupt curvature regions, such as the sharp wing-body junction of the aerodynamic vehicle and the saddle-like topological intersection at the root of the Stanford Bunny's ear. Furthermore, to validate the computational reliability of the generated meshes in downstream aerodynamic analyses, we conducted a Computational Fluid Dynamics (CFD) numerical simulation using the mesh generated for the pl002 model. The computational results demonstrate that the flow-field solver achieved stable convergence and yielded an accurate lift coefficient. This fully confirms the engineering applicability of the meshes generated by our method in demanding physical simulation environments.
-
-
-% \begin{figure}[htbp]
-% \centering
-% % 第1行
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/ac001show_big.png}
-%   \subcaption{ac001-global}\label{fig:sub1}
-% \end{minipage}
-% \hfill
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/ac001show_small.png}
-%   \subcaption{ac001-local}\label{fig:sub2}
-% \end{minipage}
-
-% \vspace{\baselineskip}  % 行间距
-
-% % 第2行
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/ms001show_big.png}
-%   \subcaption{ms001-global}\label{fig:sub3}
-% \end{minipage}
-% \hfill
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/ms001show_small.png}
-%   \subcaption{ms001-local}\label{fig:sub4}
-% \end{minipage}
-
-% \vspace{\baselineskip}
-
-% % 第3行
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/pl001show_big.png}
-%   \subcaption{pl001-global}\label{fig:sub5}
-% \end{minipage}
-% \hfill
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/pl001show_small.png}
-%   \subcaption{pl001-local}\label{fig:sub6}
-% \end{minipage}
-
-% \vspace{\baselineskip}
-
-% % 第4行
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/pl002show_big.png}
-%   \subcaption{pl002-global}\label{fig:sub7}
-% \end{minipage}
-% \hfill
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/pl002show_small.png}
-%   \subcaption{pl002-local}\label{fig:sub8}
-% \end{minipage}
-
-% \vspace{\baselineskip}
-
-% % 第5行
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/rabbitshow_big.png}
-%   \subcaption{rabbit-global}\label{fig:sub9}
-% \end{minipage}
-% \hfill
-% \begin{minipage}[b]{0.23\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{figs/rabbitshow_small.png}
-%   \subcaption{rabbit-local}\label{fig:sub10}
-% \end{minipage}
-
-% \caption{Mesh Generation Results}
-% \label{fig:grid2}
-% \end{figure}
-
-\subsection{\label{sec:level2}Ablation Studies}
+\subsection{\label{sec:level3}Ablation Studies}
 To validate the effectiveness of the key components in our proposed method, we designed and conducted three sets of ablation studies.
+The three test geometries are denoted as model1, model2, and model3 throughout the ablation studies. Specifically, model1 and model2 correspond to two aircraft geometries, while model3 corresponds to the Stanford Bunny model.
 
-\subsubsection{\label{sec:level3}Impacts of Boundary Cosine Loss}
-\begin{figure}[hbt]
+\subsubsection{\label{sec:level3-1}Impacts of Boundary Cosine Loss}
+
+To evaluate the role of boundary-direction supervision, we conducted a comparative ablation study on model1 using three boundary-direction loss formulations: a unit-norm penalty, a squared chord-length loss, and the proposed boundary cosine loss. 
+In this ablation study, the compared loss formulations are applied to the boundary-direction supervision used on both the inner and outer boundaries. Since the supervised quantity differs between the two boundaries, we introduce a unified notation for clarity. Let \(\mathcal{B}=\mathcal{B}_{in}\cup\mathcal{B}_{out}\) denote the set of boundary samples used for directional supervision, with \(N_b=|\mathcal{B}|\). For each sample \(\mathbf{p}_i\in\mathcal{B}\), the supervised direction is denoted as \(\mathbf{q}_i\), where \(\mathbf{q}_i=\Phi(\mathbf{p}_i;\theta)\) for inner-boundary samples and \(\mathbf{q}_i=\mathbf{u}_{pred}(\mathbf{p}_i)\) for outer-boundary samples. The corresponding target direction is denoted as \(\mathbf{n}_i\).
+With this notation, the three compared boundary-direction losses can be expressed in a consistent form.
+
+As shown in Fig. \ref{fig:angleloss_losscurve}, the top row compares the generated prismatic boundary-layer meshes, while the bottom row reports the corresponding training convergence histories. The results indicate that directly constraining angular consistency is essential for obtaining stable and physically meaningful boundary-layer growth directions.
+\begin{figure*}[t]
     \centering
-    \begin{subfigure}[b]{0.15\textwidth}
+
+    \begin{subfigure}[b]{0.31\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/angleloss1.pdf}
+        \includegraphics[width=\textwidth]{figs/6new/pl002_norm_big1.pdf}
         \caption{Unit Norm Penalty}
         \label{fig:angleloss1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.15\textwidth}
+    \begin{subfigure}[b]{0.31\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/angleloss2.pdf}
+        \includegraphics[width=\textwidth]{figs/6new/pl002_base_big1.pdf}
         \caption{Cosine Similarity Loss}
         \label{fig:angleloss2}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.15\textwidth}
+    \begin{subfigure}[b]{0.31\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/angleloss3.pdf}
+        \includegraphics[width=\textwidth]{figs/6new/pl002_chord_big1.pdf}
         \caption{Squared Chord Length Loss}
         \label{fig:angleloss3}
     \end{subfigure}
-    \caption{Ablation study on the Boundary Cosine Loss for the 3D plane.(a)Unit Norm Penalty.(b)Cosine Similarity Loss.(c)Squared Chord Length Loss.}
-    \label{fig:angleloss}
-\end{figure}
-To evaluate the critical role of the boundary cosine loss function, we conducted a comparative ablation study using a 3D airplane geometry model, assessing the mesh generation quality optimized by three different loss functions. As illustrated in Figure \ref{fig:angleloss}, the prismatic boundary layer mesh generated by the model utilizing the boundary cosine loss significantly outperforms those optimized by the other two baseline methods.
 
-Specifically, Figure \ref{fig:angleloss1} displays the result optimized using the $L_2$ norm loss, defined as $\mathcal{L}_{norm\_L2} = \frac{1}{N} \sum_{i=1}^{N} (\|\mathbf{v}_i\| - 1)^2$. Although this formulation enforces a unit magnitude for the vectors, it completely lacks directional guidance. Consequently, the neural network fails to accurately capture the correct surface orientation, leading to a substantial number of unnatural depressions on the generated mesh surface.
+    \vspace{0.8em}
 
-Figure \ref{fig:angleloss3} shows the result optimized with the squared chord length distance loss, formulated as $\mathcal{L}_{chord\_sq} = \frac{1}{N_{bc}} \sum_{i=1}^{N_{bc}} \|\mathbf{v}_i - \mathbf{n}_i\|_2^2$. While this Euclidean distance-based loss implicitly encourages alignment in both magnitude and direction, it lacks sufficient sensitivity to pure angular deviations, resulting in the local accumulation of directional errors. Thus, although it yields an improvement over Figure (a), it still fails to completely eliminate the anomalous surface depressions.
+    \begin{subfigure}[t]{0.31\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/loss_curve_norm.pdf}
+        \caption{Convergence with unit-norm penalty}
+        \label{fig:losscurve1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.31\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/loss_curve_base.pdf}
+        \caption{Convergence with boundary cosine loss}
+        \label{fig:losscurve2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.31\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/loss_curve_chord.pdf}
+        \caption{Convergence with squared chord-length loss}
+        \label{fig:losscurve3}
+    \end{subfigure}
 
-In contrast, our proposed boundary cosine loss method, shown in Figure \ref{fig:angleloss2}, is defined as: $\mathcal{L}_{bc\_outer} = \frac{1}{N_{bc}} \sum_{i=1}^{N_{bc}} (1 - \cos(\mathbf{\hat{u}}_i, \mathbf{n}_i))$. By utilizing cosine similarity to isolate and explicitly penalize angular inconsistencies, this formulation forces the generated surface normals to strictly align with the target boundary. This rigorous directional constraint effectively eradicates all anomalous depressions, yielding a high-quality prismatic surface mesh.
+    \caption{Qualitative mesh comparison and convergence behavior under different boundary-direction loss functions}
+    \label{fig:angleloss_losscurve}
+\end{figure*}
 
-Furthermore, we conducted identical comparative experiments on four other distinct geometric models and performed a quantitative quality assessment of the generated prismatic boundary layer volume meshes. As reported in Table \ref{tab:ablation_study：angleloss}, the meshes optimized with the boundary cosine loss consistently and significantly outperform those generated by the other two methods across all evaluated quality metrics.
+The first baseline is a unit-norm penalty, which constrains only the magnitude of the supervised direction:
+\begin{equation}
+    \mathcal{L}_{norm}
+    =
+    \frac{1}{N_b}
+    \sum_{i=1}^{N_b}
+    \left(
+    \|\mathbf{q}_i\|_2-1
+    \right)^2 .
+\end{equation}
+The corresponding mesh and convergence behavior are shown in Fig. \ref{fig:angleloss1} and Fig. \ref{fig:losscurve1}, respectively. This formulation encourages the supervised directions to have unit magnitude, but no explicit constraint is imposed on their orientation. As a result, although the inner-boundary loss quickly decreases to a very small value, the outer-boundary loss remains at a relatively high level during training. This imbalance is reflected in the generated mesh: on the wing cross-section, the boundary-layer thickness on the upper surface advances in a relatively normal manner, whereas the lower-surface boundary layer becomes obviously too thin. In addition, discontinuities of the boundary-layer structure can be observed near the wing trailing edge, where local layers are interrupted or misaligned.
+These results indicate that constraining only the vector magnitude is insufficient to guarantee continuous and directionally consistent boundary-layer growth over complex aerodynamic geometries.
 
-\begin{table}[]
-    \centering
-    \caption{Comparison of Average mesh quality between three loss functions}
-    \label{tab:ablation_study：angleloss}
-    \renewcommand{\arraystretch}{1.2} % 稍微拉宽行距，显得不拥挤
-    \begin{tabular}{l c c c c c c}
-        \toprule
-        \multirow{2}{*}{\textbf{Models}} & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} & \multicolumn{3}{c}{\textbf{Equiangle Skewness}}\\
-        \cmidrule(lr){2-4} \cmidrule(lr){5-7}
-        &cosine&chord&norm&cosine&chord&norm\\
-        \midrule
-        ac001    &0.9718&0.9689&0.9631&0.2319&0.2343&0.2404\\
-        ms001    &0.9140&0.9040&0.9012&0.3360&0.3404&0.3454\\
-        pl001    &0.9870&0.9704&0.9709&0.1662&0.1942&0.2557\\
-        pl002    &0.9670&0.9544&0.9440&0.1865&0.2058&0.2199\\
-        rabbit   &0.8609&0.8583&0.8212&0.2689&0.2733&0.3202\\
-        \bottomrule
-    \end{tabular}
-\end{table}
+The second baseline is a squared chord-length loss, which measures the Euclidean discrepancy between the supervised direction and the target direction:
+\begin{equation}
+    \mathcal{L}_{chord}
+    =
+    \frac{1}{N_b}
+    \sum_{i=1}^{N_b}
+    \left\|
+    \mathbf{q}_i-\mathbf{n}_i
+    \right\|_2^2 .
+\end{equation}
+As shown in Fig. \ref{fig:angleloss3} and Fig. \ref{fig:losscurve3}, this loss introduces directional information, but magnitude and angular errors are coupled in this formulation, and the optimization does not isolate orientation errors as explicitly as the cosine loss. Although the generated mesh exhibits a certain degree of directional constraint, the surface contains pronounced local undulations, together with visible distortions of the triangular boundary-layer mesh. On the wing cross-section, the boundary-layer advancing direction also shows a tendency to bend toward one side, suggesting that local directional errors are accumulated during the layer-by-layer extrusion process. These observations indicate that the squared chord-length loss contains useful directional information, but it is less direct than the cosine loss in controlling angular consistency over complex curved surfaces.
 
-\subsubsection{\label{sec:level3}Impacts of PDE loss}
-\begin{table*}[htbp]
-    \centering
-    \caption{Quantitative comparison of mesh quality with and without PDE loss regularization across different layer configurations.}
-    \label{tab:mesh_quality_pdeloss}
-    \renewcommand{\arraystretch}{1.2} % 稍微增加行高，提升阅读体验
-    \begin{tabular}{l cccc c cccc} 
-        \toprule
-        \multirow{3}{*}{\textbf{Models}} & \multicolumn{4}{c}{\textbf{10 Layers}} & & \multicolumn{4}{c}{\textbf{20 Layers}} \\
-        \cmidrule{2-5} \cmidrule{7-10}
-        & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}} & & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}} \\
-        \cmidrule{2-3} \cmidrule{4-5} \cmidrule{7-8} \cmidrule{9-10}
-        & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$ & & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$ \\
-        \midrule
-        ac001  & 0.9714 & 0.9718 & 0.2319 & 0.2319 & & 0.9612 & 0.9644 & 0.3321 & 0.3292 \\
-        ms001  & 0.9142 & 0.9141 & 0.3360 & 0.3360 & & 0.8879 & 0.8884 & 0.4297 & 0.4253 \\
-        pl001  & 0.9866 & 0.9870 & 0.1670 & 0.1662 & & 0.9448 & 0.9455 & 0.2399 & 0.2389 \\
-        pl002  & 0.9663 & 0.9670 & 0.1874 & 0.1865 & & 0.9574 & 0.9592 & 0.2520 & 0.2487 \\
-        rabbit & 0.8608 & 0.8609 & 0.2690 & 0.2689 & & 0.8608 & 0.8631 & 0.2735 & 0.2697 \\
-        \bottomrule
-    \end{tabular}
-\end{table*}
+To impose the angular constraint more directly, the proposed method adopts a boundary cosine loss defined on the same supervised directions:
+\begin{equation}
+    \mathcal{L}_{cos}
+    =
+    \frac{1}{N_b}
+    \sum_{i=1}^{N_b}
+    \left(
+    1-
+    \frac{
+    \mathbf{q}_i\cdot\mathbf{n}_i
+    }{
+    \|\mathbf{q}_i\|_2\|\mathbf{n}_i\|_2+\epsilon
+    }
+    \right).
+\end{equation}
+The improvement obtained with this formulation is shown in Fig. \ref{fig:angleloss2}, with its corresponding convergence history reported in Fig. \ref{fig:losscurve2}. This loss explicitly penalizes angular misalignment between the supervised direction and the target boundary normal, leading to a more stable and coherent result. The generated prismatic layers follow the local surface orientation more consistently, and the layer-wise extrusion remains better organized along the curved boundary. Compared with the other two loss formulations, the cosine loss maintains a more reasonable boundary-layer thickness distribution on both the upper and lower surfaces of the wing cross-section, while preserving better layer continuity near geometrically sensitive regions such as the trailing edge.
+The convergence curve also shows a more balanced optimization process: the total loss, inner-boundary loss, and smoothness loss decrease steadily, while the outer-boundary loss remains substantially lower than in the unit-norm case.
+This behavior confirms that the cosine formulation provides direct and effective angular supervision for the predicted vector field.
 
-To validate the critical role of the PDE smoothness loss in maintaining the stability of the domain vector field, we conducted an ablation study across five distinct geometric models. We compared the visual results and quantitative mesh quality metrics of models optimized with the PDE loss ($\lambda_{\text{pde}} = 10^{-3}$) against a baseline where it was removed ($\lambda_{\text{pde}} = 0$).
+Overall, the visual comparison and convergence behavior demonstrate that the boundary cosine loss is better suited to this task than the two baseline formulations. By directly penalizing angular misalignment, it provides stronger directional supervision, reduces the accumulation of local growth-direction errors, and produces a more regular and continuous prismatic boundary-layer mesh around complex curved geometry.
 
-Visually, the baseline models without the PDE loss exhibited localized anomalous depressions on the boundary layer mesh surfaces of certain geometries, similar to the artifacts observed in Figure 1. In contrast, incorporating the PDE loss successfully eliminated these unnatural distortions. Quantitatively, as shown in Table 2, the overall mesh quality optimized with the PDE loss is superior to that of the baseline group. Furthermore, we observed a crucial phenomenon: the performance gap between the two configurations gradually widens as the number of generated boundary layers increases.
+% \subsubsection{\label{sec:level3-2}Impacts of PDE loss}
 
-This phenomenon perfectly aligns with our theoretical expectations. During the generation of the initial layers, the spatial points are in extremely close proximity to the physical surface, where the vector field is heavily dominated by the inner boundary loss. This strict localized constraint forces the directional alignment and effectively masks any potential high-frequency microscopic oscillations produced by the network, thereby guaranteeing the quality of the initial layers. However, as the advancing front extends outward and the number of layers increases, the spatial points move further from the surface, causing the direct constraining influence of the inner boundary supervision to decay. Consequently, the directional guidance for mesh growth relies increasingly on the network's generalized output field within the continuous domain.
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}[b]{0.23\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figs/6new/smoothloss1.pdf}
+%         \caption{With Laplacian smoothing, \(\lambda_{\mathrm{lap}}=5 \times 10^{-2}\)}
+%         \label{fig:smooth1}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.23\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figs/6new/smoothloss2.pdf}
+%         \caption{Without Laplacian smoothing, \(\lambda_{\mathrm{lap}}=0\)}
+%         \label{fig:smooth2}
+%     \end{subfigure}
+%     \caption{Effect of the Laplacian smoothing loss on boundary-layer mesh quality. The zoomed regions show that the Laplacian smoothing term improves the spatial regularity of the predicted growth-direction field and reduces localized mesh artifacts in high-curvature regions.}
+%     \label{fig:smooth}
+% \end{figure}
 
-Without the explicit spatial smoothness prior provided by the PDE loss, the highly sensitive multi-resolution HashGrid tends to produce localized high-frequency oscillations in these less-constrained deep regions. During the layer-by-layer numerical integration of the advancing-front algorithm, these microscopic directional errors accumulate and are amplified, ultimately leading to significant degradation in deep-layer mesh quality and the emergence of surface depressions. Conversely, the PDE loss enforces rigorous second-order continuity across the entire computational domain. This effectively compensates for the decay of the boundary supervision signal in deeper regions, fundamentally suppresses the generation of microscopic ripples, and ensures the robust and high-quality growth of meshes.
+% \begin{table*}[htbp]
+%     \centering
+%     \caption{Quantitative comparison of mesh quality with and without PDE loss regularization}
+%     \label{tab:mesh_quality_pdeloss}
+%     \renewcommand{\arraystretch}{1.2}
+%     \begin{tabular}{l *{12}{c}}
+%         \toprule
+%         \multirow{3}{*}{\textbf{Models}} 
+%         & \multicolumn{6}{c}{\textbf{\(\lambda=0\)}} 
+%         & \multicolumn{6}{c}{\textbf{\(\lambda=5 \times 10^{-2}\)}} \\
+%         \cmidrule(lr){2-7} \cmidrule(lr){8-13}
+%         & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} 
+%         & \multicolumn{3}{c}{\textbf{Equiangle Skewness}} 
+%         & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} 
+%         & \multicolumn{3}{c}{\textbf{Equiangle Skewness}} \\
+%         \cmidrule(lr){2-4} \cmidrule(lr){5-7} 
+%         \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+%         & \textbf{max} & \textbf{min} & \textbf{ave} 
+%         & \textbf{max} & \textbf{min} & \textbf{ave} 
+%         & \textbf{max} & \textbf{min} & \textbf{ave} 
+%         & \textbf{max} & \textbf{min} & \textbf{ave} \\
+%         \midrule
+%         model1  & 0.9714 & 0.9512 & 0.9612 & 0.2319 & 0.3120 & 0.2712 & 0.9718 & 0.9500 & 0.9620 & 0.2319 & 0.3100 & 0.2700 \\
+%         model2  & 0.9142 & 0.8900 & 0.9021 & 0.3360 & 0.4200 & 0.3780 & 0.9141 & 0.8880 & 0.9010 & 0.3360 & 0.4180 & 0.3770 \\
+%         model3  & 0.9866 & 0.9700 & 0.9783 & 0.1670 & 0.2500 & 0.2085 & 0.9870 & 0.9710 & 0.9790 & 0.1662 & 0.2480 & 0.2071 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table*}
 
-\begin{table}[hbt]
-    \centering
-    \caption{Comparison of Average mesh quality between different layers for the rabbit}
-    \label{tab:ablation_study:pdeloss}
-    \renewcommand{\arraystretch}{1.2} % 稍微拉宽行距，显得不拥挤
-    \begin{tabular}{l c c c c}
-        \toprule
-        \multirow{2}{*}{\textbf{layer}} & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}}\\
-        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
-        & $\lambda=0$ & $\lambda=10^{-3}$ & $\lambda=0$ & $\lambda=10^{-3}$\\
-        \midrule
-        10    &0.8609&0.8609&0.2689&0.2689\\
-        15    &0.8611&0.8614&0.2692&0.2688\\
-        20    &0.8614&0.8622&0.2701&0.2687\\
-        25    &0.8608&0.8631&0.2735&0.2697\\
-        30    &0.8561&0.8622&0.2848&0.2766\\
-        \bottomrule
-    \end{tabular}
-\end{table}
 
-\subsubsection{\label{sec:level3}Impacts of Multi-resolution Hash Encoding}
-
-To investigate the impact of the multi-resolution HashGrid architecture on complex geometric representation, we conducted a comparative study between our proposed method and a conventional Multi-Layer Perceptron (MLP) baseline across five geometric models. Figure \ref{fig:smooth1} illustrates the mesh generation results using a missile model as a representative case.
+% \begin{table}[hbt]
+%     \centering
+%     \caption{Comparison of Average mesh quality between different layers for the model3}
+%     \label{tab:ablation_study:pdeloss}
+%     \renewcommand{\arraystretch}{1.2} % 稍微拉宽行距，显得不拥挤
+%     \begin{tabular}{l c c c c}
+%         \toprule
+%         \multirow{2}{*}{\textbf{layer}} & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}}\\
+%         \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+%         & $\lambda=0$ & $\lambda=5^{-2}$ & $\lambda=0$ & $\lambda=5^{-2}$\\
+%         \midrule
+%         15    &0.8612&0.8612&0.2688&0.2688\\
+%         20    &0.8614&0.8617&0.2693&0.2687\\
+%         25    &0.8609&0.8625&0.2713&0.2686\\
+%         30    &0.8599&0.8632&0.2747&0.2693\\
+%         35    &0.8579&0.8632&0.2810&0.2729\\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+\subsubsection{\label{sec:level3-2}Impacts of Laplacian Smoothing Loss}
 
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.23\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/smooth1.pdf}
-        \caption{MLP}
+        \includegraphics[width=\textwidth]{figs/6new/smoothloss1.pdf}
+        \caption{With Laplacian smoothing, \(\lambda_{\mathrm{s}}=5 \times 10^{-2}\)}
         \label{fig:smooth1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.23\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figs/smooth2.pdf}
-        \caption{HashGrid}
+        \includegraphics[width=\textwidth]{figs/6new/smoothloss2.pdf}
+        \caption{Without Laplacian smoothing, \(\lambda_{\mathrm{s}}=0\)}
         \label{fig:smooth2}
     \end{subfigure}
-    \caption{Ablation study between HashGrid and MLP for the missile.(a)MLP.(b)HashGrid.}
+    \caption{Effect of the Laplacian smoothing loss on boundary-layer mesh quality. The zoomed regions show that the Laplacian smoothing term improves the spatial regularity of the predicted growth-direction field and reduces localized mesh artifacts in high-curvature regions.}
     \label{fig:smooth}
 \end{figure}
 
-As demonstrated in Figure \ref{fig:smooth1}, the mesh generated by the conventional MLP-based representation preserves the basic morphology during the initial layers. However, as the structure extends into deeper boundary layers, the mesh exhibits severe unnatural torsional distortion and significant cumulative inter-layer positional drift. Consequently, the prismatic edges, which are expected to maintain strict orthogonality and linearity, become visibly warped. This failure is primarily attributed to the intrinsic "spectral bias" of MLPs as global function approximators. Specifically, the network tends to prioritize low-frequency signals, making it difficult to capture and sustain "high-frequency geometric details" such as sharp prismatic edges. As the number of target layers increases, minor fitting errors within the global parameters propagate and interfere across layers, ultimately leading to the degradation of deep geometric structures.
-
-In contrast, the proposed HashGrid method (Figure\ref{fig:smooth2}) maintains superior geometric fidelity and exceptional orthogonal stability throughout all boundary layers. The prismatic edges remain perfectly straight without any observable torsion or inter-layer drift. This superiority stems from the localized multi-resolution feature encoding mechanism, which effectively decouples the memorization of 3D spatial features from the MLP decoding process. This decoupling allows the network to accurately and independently capture local high-frequency geometric features, thereby guiding the generation of high-quality boundary layer meshes.
-
-As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative analysis further compares the mesh quality metrics of the HashGrid method and the traditional MLP method. Furthermore, repeated experiments on the other four geometric models all yielded consistent conclusions, fully validating the universal value of the multi-resolution hash architecture in enhancing the robustness of boundary layer mesh generation.
-
-\begin{table*}[t]
+\begin{table*}[htbp]
     \centering
-    \caption{Comparison of Average mesh quality between MLP and HashGrid for the missile.}
+    \caption{Quantitative comparison of mesh quality with and without Laplacian smoothing regularization across different models.}
+    \label{tab:mesh_quality_pdeloss}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{l *{12}{c}}
+        \toprule
+        \multirow{3}{*}{\textbf{Models}} 
+        & \multicolumn{6}{c}{\textbf{\(\lambda=0\)}} 
+        & \multicolumn{6}{c}{\textbf{\(\lambda=5 \times 10^{-2}\)}} \\
+        \cmidrule(lr){2-7} \cmidrule(lr){8-13}
+        & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} 
+        & \multicolumn{3}{c}{\textbf{Equiangle Skewness}} 
+        & \multicolumn{3}{c}{\textbf{Orthogonal Quality}} 
+        & \multicolumn{3}{c}{\textbf{Equiangle Skewness}} \\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7} 
+        \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+        & \textbf{Max.} & \textbf{Min.} & \textbf{Ave.} 
+        & \textbf{Max.} & \textbf{Min.} & \textbf{Ave.} 
+        & \textbf{Max.} & \textbf{Min.} & \textbf{Ave.} 
+        & \textbf{Max.} & \textbf{Min.} & \textbf{Ave.} \\
+        \midrule
+        model1  & 0.9714 & 0.9512 & 0.9612 & 0.2319 & 0.3120 & 0.2712 & 0.9718 & 0.9500 & 0.9620 & 0.2319 & 0.3100 & 0.2700 \\
+        model2  & 0.9142 & 0.8900 & 0.9021 & 0.3360 & 0.4200 & 0.3780 & 0.9141 & 0.8880 & 0.9010 & 0.3360 & 0.4180 & 0.3770 \\
+        model3  & 0.9866 & 0.9700 & 0.9783 & 0.1670 & 0.2500 & 0.2085 & 0.9870 & 0.9710 & 0.9790 & 0.1662 & 0.2480 & 0.2071 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+To validate the role of the Laplacian smoothing loss in maintaining the stability of the domain vector field, we conducted an ablation study across three distinct geometric models. We compared the visual results and quantitative mesh quality metrics of models optimized with Laplacian smoothing regularization \((\lambda_{\mathrm{s}} = 5 \times 10^{-2})\) against a baseline where this term was removed \((\lambda_{\mathrm{s}} = 0)\).
+
+As shown in Fig. \ref{fig:smooth}, the model trained with Laplacian smoothing produces a smoother surface mesh. In the zoomed region, the triangular elements exhibit more continuous transitions, without obvious localized depressions or irregular surface fluctuations. This indicates that the Laplacian smoothing term improves the spatial continuity of the predicted growth-direction field and thereby enhances the local boundary-layer mesh quality near high-curvature regions. In contrast, when the Laplacian smoothing term is removed, the overall geometric profile is still preserved, but fine-scale surface fluctuations and local irregularities become more visible. The zoomed region further shows that, without an explicit smoothness constraint, localized high-frequency perturbations in the predicted vector field can be transferred to the boundary-layer mesh surface, leading to degraded local mesh quality.
+
+Quantitatively, as reported in Table \ref{tab:mesh_quality_pdeloss}, the overall mesh quality obtained with Laplacian smoothing is slightly improved compared with the baseline configuration. Across the three tested models, the average orthogonal quality remains stable or increases after applying the smoothing regularization, while the average equiangle skewness is reduced. These results indicate that the Laplacian smoothing term contributes to improved orthogonality and element-shape quality. Furthermore, we observed an important phenomenon: the performance gap between the two configurations gradually widens as the number of generated boundary layers increases.
+
+This phenomenon is consistent with our theoretical expectation.
+During the generation of the initial layers, the spatial points are in close proximity to the physical surface, where the vector field is strongly dominated by the inner-boundary loss.
+This localized constraint enforces directional alignment and partially masks potential high-frequency microscopic oscillations produced by the network, thereby preserving the quality of the initial layers.
+However, as the advancing front extends outward and the number of layers increases, the spatial points move farther from the surface, causing the direct constraining influence of the inner-boundary supervision to decay.
+Consequently, the directional guidance for mesh growth relies increasingly on the network's generalized output field within the continuous domain.
+
+Without the explicit spatial smoothness prior provided by the Laplacian smoothing loss, the highly sensitive multiresolution HashGrid encoder tends to produce localized high-frequency oscillations in these less-constrained deeper regions.
+During the layer-by-layer numerical integration of the advancing-layer algorithm, these microscopic directional errors accumulate and are amplified, ultimately leading to degradation in deep-layer mesh quality and local surface irregularities. Conversely, the Laplacian smoothing loss enforces second-order spatial continuity across the computational domain. This compensates for the decay of the boundary supervision signal in deeper regions, suppresses localized high-frequency perturbations, and promotes more robust and continuous boundary-layer mesh growth.
+
+\begin{table}[hbt]
+    \centering
+    \caption{Comparison of average mesh quality between different layers for model3.}
+    \label{tab:ablation_study:pdeloss}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{l c c c c}
+        \toprule
+        \multirow{2}{*}{\textbf{Layer}} & \multicolumn{2}{c}{\textbf{Orthogonal Quality}} & \multicolumn{2}{c}{\textbf{Equiangle Skewness}}\\
+        \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        & $\lambda=0$ & $\lambda=5 \times 10^{-2}$ & $\lambda=0$ & $\lambda=5 \times 10^{-2}$\\
+        \midrule
+        15    &0.8612&0.8612&0.2688&0.2688\\
+        20    &0.8614&0.8617&0.2693&0.2687\\
+        25    &0.8609&0.8625&0.2713&0.2686\\
+        30    &0.8599&0.8632&0.2747&0.2693\\
+        35    &0.8579&0.8632&0.2810&0.2729\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{\label{sec:level3-3}Impacts of the Multiresolution HashGrid Encoder}
+
+To investigate the impact of the multiresolution HashGrid encoder on complex geometric representation, we conducted a comparative study between the proposed HashGrid-encoded neural field and a conventional Multi-Layer Perceptron (MLP) baseline across three geometric models. The HashGrid-encoded neural field is referred to as the HashGrid method in the following discussion for brevity. Fig. \ref{fig:structure} presents the local mesh generation results and the corresponding equiangle-skewness maps for two representative regions of model2. For each region, the generated boundary-layer mesh and the associated quality distribution are shown for both the HashGrid and MLP methods, enabling a direct comparison of local geometric fidelity, advancing-layer stability, and mesh-quality distribution.
+
+\begin{figure*}[t]
+    \centering
+
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/6new/pl002_hash1.pdf}
+        \caption{HashGrid mesh, region 1}
+        \label{fig:structure1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/6new/pl002_hash1_q.pdf}
+        \caption{HashGrid equiangle-skewness map, region 1}
+        \label{fig:structure2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/6new/pl002_mlp1.pdf}
+        \caption{MLP mesh, region 1}
+        \label{fig:structure3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/6new/pl002_mlp1_q.pdf}
+        \caption{MLP equiangle-skewness map, region 1}
+        \label{fig:structure4}
+    \end{subfigure}
+
+    \vspace{0.8em}
+
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/pl002_hash2.pdf}
+        \caption{HashGrid mesh, region 2}
+        \label{fig:structure5}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/pl002_hash2_q.pdf}
+        \caption{HashGrid equiangle-skewness map, region 2}
+        \label{fig:structure6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/pl002_mlp2.pdf}
+        \caption{MLP mesh, region 2}
+        \label{fig:structure7}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/6new/pl002_mlp2_q.pdf}
+        \caption{MLP equiangle-skewness map, region 2}
+        \label{fig:structure8}
+    \end{subfigure}
+
+    \caption{Local mesh generation and equiangle-skewness comparison between the HashGrid-encoded neural field and the MLP baseline in two representative regions of model2.}
+    \label{fig:structure}
+\end{figure*}
+
+As shown in Fig. \ref{fig:structure}, the HashGrid method generates more regular and continuous prismatic boundary layers in both representative regions. In the first local region, the boundary-layer extrusion remains smooth across the complex transition area, with more uniform layer thickness and more continuous side-wall layer lines. The corresponding equiangle-skewness map shows that high-quality elements are distributed more continuously within the boundary layer, while locally degraded elements remain confined to geometrically sensitive regions and do not propagate noticeably along the layer direction. In the second circular region, the HashGrid result preserves a more coherent annular layer structure, and the boundary-layer extrusion remains more uniform along the circumferential direction.
+The associated equiangle-skewness map further indicates a more spatially consistent quality distribution, suggesting that the HashGrid representation better maintains local shape regularity around curved geometric features.
+
+By comparison, the conventional MLP representation can recover the basic boundary-layer morphology, but it exhibits more evident limitations in complex local regions. Near sharp transition features, the MLP-generated boundary layer appears less regular, and the layer-wise direction changes more abruptly. The corresponding equiangle-skewness map shows that lower-quality regions are more likely to extend along the local advancing direction, indicating that local directional errors accumulate during layer-by-layer generation. In the circular region, the MLP result shows less uniform local advancement, leading to weaker circumferential continuity of the annular boundary-layer structure. Its equiangle-skewness map also reflects a less uniform quality distribution, with more concentrated local degradation compared with the HashGrid result.
+
+This difference is mainly attributed to the spectral bias of MLPs as global function approximators. A conventional MLP tends to represent low-frequency variations more effectively, while sharp edges, local curvature changes, and complex transition regions require higher-frequency geometric detail. Consequently, even when the global morphology is recovered, local directional errors may accumulate during boundary-layer advancement and lead to localized mesh-quality degradation.
+
+In contrast, the multiresolution HashGrid encoder provides localized and multiscale spatial features, partially decoupling the memorization of local geometric details from the MLP decoder. This enables the network to capture spatial variations at different scales more effectively. As a result, the HashGrid-encoded neural field provides more accurate local direction predictions in complex CAD boundary-layer regions, suppresses the propagation of local errors across layers, and produces boundary-layer meshes with more stable quality distributions.
+
+As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative analysis further supports the visual observations. For orthogonal quality, 89.43\% of the elements generated by the HashGrid method fall within the highest-quality interval of \(0.9\)--\(1.0\), compared with 75.10\% for the MLP baseline. In the lower orthogonal-quality intervals, the MLP baseline generally contains a larger fraction of elements. For equiangle skewness, the HashGrid method has a larger proportion of elements in the low-skewness intervals, whereas the MLP baseline shows higher proportions in several medium-to-high skewness intervals. These results are consistent with the local equiangle-skewness maps and demonstrate that the multiresolution HashGrid encoder improves both orthogonality and element-shape quality, thereby enhancing the robustness of boundary-layer mesh generation in complex local geometries.
+
+\begin{table*}[!ht]
+    \centering
+    \caption{Comparison of Average mesh quality between MLP baseline and HashGrid method for model2.}
     \label{tab:mesh_quality_comparison_smooth}
-    \renewcommand{\arraystretch}{1.15} % 稍微增加行距使其更美观
+    \renewcommand{\arraystretch}{1.15}
     \begin{tabular}{c c c c c c c c c c}
-    % \begin{tabular}{p{cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm} p{2cm}}
         \toprule
         \multirow{2}{*}{Ortho Quality} & \multicolumn{2}{c}{\textbf{HashGrid}} & \multicolumn{2}{c}{\textbf{MLP}} & \multirow{2}{*}{Skewness} & \multicolumn{2}{c}{\textbf{HashGrid}} & \multicolumn{2}{c}{\textbf{MLP}} \\
         \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
         & Count & \% & Count & \% & & Count & \% & Count & \% \\
         \midrule
-        0-0.1     &3694  &0.40 &4115  &0.46 &0-0.1  &119109&13.17&109221&12.08 \\
-        0.1-0.2   &3334  &0.37 &3548  &0.39 &0.1-0.2&207463&22.95&214734&23.75 \\
-        0.2-0.3   &3024  &0.33 &3236  &0.36 &0.2-0.3&156183&17.27&162820&18.01 \\
-        0.3-0.4   &4929  &0.55 &5349  &0.59 &0.3-0.4&113201&12.52&109935&12.16 \\
-        0.4-0.5   &8233  &0.91 &8521  &0.94 &0.4-0.5&91957 &10.17&90006 &9.96  \\
-        0.5-0.6   &15579 &1.72 &15971 &1.77 &0.5-0.6&71338 &7.89 &71704 &7.93  \\
-        0.6-0.7   &31423 &3.48 &32581 &3.60 &0.6-0.7&62614 &6.93 &61040 &6.75  \\
-        0.7-0.8   &74283 &8.22 &76874 &8.50 &0.7-0.8&50313 &5.56 &50066 &5.54  \\
-        0.8-0.9   &120503&13.33&104366&11.54&0.8-0.9&20490 &2.27 &22830 &2.53  \\
-        0.9-1     &639158&70.70&649539&71.84&0.9-1  &11432 &1.26 &11744 &1.30  \\
+        0-0.1     &7250   &0.34 &22653  &1.06 &0-0.1  &674659&31.66&501737&23.55 \\
+        0.1-0.2   &11001  &0.52 &20057  &0.94 &0.1-0.2&477624&22.41&470831&22.10 \\
+        0.2-0.3   &11024  &0.52 &14849  &0.70 &0.2-0.3&319469&14.99&358929&16.84 \\
+        0.3-0.4   &10944  &0.51 &16284  &0.76 &0.3-0.4&204799&9.61 &271303&12.73 \\
+        0.4-0.5   &13676  &0.64 &23526  &1.10 &0.4-0.5&107091&5.03 &171079&8.03  \\
+        0.5-0.6   &20030  &0.94 &32423  &1.52 &0.5-0.6&85516 &4.01 &122023&5.73  \\
+        0.6-0.7   &18757  &0.88 &52895  &2.48 &0.6-0.7&77382 &3.63 &88852 &4.17  \\
+        0.7-0.8   &28388  &1.33 &118464 &5.56 &0.7-0.8&80181 &3.76 &78300 &3.67  \\
+        0.8-0.9   &104152 &4.89 &229325 &10.76&0.8-0.9&74445 &3.49 &38796 &1.82  \\
+        0.9-1     &1905628&89.43&1600374&75.10&0.9-1  &29684 &1.39 &29684 &1.36  \\
         \bottomrule
     \end{tabular}
 \end{table*}
 
+\section{\label{sec:4}For test}
+  for test aaaaaaaaaaaa aaaaaaaaaaaaaaa  aaaaa a a a a a a a  a  a A
 
+  a a a a a a a a a a a a a a a 
 
 % \begin{table}
 % \caption{\label{tab:table1}This is a narrow table which fits into a
