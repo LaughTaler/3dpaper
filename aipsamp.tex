@@ -83,10 +83,6 @@ nobibnotes,
 \begin{document}
 
 % 彻底禁用参考文献功能
-\renewcommand{\bibliography}[1]{}
-\renewcommand{\bibliographystyle}[1]{}
-\let\bibdata\relax
-
 \preprint{AIP/123-QED}
 
 \title[Sample title]{Sample Title:\\with Forced Linebreak}
@@ -109,21 +105,23 @@ Second institution and/or address%\\This line break forced% with \\
              %  but any date may be explicitly specified
 
 \begin{abstract}
-An article usually includes an abstract, a concise summary of the work
-covered at length in the main body of the article. It is used for
-secondary publications and for information retrieval purposes. 
+\textbf{The automated generation of high-quality anisotropic boundary-layer meshes remains a challenging problem for complex three-dimensional CAD geometries. Conventional advancing-layer and PDE-based smoothing methods rely heavily on hand-crafted normal-field construction or global field solves, which may become inefficient or unstable in regions with sharp curvature variations and concave-convex transitions. This paper presents a boundary-informed neural framework for generating 3D anisotropic prismatic boundary-layer meshes. The proposed method first constructs a Global Geometric Guidance Field (GGGF) from the CAD boundary using nearest-face search, barycentric normal interpolation, and inverse-distance fusion, providing a robust geometric prior for near-wall growth directions. A Multiresolution Boundary-Constrained Neural Field (MBCNF) equipped with a HashGrid encoder is then trained to learn a residual correction field over the computational domain. The final growth-direction field is obtained by coupling the GGGF with the learned residual through a distance-dependent modulation function, enforcing near-wall orthogonality while allowing adaptive correction away from the boundary. To suppress hash-induced high-frequency perturbations, the training objective combines boundary cosine losses with Laplacian smoothing regularization and a $C^2$-compatible interpolation kernel. The learned field is finally used to guide an advancing-layer procedure for prismatic mesh extrusion. Experiments on complex 3D geometries demonstrate that the proposed framework improves local geometric fidelity, directional smoothness, and boundary-layer mesh quality compared with baseline loss functions and conventional MLP representations.}
 \end{abstract}
 
 \maketitle
 
-\begin{quotation}
-The ``lead paragraph'' is encapsulated with the \LaTeX\ 
-\verb+quotation+ environment and is formatted as a single paragraph before the first section heading. 
-(The \verb+quotation+ environment reverts to its usual meaning after the first sectioning command.) 
-Note that numbered references are allowed in the lead paragraph.
-%
-The lead paragraph will only be found in an article being prepared for the journal \textit{Chaos}.
-\end{quotation}
+\section{\label{sec:introduction}Introduction}
+High-quality mesh generation is a fundamental prerequisite for reliable numerical simulation in computer-aided engineering. In viscous-flow and near-wall dominated problems, the mesh must contain highly anisotropic boundary-layer elements aligned with the wall-normal direction in order to resolve steep physical gradients while keeping the total element count manageable~\cite{baker2005mesh}. For complex CAD-derived configurations, this requirement is commonly addressed by hybrid meshes, where prismatic or hexahedral layers are generated near solid boundaries and the remaining volume is filled with unstructured elements~\cite{eller2016automated,wang2016hybrid}. Despite decades of development, the robust and automated construction of high-quality boundary-layer meshes remains difficult, particularly when the geometry contains sharp curvature changes, narrow gaps, concave-convex transitions, or multi-scale surface features.
+
+A key technical bottleneck in boundary-layer mesh generation is the construction of the growth-direction field that guides layer extrusion. Traditional methods typically rely on either global field construction or local smoothing. Global methods, including Laplacian, Eikonal, level-set, harmonic-field, and variational formulations, propagate boundary information into the computational domain in a mathematically coherent manner~\cite{zheng2018bem,wang2008eikonal,xia2010levelset,zhu2021harmonic,dyedov2009variational}. These methods can improve global smoothness, but they often require expensive numerical solves and may over-smooth local CAD features that are essential for preserving geometric fidelity. Local advancing-layer methods are computationally efficient and flexible, but their layer-by-layer decisions can accumulate directional errors, resulting in poor orthogonality, local depressions, interrupted layers, or invalid elements in geometrically sensitive regions~\cite{roget2020minimum,eller2016automated}.
+
+Recent advances in learning-based mesh generation suggest that neural networks can provide a flexible alternative for representing geometric fields~\cite{lei2024survey}. Boundary-informed neural formulations are particularly relevant to boundary-layer meshing because the wall-normal constraint is not merely a soft preference but a geometric requirement that should be enforced near the boundary~\cite{raissi2019pinn,sun2020physicsconstrained,anisoMeshNet}. However, directly learning a complete 3D growth-direction field with a conventional coordinate-based MLP is not ideal for complex CAD geometries. Standard MLPs tend to exhibit spectral bias, making them inefficient in representing localized high-frequency geometric variations~\cite{rahaman2019spectral}. Although Fourier features and sinusoidal representations improve high-frequency modeling~\cite{tancik2020fourier,sitzmann2020siren}, recent graphics research has shown that explicit or semi-explicit spatial feature structures can provide substantially stronger local representation capacity and faster convergence~\cite{yu2022plenoxels,sun2022dvgo,chen2022tensorf,muller2022instantngp}.
+
+Motivated by these observations, this paper proposes a boundary-informed neural framework for automated 3D anisotropic boundary-layer mesh generation. Instead of asking the neural network to infer the entire direction field from sparse boundary supervision, we first construct a Global Geometric Guidance Field (GGGF) from the inner CAD boundary. The GGGF is obtained through nearest-face search, barycentric interpolation of vertex normals, and inverse-distance fusion, thereby providing a stable geometric prior for boundary-layer growth. A Multiresolution Boundary-Constrained Neural Field (MBCNF) is then trained to predict a residual correction field. The residual is encoded by a multiresolution HashGrid representation, which provides local capacity for sharp curvature variations and concave-convex transitions. The final prediction is formulated as a boundary-informed composite field, where a distance-dependent modulation function suppresses the learned residual near the wall and gradually activates it away from the boundary.
+
+The proposed formulation is designed to satisfy three requirements that are critical for CAD-based boundary-layer meshing: boundary consistency, local geometric adaptability, and field smoothness. Boundary cosine losses enforce directional alignment on the inner and outer boundaries. A Laplacian smoothing loss regularizes the residual field in the domain interior, preventing grid-scale oscillations that may arise from high-capacity HashGrid features or weakly constrained far-field regions. In addition, a fifth-order smootherstep interpolation kernel is introduced in the HashGrid encoder to improve compatibility with second-order smoothness regularization. The resulting vector field is used to drive an advancing-layer procedure that generates anisotropic prismatic boundary-layer meshes.
+
+The main contributions of this work are summarized as follows. First, we introduce a boundary-informed neural framework for 3D anisotropic prismatic boundary-layer mesh generation over complex CAD geometries. Second, we construct a GGGF that embeds robust surface-normal information into the learning process and reduces the burden of neural field approximation. Third, we develop a HashGrid-encoded MBCNF with distance-modulated residual prediction, enabling local geometric expressiveness while preserving hard near-wall guidance. Fourth, we incorporate boundary cosine supervision and Laplacian smoothing regularization to improve directional consistency and suppress nonphysical local perturbations. Finally, experiments and ablation studies demonstrate the effectiveness of the proposed components in improving mesh regularity, local quality, and robustness in complex geometric regions.
 
 % \section{\label{sec:level1}First-level heading:\protect\\ The line
 % break was forced \lowercase{via} \textbackslash\textbackslash}
@@ -371,6 +369,26 @@ The lead paragraph will only be found in an article being prepared for the journ
 % This is typed to show the output is in wide format.
 % (Since there is no input line between \verb+\equation+ and
 % this paragraph, there is no paragraph indent for this paragraph.)
+\section{\label{sec:related_work}Related Work}
+The proposed method lies at the intersection of anisotropic boundary-layer mesh generation, boundary-informed neural field modeling, and efficient local geometric representation. This section first reviews classical boundary-layer meshing methods with emphasis on marching-normal construction, then discusses recent learning-based and boundary-informed mesh generation strategies, and finally summarizes neural field representations and multiresolution hash encoding, which provide the representational basis for the proposed growth-direction field.
+
+\subsection{\label{sec:rw_boundary_layer}Boundary-Layer Mesh Generation}
+High-quality boundary-layer meshes are essential in CFD and engineering simulations because near-wall viscous effects must be resolved by highly anisotropic elements aligned with the geometric boundary~\cite{baker2005mesh}. Classical mesh generation research has therefore focused on orthogonality, smoothness, and robustness of near-boundary elements. Early structured grid generation methods, including elliptic grid generation and Poisson-equation-based formulations, provided mathematically controlled mechanisms for improving boundary orthogonality~\cite{thompson1987elliptic,sorenson1980poisson}. However, their applicability is limited for complex CAD geometries with intricate topology, sharp features, and concave-convex transitions. For such configurations, unstructured hybrid meshes are more flexible, typically combining prismatic or hexahedral boundary-layer elements near the wall with tetrahedral elements in the remaining volume~\cite{eller2016automated,wang2016hybrid}.
+
+In unstructured boundary-layer meshing, the construction of a smooth and reliable marching-normal field is a central difficulty. Existing methods can be broadly divided into global and local strategies. Global methods usually formulate the marching direction field through PDE-governed or variational models, such as Laplacian, Eikonal, level-set, harmonic-field, or energy-minimization formulations~\cite{zheng2018bem,wang2008eikonal,xia2010levelset,zhu2021harmonic,dyedov2009variational}. These methods propagate boundary information into the volume in a mathematically coherent manner and can improve global smoothness and intersection avoidance. Nevertheless, they are often computationally expensive for large-scale surface meshes, and excessive global smoothing may suppress local CAD features that are important for boundary-layer fidelity. Local advancing-layer methods, in contrast, update extrusion directions layer by layer using neighborhood-based smoothing, heuristic corrections, or local quality functions~\cite{roget2020minimum,wang2016hybrid,eller2016automated}. These methods are efficient and flexible, but their dependence on local decisions can lead to accumulated directional errors, incomplete layers, degraded orthogonality, or invalid elements in high-curvature and concave regions.
+
+\subsection{\label{sec:rw_learning_mesh}Learning-Based and Boundary-Informed Mesh Generation}
+Recent advances in machine learning have introduced new possibilities for automated mesh generation~\cite{lei2024survey}. Supervised neural approaches have been used to predict node advancement directions or local grid sizes from existing mesh data~\cite{lu2022ann}, while reinforcement-learning-based methods formulate mesh generation as a sequential decision-making problem~\cite{kino2022drl}. Physics-informed and boundary-informed neural formulations provide another direction by embedding geometric or physical constraints into the loss function or the network output~\cite{raissi2019pinn,sun2020physicsconstrained}. These approaches are attractive for mesh generation because they can combine data-driven representation capacity with hard or soft geometric constraints.
+
+Ye et al. proposed AnisoMeshNet, a boundary-informed neural network framework for generating 2D semi-structured boundary-layer meshes~\cite{anisoMeshNet}. Their method constructs a K-nearest-neighbor-based geometric prior and trains a neural network to learn a smooth correction field under boundary constraints. This work indicates that neural fields can serve as flexible interpolators for boundary-driven mesh generation. However, most existing learning-based methods remain limited to structured grids or 2D settings, rely on preexisting mesh data, or do not fully address the generation of high-quality 3D anisotropic prismatic boundary layers over complex CAD geometries. Our work follows the boundary-informed philosophy but extends it to 3D anisotropic mesh generation by coupling a Global Geometric Guidance Field with a learned residual growth-direction field.
+
+\subsection{\label{sec:rw_hashgrid}Neural Field Representations and Multiresolution Hash Encoding}
+Neural implicit representations provide a compact framework for modeling continuous geometric or physical fields. Early works such as Occupancy Networks and DeepSDF showed that neural networks can represent 3D shapes as continuous occupancy or signed-distance functions~\cite{mescheder2019occupancy,park2019deepsdf}, while NeRF further demonstrated the expressive capability of coordinate-based MLPs for continuous 3D scene representation~\cite{mildenhall2020nerf}. However, standard coordinate-based MLPs are known to exhibit spectral bias, meaning that they tend to learn low-frequency components more easily than high-frequency spatial variations~\cite{rahaman2019spectral}. This limitation is problematic for CAD-derived boundary-layer meshing, where sharp curvature changes, local concave-convex transitions, and thin near-wall structures must be accurately represented. Fourier feature mappings and sinusoidal representation networks were proposed to improve the ability of MLPs to capture high-frequency signals, showing that suitable coordinate encodings and activation functions can substantially enhance fine-scale spatial representation~\cite{tancik2020fourier,sitzmann2020siren}.
+
+A major trend in graphics and geometry processing is to combine neural networks with explicit or semi-explicit spatial feature structures. Sparse voxel fields, PlenOctrees, Plenoxels, DVGO, and TensoRF demonstrate that learnable grid or tensor features can significantly improve training efficiency and local representation capacity compared with purely global MLPs~\cite{liu2020nsvf,yu2021plenoctrees,yu2022plenoxels,sun2022dvgo,chen2022tensorf}. Instant-NGP further introduced multiresolution hash encoding, where trainable feature vectors are stored in compact hash tables across multiple grid resolutions~\cite{muller2022instantngp}. This representation achieves strong local expressiveness with low memory cost, while the multiresolution hierarchy helps resolve ambiguities caused by hash collisions. Neuralangelo later showed that multiresolution hash grids are effective for high-fidelity surface reconstruction, especially when combined with smoothness-aware regularization~\cite{li2023neuralangelo}.
+
+In our work, multiresolution HashGrid encoding is used not for radiance-field rendering but for learning a smooth growth-direction field for CAD-derived anisotropic boundary-layer mesh generation. Compared with a conventional MLP, the HashGrid encoder provides stronger local capacity for sharp curvature variations and localized CAD features. To avoid nonphysical grid-scale perturbations introduced by high-capacity hash features, the learned residual field is coupled with the Global Geometric Guidance Field and regularized by a Laplacian smoothing loss. This formulation combines boundary consistency, local geometric expressiveness, and spatial smoothness, making it suitable for robust 3D prismatic boundary-layer mesh generation.
+
 \section{\label{sec:level1}Methodology}
 % \protect\\ 
 % The line
@@ -439,26 +457,6 @@ In the implementation, the number of neighboring faces is set to $K=20$.
 For each retrieved triangle, the closest projection point from $\mathbf{p}$ to the triangle is computed.
 The barycentric coordinates of this projected point are then used to interpolate the vertex normals of the corresponding triangle, yielding a local surface-normal estimate associated with that triangle.
 This triangle-wise interpolation is important for CAD-derived surface meshes because it avoids directly using discontinuous face normals and provides a smoother local estimate of the wall-normal direction.
-
-Let $\mathbf{q}_{i}$ denote the closest projection of $\mathbf{p}$ onto the $i$-th neighboring triangle, and let $d_i=\|\mathbf{p}-\mathbf{q}_{i}\|_2$ be the corresponding projection distance. The interpolated unit normal obtained from the barycentric coordinates on this triangle is denoted as $\mathbf{n}_{i}(\mathbf{p})$. The final guidance direction is obtained by inverse-distance weighting:
-\begin{equation}
-    w_i(\mathbf{p}) =
-    \frac{(d_i+\epsilon)^{-1}}
-    {\sum_{j=1}^{K}(d_j+\epsilon)^{-1}},
-    \label{eq:gggf_weight}
-\end{equation}
-\begin{equation}
-    \mathbf{u}_{gggf}(\mathbf{p}) =
-    \frac{\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})}
-    {\left\|\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})\right\|_2+\epsilon}.
-    \label{eq:gggf_normal}
-\end{equation}
-The distance variable used by the subsequent boundary modulation is computed consistently as the weighted projection distance:
-\begin{equation}
-    d(\mathbf{p}) = \sum_{i=1}^{K} w_i(\mathbf{p}) d_i .
-    \label{eq:gggf_distance}
-\end{equation}
-Compared with a single nearest-face projection, this $K$-neighbor inverse-distance fusion is less sensitive to local triangulation irregularities or isolated noisy faces, while still preserving the local geometric characteristics of high-curvature and concave-convex regions. As a result, the GGGF provides a stable and physically meaningful baseline direction for the subsequent neural residual learning stage.
 
 \begin{center}
     \begin{minipage}{0.96\columnwidth}
@@ -548,6 +546,27 @@ Compared with a single nearest-face projection, this $K$-neighbor inverse-distan
     \hrule height 0.8pt
     \end{minipage}
 \end{center}
+
+
+Let $\mathbf{q}_{i}$ denote the closest projection of $\mathbf{p}$ onto the $i$-th neighboring triangle, and let $d_i=\|\mathbf{p}-\mathbf{q}_{i}\|_2$ be the corresponding projection distance. The interpolated unit normal obtained from the barycentric coordinates on this triangle is denoted as $\mathbf{n}_{i}(\mathbf{p})$. The final guidance direction is obtained by inverse-distance weighting:
+\begin{equation}
+    w_i(\mathbf{p}) =
+    \frac{(d_i+\epsilon)^{-1}}
+    {\sum_{j=1}^{K}(d_j+\epsilon)^{-1}},
+    \label{eq:gggf_weight}
+\end{equation}
+\begin{equation}
+    \mathbf{u}_{gggf}(\mathbf{p}) =
+    \frac{\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})}
+    {\left\|\sum_{i=1}^{K} w_i(\mathbf{p}) \mathbf{n}_{i}(\mathbf{p})\right\|_2+\epsilon}.
+    \label{eq:gggf_normal}
+\end{equation}
+The distance variable used by the subsequent boundary modulation is computed consistently as the weighted projection distance:
+\begin{equation}
+    d(\mathbf{p}) = \sum_{i=1}^{K} w_i(\mathbf{p}) d_i .
+    \label{eq:gggf_distance}
+\end{equation}
+Compared with a single nearest-face projection, this $K$-neighbor inverse-distance fusion is less sensitive to local triangulation irregularities or isolated noisy faces, while still preserving the local geometric characteristics of high-curvature and concave-convex regions. As a result, the GGGF provides a stable and physically meaningful baseline direction for the subsequent neural residual learning stage.
 
 \subsection{\label{sec:level1-5}Multiresolution Boundary-Constrained Neural Field}
 
@@ -772,7 +791,7 @@ Corresponding nodes between two consecutive fronts are connected to form prismat
 
 \subsection{\label{sec:level2-1}Experimental Setup}
 
-\begin{table*}[!ht]
+\begin{table*}[t]
     \centering
     \caption{Key implementation details of the proposed framework}
     \label{tab:hyperparameters}
@@ -1171,18 +1190,7 @@ To investigate the impact of the multiresolution HashGrid encoder on complex geo
     \label{fig:structure}
 \end{figure*}
 
-As shown in Fig. \ref{fig:structure}, the HashGrid method generates more regular and continuous prismatic boundary layers in both representative regions. In the first local region, the boundary-layer extrusion remains smooth across the complex transition area, with more uniform layer thickness and more continuous side-wall layer lines. The corresponding equiangle-skewness map shows that high-quality elements are distributed more continuously within the boundary layer, while locally degraded elements remain confined to geometrically sensitive regions and do not propagate noticeably along the layer direction. In the second circular region, the HashGrid result preserves a more coherent annular layer structure, and the boundary-layer extrusion remains more uniform along the circumferential direction.
-The associated equiangle-skewness map further indicates a more spatially consistent quality distribution, suggesting that the HashGrid representation better maintains local shape regularity around curved geometric features.
-
-By comparison, the conventional MLP representation can recover the basic boundary-layer morphology, but it exhibits more evident limitations in complex local regions. Near sharp transition features, the MLP-generated boundary layer appears less regular, and the layer-wise direction changes more abruptly. The corresponding equiangle-skewness map shows that lower-quality regions are more likely to extend along the local advancing direction, indicating that local directional errors accumulate during layer-by-layer generation. In the circular region, the MLP result shows less uniform local advancement, leading to weaker circumferential continuity of the annular boundary-layer structure. Its equiangle-skewness map also reflects a less uniform quality distribution, with more concentrated local degradation compared with the HashGrid result.
-
-This difference is mainly attributed to the spectral bias of MLPs as global function approximators. A conventional MLP tends to represent low-frequency variations more effectively, while sharp edges, local curvature changes, and complex transition regions require higher-frequency geometric detail. Consequently, even when the global morphology is recovered, local directional errors may accumulate during boundary-layer advancement and lead to localized mesh-quality degradation.
-
-In contrast, the multiresolution HashGrid encoder provides localized and multiscale spatial features, partially decoupling the memorization of local geometric details from the MLP decoder. This enables the network to capture spatial variations at different scales more effectively. As a result, the HashGrid-encoded neural field provides more accurate local direction predictions in complex CAD boundary-layer regions, suppresses the propagation of local errors across layers, and produces boundary-layer meshes with more stable quality distributions.
-
-As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative analysis further supports the visual observations. For orthogonal quality, 89.43\% of the elements generated by the HashGrid method fall within the highest-quality interval of \(0.9\)--\(1.0\), compared with 75.10\% for the MLP baseline. In the lower orthogonal-quality intervals, the MLP baseline generally contains a larger fraction of elements. For equiangle skewness, the HashGrid method has a larger proportion of elements in the low-skewness intervals, whereas the MLP baseline shows higher proportions in several medium-to-high skewness intervals. These results are consistent with the local equiangle-skewness maps and demonstrate that the multiresolution HashGrid encoder improves both orthogonality and element-shape quality, thereby enhancing the robustness of boundary-layer mesh generation in complex local geometries.
-
-\begin{table*}[!ht]
+\begin{table*}[t]
     \centering
     \caption{Comparison of Average mesh quality between MLP baseline and HashGrid method for model2.}
     \label{tab:mesh_quality_comparison_smooth}
@@ -1207,10 +1215,16 @@ As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative ana
     \end{tabular}
 \end{table*}
 
-\section{\label{sec:4}For test}
-  for test aaaaaaaaaaaa aaaaaaaaaaaaaaa  aaaaa a a a a a a a  a  a A
+As shown in Fig. \ref{fig:structure}, the HashGrid method generates more regular and continuous prismatic boundary layers in both representative regions. In the first local region, the boundary-layer extrusion remains smooth across the complex transition area, with more uniform layer thickness and more continuous side-wall layer lines. The corresponding equiangle-skewness map shows that high-quality elements are distributed more continuously within the boundary layer, while locally degraded elements remain confined to geometrically sensitive regions and do not propagate noticeably along the layer direction. In the second circular region, the HashGrid result preserves a more coherent annular layer structure, and the boundary-layer extrusion remains more uniform along the circumferential direction.
+The associated equiangle-skewness map further indicates a more spatially consistent quality distribution, suggesting that the HashGrid representation better maintains local shape regularity around curved geometric features.
 
-  a a a a a a a a a a a a a a a 
+By comparison, the conventional MLP representation can recover the basic boundary-layer morphology, but it exhibits more evident limitations in complex local regions. Near sharp transition features, the MLP-generated boundary layer appears less regular, and the layer-wise direction changes more abruptly. The corresponding equiangle-skewness map shows that lower-quality regions are more likely to extend along the local advancing direction, indicating that local directional errors accumulate during layer-by-layer generation. In the circular region, the MLP result shows less uniform local advancement, leading to weaker circumferential continuity of the annular boundary-layer structure. Its equiangle-skewness map also reflects a less uniform quality distribution, with more concentrated local degradation compared with the HashGrid result.
+
+This difference is mainly attributed to the spectral bias of MLPs as global function approximators. A conventional MLP tends to represent low-frequency variations more effectively, while sharp edges, local curvature changes, and complex transition regions require higher-frequency geometric detail. Consequently, even when the global morphology is recovered, local directional errors may accumulate during boundary-layer advancement and lead to localized mesh-quality degradation.
+
+In contrast, the multiresolution HashGrid encoder provides localized and multiscale spatial features, partially decoupling the memorization of local geometric details from the MLP decoder. This enables the network to capture spatial variations at different scales more effectively. As a result, the HashGrid-encoded neural field provides more accurate local direction predictions in complex CAD boundary-layer regions, suppresses the propagation of local errors across layers, and produces boundary-layer meshes with more stable quality distributions.
+
+As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative analysis further supports the visual observations. For orthogonal quality, 89.43\% of the elements generated by the HashGrid method fall within the highest-quality interval of \(0.9\)--\(1.0\), compared with 75.10\% for the MLP baseline. In the lower orthogonal-quality intervals, the MLP baseline generally contains a larger fraction of elements. For equiangle skewness, the HashGrid method has a larger proportion of elements in the low-skewness intervals, whereas the MLP baseline shows higher proportions in several medium-to-high skewness intervals. These results are consistent with the local equiangle-skewness maps and demonstrate that the multiresolution HashGrid encoder improves both orthogonality and element-shape quality, thereby enhancing the robustness of boundary-layer mesh generation in complex local geometries.
 
 % \begin{table}
 % \caption{\label{tab:table1}This is a narrow table which fits into a
@@ -1527,8 +1541,8 @@ As shown in Table \ref{tab:mesh_quality_comparison_smooth}, the quantitative ana
 % \end{subequations}
 % They turn out to be Eqs.~(\ref{appa}), (\ref{appb}), and (\ref{appc}).
 
-% \nocite{*}
-% \bibliography{aipsamp}% Produces the bibliography via BibTeX.
+% \clearpage
+\bibliography{references}% Produces the bibliography via BibTeX.
 
 \end{document}
 %

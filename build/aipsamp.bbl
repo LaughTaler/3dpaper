@@ -1,0 +1,142 @@
+%merlin.mbs aipnum4-1.bst 2010-07-25 4.21a (PWD, AO, DPC) hacked
+%Control: key (0)
+%Control: author (8) initials jnrlst
+%Control: editor formatted (1) identically to author
+%Control: production of article title (0) allowed
+%Control: page (1) range
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{30}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \@ifx{#1\undefined}
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \@ifx [1]{%
+ \ifx #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote  [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand \href@noop [0]{\@secondoftwo}%
+\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@@startlink[1]{}%
+\providecommand \@@endlink[0]{}%
+\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+\providecommand \urlprefix  [0]{URL }%
+\providecommand \Eprint [0]{\href }%
+\providecommand \doibase [0]{http://dx.doi.org/}%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo  [0]{\@secondoftwo}%
+\providecommand \bibfield  [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen [0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+\let\auto@bib@innerbib\@empty
+%</preamble>
+\bibitem [{\citenamefont {Baker}(2005)}]{baker2005mesh}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.~J.}\ \bibnamefont {Baker}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Mesh generation: Art or science?}}\ }\href {\doibase 10.1016/j.paerosci.2005.02.002} {\bibfield  {journal} {\bibinfo  {journal} {Progress in Aerospace Sciences}\ }\textbf {\bibinfo {volume} {41}},\ \bibinfo {pages} {29--63} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Eller}\ and\ \citenamefont {Tomac}(2016)}]{eller2016automated}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Eller}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Tomac}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Implementation and evaluation of automated tetrahedral-prismatic mesh generation software},}\ }\href {\doibase 10.1016/j.cad.2015.06.010} {\bibfield  {journal} {\bibinfo  {journal} {Computer-Aided Design}\ }\textbf {\bibinfo {volume} {72}},\ \bibinfo {pages} {118--129} (\bibinfo {year} {2016})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wang}\ and\ \citenamefont {Di~Mare}(2016)}]{wang2016hybrid}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Wang}}\ and\ \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Di~Mare}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Hybrid meshing using constrained delaunay triangulation for viscous flow simulations},}\ }\href {\doibase 10.1002/nme.5272} {\bibfield  {journal} {\bibinfo  {journal} {International Journal for Numerical Methods in Engineering}\ }\textbf {\bibinfo {volume} {108}},\ \bibinfo {pages} {1667--1685} (\bibinfo {year} {2016})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zheng}\ \emph {et~al.}(2018)\citenamefont {Zheng}, \citenamefont {Xiao}, \citenamefont {Chen},\ and\ \citenamefont {Zhang}}]{zheng2018bem}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Zheng}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Xiao}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Chen}}, \ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Zhang}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Novel methodology for viscous-layer meshing by the boundary element method},}\ }\href {\doibase 10.2514/1.J056126} {\bibfield  {journal} {\bibinfo  {journal} {AIAA Journal}\ }\textbf {\bibinfo {volume} {56}},\ \bibinfo {pages} {209--221} (\bibinfo {year} {2018})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wang}, \citenamefont {Guibault},\ and\ \citenamefont {Camarero}(2008)}]{wang2008eikonal}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Guibault}}, \ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Camarero}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Eikonal equation-based front propagation for arbitrary complex configurations},}\ }\href {\doibase 10.1002/nme.2063} {\bibfield  {journal} {\bibinfo  {journal} {International Journal for Numerical Methods in Engineering}\ }\textbf {\bibinfo {volume} {73}},\ \bibinfo {pages} {226--247} (\bibinfo {year} {2008})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Xia}, \citenamefont {Tucker},\ and\ \citenamefont {Dawes}(2010)}]{xia2010levelset}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Xia}}, \bibinfo {author} {\bibfnamefont {P.~G.}\ \bibnamefont {Tucker}}, \ and\ \bibinfo {author} {\bibfnamefont {W.~N.}\ \bibnamefont {Dawes}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Level sets for cfd in aerospace engineering},}\ }\href {\doibase 10.1016/j.paerosci.2010.03.001} {\bibfield  {journal} {\bibinfo  {journal} {Progress in Aerospace Sciences}\ }\textbf {\bibinfo {volume} {46}},\ \bibinfo {pages} {274--283} (\bibinfo {year} {2010})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zhu}\ \emph {et~al.}(2021)\citenamefont {Zhu}, \citenamefont {Wang}, \citenamefont {Zheng}, \citenamefont {Lei}, \citenamefont {Luo},\ and\ \citenamefont {Chen}}]{zhu2021harmonic}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Zhu}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Zheng}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Lei}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Luo}}, \ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Chen}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Prismatic mesh generation based on anisotropic volume harmonic field},}\ }\href {\doibase 10.1186/s42774-021-00065-y} {\bibfield  {journal} {\bibinfo  {journal} {Advances in Aerodynamics}\ }\textbf {\bibinfo {volume} {3}},\ \bibinfo {pages} {12} (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Dyedov}\ \emph {et~al.}(2009)\citenamefont {Dyedov}, \citenamefont {Einstein}, \citenamefont {Jiao}, \citenamefont {Kuprat}, \citenamefont {Carson},\ and\ \citenamefont {Del~Pin}}]{dyedov2009variational}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {V.}~\bibnamefont {Dyedov}}, \bibinfo {author} {\bibfnamefont {D.~R.}\ \bibnamefont {Einstein}}, \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Jiao}}, \bibinfo {author} {\bibfnamefont {A.~P.}\ \bibnamefont {Kuprat}}, \bibinfo {author} {\bibfnamefont {J.~P.}\ \bibnamefont {Carson}}, \ and\ \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Del~Pin}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Variational generation of prismatic boundary-layer meshes for biomedical computing},}\ }\href {\doibase 10.1002/nme.2583} {\bibfield  {journal} {\bibinfo  {journal} {International Journal for Numerical Methods in Engineering}\ }\textbf {\bibinfo {volume} {79}},\ \bibinfo {pages} {907--945} (\bibinfo {year} {2009})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Roget}\ \emph {et~al.}(2020)\citenamefont {Roget}, \citenamefont {Sitaraman}, \citenamefont {Lakshminarayan},\ and\ \citenamefont {Wissink}}]{roget2020minimum}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Roget}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Sitaraman}}, \bibinfo {author} {\bibfnamefont {V.}~\bibnamefont {Lakshminarayan}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Wissink}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Prismatic mesh generation using minimum distance fields},}\ }\href {\doibase 10.1016/j.compfluid.2020.104429} {\bibfield  {journal} {\bibinfo  {journal} {Computers \& Fluids}\ }\textbf {\bibinfo {volume} {200}},\ \bibinfo {pages} {104429} (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lei}\ \emph {et~al.}(2024)\citenamefont {Lei}, \citenamefont {Li}, \citenamefont {Xu}, \citenamefont {Li},\ and\ \citenamefont {Gu}}]{lei2024survey}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Lei}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Li}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Xu}}, \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Li}}, \ and\ \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Gu}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {What's the situation with intelligent mesh generation: A survey and perspectives},}\ }\href {\doibase 10.1109/TVCG.2023.3281781} {\bibfield  {journal} {\bibinfo  {journal} {IEEE Transactions on Visualization and Computer Graphics}\ }\textbf {\bibinfo {volume} {30}},\ \bibinfo {pages} {4997--5017} (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Raissi}, \citenamefont {Perdikaris},\ and\ \citenamefont {Karniadakis}(2019)}]{raissi2019pinn}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Raissi}}, \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Perdikaris}}, \ and\ \bibinfo {author} {\bibfnamefont {G.~E.}\ \bibnamefont {Karniadakis}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations},}\ }\href {\doibase 10.1016/j.jcp.2018.10.045} {\bibfield  {journal} {\bibinfo  {journal} {Journal of Computational Physics}\ }\textbf {\bibinfo {volume} {378}},\ \bibinfo {pages} {686--707} (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sun}\ \emph {et~al.}(2020)\citenamefont {Sun}, \citenamefont {Gao}, \citenamefont {Pan},\ and\ \citenamefont {Wang}}]{sun2020physicsconstrained}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Sun}}, \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Gao}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Pan}}, \ and\ \bibinfo {author} {\bibfnamefont {J.-X.}\ \bibnamefont {Wang}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Surrogate modeling for fluid flows based on physics-constrained deep learning without simulation data},}\ }\href {\doibase 10.1016/j.cma.2019.112732} {\bibfield  {journal} {\bibinfo  {journal} {Computer Methods in Applied Mechanics and Engineering}\ }\textbf {\bibinfo {volume} {361}},\ \bibinfo {pages} {112732} (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ye}\ \emph {et~al.}(2026)\citenamefont {Ye}, \citenamefont {Liu}, \citenamefont {Zhan}, \citenamefont {Zhang},\ and\ \citenamefont {Chen}}]{anisoMeshNet}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Ye}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Liu}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Zhan}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Zhang}}, \ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Chen}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Automated generation of hybrid semi-structured meshes via boundary-informed neural networks},}\ }\href {\doibase 10.1002/nme.70289} {\bibfield  {journal} {\bibinfo  {journal} {International Journal for Numerical Methods in Engineering}\ }\textbf {\bibinfo {volume} {127}},\ \bibinfo {pages} {e70289} (\bibinfo {year} {2026})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Rahaman}\ \emph {et~al.}(2019)\citenamefont {Rahaman}, \citenamefont {Baratin}, \citenamefont {Arpit}, \citenamefont {Draxler}, \citenamefont {Lin}, \citenamefont {Hamprecht}, \citenamefont {Bengio},\ and\ \citenamefont {Courville}}]{rahaman2019spectral}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Rahaman}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Baratin}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Arpit}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Draxler}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Lin}}, \bibinfo {author} {\bibfnamefont {F.~A.}\ \bibnamefont {Hamprecht}}, \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Bengio}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Courville}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {On the spectral bias of neural networks},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {International Conference on Machine Learning}}}\ (\bibinfo {year} {2019})\ pp.\ \bibinfo {pages} {5301--5310}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Tancik}\ \emph {et~al.}(2020)\citenamefont {Tancik}, \citenamefont {Srinivasan}, \citenamefont {Mildenhall}, \citenamefont {Fridovich-Keil}, \citenamefont {Raghavan}, \citenamefont {Singhal}, \citenamefont {Ramamoorthi}, \citenamefont {Barron},\ and\ \citenamefont {Ng}}]{tancik2020fourier}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Tancik}}, \bibinfo {author} {\bibfnamefont {P.~P.}\ \bibnamefont {Srinivasan}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Mildenhall}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Fridovich-Keil}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Raghavan}}, \bibinfo {author} {\bibfnamefont {U.}~\bibnamefont {Singhal}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Ramamoorthi}}, \bibinfo {author} {\bibfnamefont {J.~T.}\ \bibnamefont {Barron}}, \ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Ng}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Fourier features let networks learn high frequency functions in low dimensional domains},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Advances in Neural Information Processing Systems}}},\ Vol.~\bibinfo {volume} {33}\ (\bibinfo {year} {2020})\ pp.\ \bibinfo {pages} {7537--7547}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sitzmann}\ \emph {et~al.}(2020)\citenamefont {Sitzmann}, \citenamefont {Martel}, \citenamefont {Bergman}, \citenamefont {Lindell},\ and\ \citenamefont {Wetzstein}}]{sitzmann2020siren}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {V.}~\bibnamefont {Sitzmann}}, \bibinfo {author} {\bibfnamefont {J.~N.~P.}\ \bibnamefont {Martel}}, \bibinfo {author} {\bibfnamefont {A.~W.}\ \bibnamefont {Bergman}}, \bibinfo {author} {\bibfnamefont {D.~B.}\ \bibnamefont {Lindell}}, \ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Wetzstein}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Implicit neural representations with periodic activation functions},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Advances in Neural Information Processing Systems}}},\ Vol.~\bibinfo {volume} {33}\ (\bibinfo {year} {2020})\ pp.\ \bibinfo {pages} {7462--7473}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Yu}\ \emph {et~al.}(2022)\citenamefont {Yu}, \citenamefont {Fridovich-Keil}, \citenamefont {Tancik}, \citenamefont {Chen}, \citenamefont {Recht},\ and\ \citenamefont {Kanazawa}}]{yu2022plenoxels}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Yu}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Fridovich-Keil}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Tancik}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Chen}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Recht}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Kanazawa}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Plenoxels: Radiance fields without neural networks},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}}}\ (\bibinfo {year} {2022})\ pp.\ \bibinfo {pages} {5501--5510}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sun}, \citenamefont {Sun},\ and\ \citenamefont {Chen}(2022)}]{sun2022dvgo}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Sun}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Sun}}, \ and\ \bibinfo {author} {\bibfnamefont {H.-T.}\ \bibnamefont {Chen}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Direct voxel grid optimization: Super-fast convergence for radiance fields reconstruction},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}}}\ (\bibinfo {year} {2022})\ pp.\ \bibinfo {pages} {5459--5469}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Chen}\ \emph {et~al.}(2022)\citenamefont {Chen}, \citenamefont {Xu}, \citenamefont {Geiger}, \citenamefont {Yu},\ and\ \citenamefont {Su}}]{chen2022tensorf}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Chen}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Xu}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Geiger}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Yu}}, \ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Su}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Tensorf: Tensorial radiance fields},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {European Conference on Computer Vision}}}\ (\bibinfo {year} {2022})\ pp.\ \bibinfo {pages} {333--350}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {M{\"u}ller}\ \emph {et~al.}(2022)\citenamefont {M{\"u}ller}, \citenamefont {Evans}, \citenamefont {Schied},\ and\ \citenamefont {Keller}}]{muller2022instantngp}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {M{\"u}ller}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Evans}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Schied}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Keller}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Instant neural graphics primitives with a multiresolution hash encoding},}\ }\href {\doibase 10.1145/3528223.3530127} {\bibfield  {journal} {\bibinfo  {journal} {ACM Transactions on Graphics}\ }\textbf {\bibinfo {volume} {41}},\ \bibinfo {pages} {102:1--102:15} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Thompson}(1987)}]{thompson1987elliptic}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~F.}\ \bibnamefont {Thompson}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {A general three-dimensional elliptic grid generation system on a composite block structure},}\ }\href {\doibase 10.1016/0045-7825(87)90047-8} {\bibfield  {journal} {\bibinfo  {journal} {Computer Methods in Applied Mechanics and Engineering}\ }\textbf {\bibinfo {volume} {64}},\ \bibinfo {pages} {377--411} (\bibinfo {year} {1987})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sorenson}(1980)}]{sorenson1980poisson}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.~L.}\ \bibnamefont {Sorenson}},\ }\href@noop {} {\enquote {\bibinfo {title} {A computer program to generate two-dimensional grids about airfoils and other shapes by the use of poisson's equation},}\ }\bibinfo {type} {Tech. Rep.}\ \bibinfo {number} {NASA-TM-81198}\ (\bibinfo  {institution} {NASA},\ \bibinfo {year} {1980})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lu}\ \emph {et~al.}(2022)\citenamefont {Lu}, \citenamefont {Wang}, \citenamefont {Chang}, \citenamefont {Zhang},\ and\ \citenamefont {Wu}}]{lu2022ann}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Lu}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Chang}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Zhang}}, \ and\ \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Wu}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {An automatic isotropic/anisotropic hybrid grid generation technique for viscous flow simulations based on an artificial neural network},}\ }\href {\doibase 10.1016/j.cja.2021.07.030} {\bibfield  {journal} {\bibinfo  {journal} {Chinese Journal of Aeronautics}\ }\textbf {\bibinfo {volume} {35}},\ \bibinfo {pages} {102--117} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Kino}\ and\ \citenamefont {Obayashi}(2022)}]{kino2022drl}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Kino}}\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Obayashi}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Development of agent-based mesh generator for flow analysis using deep reinforcement learning},}\ }\href {\doibase 10.2514/1.J060344} {\bibfield  {journal} {\bibinfo  {journal} {AIAA Journal}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo {pages} {310--324} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Mescheder}\ \emph {et~al.}(2019)\citenamefont {Mescheder}, \citenamefont {Oechsle}, \citenamefont {Niemeyer}, \citenamefont {Nowozin},\ and\ \citenamefont {Geiger}}]{mescheder2019occupancy}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Mescheder}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Oechsle}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Niemeyer}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Nowozin}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Geiger}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Occupancy networks: Learning 3d reconstruction in function space},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}}}\ (\bibinfo {year} {2019})\ pp.\ \bibinfo {pages} {4460--4470}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Park}\ \emph {et~al.}(2019)\citenamefont {Park}, \citenamefont {Florence}, \citenamefont {Straub}, \citenamefont {Newcombe},\ and\ \citenamefont {Lovegrove}}]{park2019deepsdf}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~J.}\ \bibnamefont {Park}}, \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Florence}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Straub}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Newcombe}}, \ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Lovegrove}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Deepsdf: Learning continuous signed distance functions for shape representation},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}}}\ (\bibinfo {year} {2019})\ pp.\ \bibinfo {pages} {165--174}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Mildenhall}\ \emph {et~al.}(2020)\citenamefont {Mildenhall}, \citenamefont {Srinivasan}, \citenamefont {Tancik}, \citenamefont {Barron}, \citenamefont {Ramamoorthi},\ and\ \citenamefont {Ng}}]{mildenhall2020nerf}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Mildenhall}}, \bibinfo {author} {\bibfnamefont {P.~P.}\ \bibnamefont {Srinivasan}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Tancik}}, \bibinfo {author} {\bibfnamefont {J.~T.}\ \bibnamefont {Barron}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Ramamoorthi}}, \ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Ng}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Nerf: Representing scenes as neural radiance fields for view synthesis},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {European Conference on Computer Vision}}}\ (\bibinfo {year} {2020})\ pp.\ \bibinfo {pages} {405--421}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Liu}\ \emph {et~al.}(2020)\citenamefont {Liu}, \citenamefont {Gu}, \citenamefont {Lin}, \citenamefont {Chua},\ and\ \citenamefont {Theobalt}}]{liu2020nsvf}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Liu}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Gu}}, \bibinfo {author} {\bibfnamefont {K.~Z.}\ \bibnamefont {Lin}}, \bibinfo {author} {\bibfnamefont {T.-S.}\ \bibnamefont {Chua}}, \ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Theobalt}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Neural sparse voxel fields},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Advances in Neural Information Processing Systems}}},\ Vol.~\bibinfo {volume} {33}\ (\bibinfo {year} {2020})\ pp.\ \bibinfo {pages} {15651--15663}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Yu}\ \emph {et~al.}(2021)\citenamefont {Yu}, \citenamefont {Fridovich-Keil}, \citenamefont {Tancik}, \citenamefont {Chen}, \citenamefont {Recht},\ and\ \citenamefont {Kanazawa}}]{yu2021plenoctrees}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Yu}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Fridovich-Keil}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Tancik}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Chen}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Recht}}, \ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Kanazawa}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Plenoctrees for real-time rendering of neural radiance fields},}\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Proceedings of the IEEE/CVF International Conference on Computer Vision}\ ,\ \bibinfo {pages} {5752--5761}} (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Li}\ \emph {et~al.}(2023)\citenamefont {Li}, \citenamefont {M{\"u}ller}, \citenamefont {Evans}, \citenamefont {Taylor}, \citenamefont {Unberath}, \citenamefont {Liu},\ and\ \citenamefont {Lin}}]{li2023neuralangelo}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Li}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {M{\"u}ller}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Evans}}, \bibinfo {author} {\bibfnamefont {R.~H.}\ \bibnamefont {Taylor}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Unberath}}, \bibinfo {author} {\bibfnamefont {M.-Y.}\ \bibnamefont {Liu}}, \ and\ \bibinfo {author} {\bibfnamefont {C.-H.}\ \bibnamefont {Lin}},\ }\bibfield  {title} {\enquote {\bibinfo {title} {Neuralangelo: High-fidelity neural surface reconstruction},}\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}}}\ (\bibinfo {year} {2023})\ pp.\ \bibinfo {pages} {8456--8465}\BibitemShut {NoStop}%
+\end{thebibliography}%

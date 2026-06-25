@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.16)  15 JUN 2026 09:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.16)  25 JUN 2026 15:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -435,288 +435,311 @@ Package caption Info: End \AtBeginDocument code.
 \openout3 = `aipsampNotes.bib'.
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 117.
+ 108.
 
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 117.
+ 108.
 
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 117.
+ 108.
 
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 117.
+ 108.
 
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
-17.
+08.
 
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 108.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 117.
-<figs/6new/pip.pdf, id=1, 1099.85907pt x 443.51999pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 111.
+
+Underfull \hbox (badness 1852) in paragraph at lines 120--121
+[]\T1/ptm/m/n/10 Motivated by these ob-ser-va-tions, this pa-per pro-poses
+ []
+
+
+Underfull \hbox (badness 1132) in paragraph at lines 120--121
+\T1/ptm/m/n/10 barycen-tric in-ter-po-la-tion of ver-tex nor-mals, and inverse-
+
+ []
+
+[1{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/202
+6/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2026/texmf-dist/fonts/enc/
+dvips/cm-super/cm-super-t1.enc}]
+Underfull \hbox (badness 1286) in paragraph at lines 381--382
+[]\T1/ptm/m/n/10 Recent ad-vances in ma-chine learn-ing have in-tro-duced
+ []
+
+[2]
+Underfull \hbox (badness 1983) in paragraph at lines 386--387
+\T1/ptm/m/n/10 NeRF fur-ther demon-strated the ex-pres-sive ca-pa-bil-ity of
+ []
+
+
+Underfull \hbox (badness 1448) in paragraph at lines 386--387
+\T1/ptm/m/n/10 known to ex-hibit spec-tral bias, mean-ing that they tend
+ []
+
+
+Underfull \hbox (badness 1496) in paragraph at lines 390--391
+\T1/ptm/m/n/10 layer mesh gen-er-a-tion. Com-pared with a con-ven-tional
+ []
+
+<figs/6new/pip.pdf, id=16, 1099.85907pt x 443.51999pt>
 File: figs/6new/pip.pdf Graphic file (type pdf)
 <use figs/6new/pip.pdf>
-Package pdftex.def Info: figs/6new/pip.pdf  used on input line 380.
+Package pdftex.def Info: figs/6new/pip.pdf  used on input line 398.
 (pdftex.def)             Requested size: 255.0pt x 102.82632pt.
 
-Overfull \hbox (9.0pt too wide) in paragraph at lines 380--381
+Overfull \hbox (9.0pt too wide) in paragraph at lines 398--399
  [][] 
  []
 
 
-Underfull \hbox (badness 1845) in paragraph at lines 388--389
+Underfull \hbox (badness 1845) in paragraph at lines 408--409
  \T1/ptm/b/n/10 (GGGF):\T1/ptm/m/n/10 By lever-ag-ing KD-Tree ac-cel-er-a-tion 
 cou-pled
  []
 
 
-Underfull \hbox (badness 5741) in paragraph at lines 389--390
+Underfull \hbox (badness 5741) in paragraph at lines 409--410
  \T1/ptm/b/n/10 Neu-ral Field (MBCNF):\T1/ptm/m/n/10 We con-struct a boundary-
  []
 
 
-Underfull \hbox (badness 1107) in paragraph at lines 389--390
+Underfull \hbox (badness 1107) in paragraph at lines 409--410
  \T1/ptm/m/n/10 informed neu-ral field equipped with a mul-tires-o-lu-tion
  []
 
-
-Underfull \hbox (badness 2744) in paragraph at lines 396--397
- []\T1/ptm/b/n/10 High-Quality 3D Ad-vanc-ing Front Gen-er-a-tion:\T1/ptm/m/n/1
+[3 <./figs/6new/pip.pdf>]
+Underfull \hbox (badness 2237) in paragraph at lines 416--417
+ []\T1/ptm/b/n/10 High-Quality 3D Ad-vanc-ing Layer Gen-er-a-tion:\T1/ptm/m/n/1
 0 The
  []
 
-[1{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/202
-6/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2026/texmf-dist/fonts/enc/
-dvips/cm-super/cm-super-t1.enc} <./figs/6new/pip.pdf>]
-<figs/net/gggf.pdf, id=70, 560.32365pt x 281.92224pt>
+<figs/net/gggf.pdf, id=74, 560.32365pt x 281.92224pt>
 File: figs/net/gggf.pdf Graphic file (type pdf)
 <use figs/net/gggf.pdf>
-Package pdftex.def Info: figs/net/gggf.pdf  used on input line 434.
+Package pdftex.def Info: figs/net/gggf.pdf  used on input line 445.
 (pdftex.def)             Requested size: 255.0pt x 128.30063pt.
 
-Overfull \hbox (9.0pt too wide) in paragraph at lines 434--435
+Overfull \hbox (9.0pt too wide) in paragraph at lines 445--446
  [][] 
  []
 
-[2 <./figs/net/gggf.pdf>]
-Underfull \hbox (badness 1137) in paragraph at lines 460--462
-\T1/ptm/m/n/10 Compared with a sin-gle nearest-face pro-jec-tion, this $\OML/zt
-mcm/m/it/10 K$\T1/ptm/m/n/10 -
- []
-
-
-Overfull \hbox (4.20895pt too wide) in paragraph at lines 482--487
+[4 <./figs/net/gggf.pdf>]
+Overfull \hbox (4.20895pt too wide) in paragraph at lines 480--485
 []$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 503--504
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
  [] []\T1/ptm/m/n/9 Compute the barycen-tric co-or-di-nates $\OML/cmm/b/it/9 ^^
 L[] \OT1/ztmcm/m/n/9 =
  []
 
-<figs/net/net.pdf, id=138, 1261.3458pt x 429.45224pt>
+
+Underfull \hbox (badness 1137) in paragraph at lines 568--570
+\T1/ptm/m/n/10 Compared with a sin-gle nearest-face pro-jec-tion, this $\OML/zt
+mcm/m/it/10 K$\T1/ptm/m/n/10 -
+ []
+
+<figs/net/net.pdf, id=141, 1261.3458pt x 429.45224pt>
 File: figs/net/net.pdf Graphic file (type pdf)
 <use figs/net/net.pdf>
-Package pdftex.def Info: figs/net/net.pdf  used on input line 567.
+Package pdftex.def Info: figs/net/net.pdf  used on input line 575.
 (pdftex.def)             Requested size: 510.0pt x 173.63887pt.
 
-Underfull \hbox (badness 1117) in paragraph at lines 571--575
+Underfull \hbox (badness 1117) in paragraph at lines 579--584
 []\T1/ptm/m/n/10 Traditional coordinate-based neu-ral net-works based on
  []
 
-[3]
-Underfull \hbox (badness 5519) in paragraph at lines 578--580
+[5]
+Underfull \hbox (badness 5519) in paragraph at lines 590--593
 []\T1/ptm/m/n/10 To pre-vent hash-induced nu-mer-i-cal os-cil-la-tions, the
  []
 
-[4 <./figs/net/net.pdf>]
-Underfull \hbox (badness 2856) in paragraph at lines 620--621
+[6 <./figs/net/net.pdf>]
+Underfull \hbox (badness 2856) in paragraph at lines 641--644
 []\T1/ptm/m/n/10 The train-ing ob-jec-tive is de-signed to si-mul-ta-ne-ously
  []
 
 
-Underfull \hbox (badness 2726) in paragraph at lines 620--621
+Underfull \hbox (badness 2726) in paragraph at lines 641--644
 \T1/ptm/m/n/10 en-force boundary-direction con-sis-tency and interior-field
  []
 
-<figs/net/angle.pdf, id=221, 376.53873pt x 140.78297pt>
+<figs/net/angle.pdf, id=225, 376.53873pt x 140.78297pt>
 File: figs/net/angle.pdf Graphic file (type pdf)
 <use figs/net/angle.pdf>
-Package pdftex.def Info: figs/net/angle.pdf  used on input line 636.
+Package pdftex.def Info: figs/net/angle.pdf  used on input line 659.
 (pdftex.def)             Requested size: 203.99689pt x 76.273pt.
-<figs/net/laplace_smooth.pdf, id=222, 646.06169pt x 237.30055pt>
+<figs/net/laplace_smooth.pdf, id=226, 646.06169pt x 237.30055pt>
 File: figs/net/laplace_smooth.pdf Graphic file (type pdf)
 <use figs/net/laplace_smooth.pdf>
-Package pdftex.def Info: figs/net/laplace_smooth.pdf  used on input line 691.
+Package pdftex.def Info: figs/net/laplace_smooth.pdf  used on input line 720.
 (pdftex.def)             Requested size: 203.99689pt x 74.92749pt.
-[5 <./figs/net/angle.pdf> <./figs/net/laplace_smooth.pdf>]
-
-Package natbib Warning: Citation `anisoMeshNet' on page 6 undefined on input li
-ne 742.
-
-
-Underfull \hbox (badness 1048) in paragraph at lines 767--768
+[7 <./figs/net/angle.pdf> <./figs/net/laplace_smooth.pdf>]
+Underfull \hbox (badness 1048) in paragraph at lines 787--789
 \T1/ptm/m/n/10 a struc-tured stack of anisotropic prism el-e-ments aligned
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 8
-36.
+54.
 (c:/texlive/2026/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [6]
-<figs/6new/pl002_norm_big1.pdf, id=247, 522.16057pt x 440.59908pt>
+) [8]
+<figs/6new/pl002_norm_big1.pdf, id=253, 522.16057pt x 440.59908pt>
 File: figs/6new/pl002_norm_big1.pdf Graphic file (type pdf)
 <use figs/6new/pl002_norm_big1.pdf>
-Package pdftex.def Info: figs/6new/pl002_norm_big1.pdf  used on input line 1188
-.
+Package pdftex.def Info: figs/6new/pl002_norm_big1.pdf  used on input line 877.
+
 (pdftex.def)             Requested size: 158.09875pt x 133.40431pt.
-<figs/6new/pl002_base_big1.pdf, id=248, 522.16057pt x 442.85951pt>
+<figs/6new/pl002_base_big1.pdf, id=254, 522.16057pt x 442.85951pt>
 File: figs/6new/pl002_base_big1.pdf Graphic file (type pdf)
 <use figs/6new/pl002_base_big1.pdf>
-Package pdftex.def Info: figs/6new/pl002_base_big1.pdf  used on input line 1195
-.
+Package pdftex.def Info: figs/6new/pl002_base_big1.pdf  used on input line 884.
+
 (pdftex.def)             Requested size: 158.09875pt x 134.08873pt.
-<figs/6new/pl002_chord_big1.pdf, id=249, 522.16057pt x 442.85951pt>
+<figs/6new/pl002_chord_big1.pdf, id=255, 522.16057pt x 442.85951pt>
 File: figs/6new/pl002_chord_big1.pdf Graphic file (type pdf)
 <use figs/6new/pl002_chord_big1.pdf>
-Package pdftex.def Info: figs/6new/pl002_chord_big1.pdf  used on input line 120
-2.
+Package pdftex.def Info: figs/6new/pl002_chord_big1.pdf  used on input line 891
+.
 (pdftex.def)             Requested size: 158.09875pt x 134.08873pt.
-<figs/6new/loss_curve_norm.pdf, id=250, 566.41641pt x 426.10756pt>
+<figs/6new/loss_curve_norm.pdf, id=256, 566.41641pt x 426.10756pt>
 File: figs/6new/loss_curve_norm.pdf Graphic file (type pdf)
 <use figs/6new/loss_curve_norm.pdf>
-Package pdftex.def Info: figs/6new/loss_curve_norm.pdf  used on input line 1211
-.
+Package pdftex.def Info: figs/6new/loss_curve_norm.pdf  used on input line 900.
+
 (pdftex.def)             Requested size: 158.09875pt x 118.93219pt.
-<figs/6new/loss_curve_base.pdf, id=251, 566.9074pt x 426.10756pt>
+<figs/6new/loss_curve_base.pdf, id=257, 566.9074pt x 426.10756pt>
 File: figs/6new/loss_curve_base.pdf Graphic file (type pdf)
 <use figs/6new/loss_curve_base.pdf>
-Package pdftex.def Info: figs/6new/loss_curve_base.pdf  used on input line 1218
-.
+Package pdftex.def Info: figs/6new/loss_curve_base.pdf  used on input line 907.
+
 (pdftex.def)             Requested size: 158.09875pt x 118.83466pt.
-<figs/6new/loss_curve_chord.pdf, id=252, 566.07303pt x 426.10756pt>
+<figs/6new/loss_curve_chord.pdf, id=258, 566.07303pt x 426.10756pt>
 File: figs/6new/loss_curve_chord.pdf Graphic file (type pdf)
 <use figs/6new/loss_curve_chord.pdf>
-Package pdftex.def Info: figs/6new/loss_curve_chord.pdf  used on input line 122
-5.
+Package pdftex.def Info: figs/6new/loss_curve_chord.pdf  used on input line 914
+.
 (pdftex.def)             Requested size: 158.09875pt x 119.00371pt.
- [7] [8 <./figs/6new/pl002_norm_big1.pdf> <./figs/6new/pl002_base_big1.pdf> <./
-figs/6new/pl002_chord_big1.pdf> <./figs/6new/loss_curve_norm.pdf> <./figs/6new/
-loss_curve_base.pdf> <./figs/6new/loss_curve_chord.pdf>]
-<figs/6new/smoothloss1.pdf, id=450, 174.6525pt x 230.45358pt>
+ [9] [10 <./figs/6new/pl002_norm_big1.pdf> <./figs/6new/pl002_base_big1.pdf> <.
+/figs/6new/pl002_chord_big1.pdf> <./figs/6new/loss_curve_norm.pdf> <./figs/6new
+/loss_curve_base.pdf> <./figs/6new/loss_curve_chord.pdf>]
+<figs/6new/smoothloss1.pdf, id=454, 174.6525pt x 230.45358pt>
 File: figs/6new/smoothloss1.pdf Graphic file (type pdf)
 <use figs/6new/smoothloss1.pdf>
-Package pdftex.def Info: figs/6new/smoothloss1.pdf  used on input line 1360.
+Package pdftex.def Info: figs/6new/smoothloss1.pdf  used on input line 1045.
 (pdftex.def)             Requested size: 117.29782pt x 154.77582pt.
-<figs/6new/smoothloss2.pdf, id=451, 174.9473pt x 231.11343pt>
+<figs/6new/smoothloss2.pdf, id=455, 174.9473pt x 231.11343pt>
 File: figs/6new/smoothloss2.pdf Graphic file (type pdf)
 <use figs/6new/smoothloss2.pdf>
-Package pdftex.def Info: figs/6new/smoothloss2.pdf  used on input line 1367.
+Package pdftex.def Info: figs/6new/smoothloss2.pdf  used on input line 1052.
 (pdftex.def)             Requested size: 117.29782pt x 154.95451pt.
- [9 <./figs/6new/smoothloss1.pdf> <./figs/6new/smoothloss2.pdf>]
-<figs/6new/pl002_hash1.pdf, id=473, 522.16057pt x 381.09978pt>
+<figs/6new/pl002_hash1.pdf, id=456, 522.16057pt x 381.09978pt>
 File: figs/6new/pl002_hash1.pdf Graphic file (type pdf)
 <use figs/6new/pl002_hash1.pdf>
-Package pdftex.def Info: figs/6new/pl002_hash1.pdf  used on input line 1443.
+Package pdftex.def Info: figs/6new/pl002_hash1.pdf  used on input line 1133.
 (pdftex.def)             Requested size: 117.29782pt x 85.60999pt.
-<example-image.pdf, id=474, 321.2pt x 240.9pt>
-File: example-image.pdf Graphic file (type pdf)
-<use example-image.pdf>
-Package pdftex.def Info: example-image.pdf  used on input line 1450.
-(pdftex.def)             Requested size: 117.29782pt x 87.97371pt.
-<figs/6new/pl002_mlp1.pdf, id=475, 522.16057pt x 378.84033pt>
+<figs/6new/pl002_hash1_q.pdf, id=457, 433.92513pt x 158.87657pt>
+File: figs/6new/pl002_hash1_q.pdf Graphic file (type pdf)
+<use figs/6new/pl002_hash1_q.pdf>
+Package pdftex.def Info: figs/6new/pl002_hash1_q.pdf  used on input line 1140.
+(pdftex.def)             Requested size: 117.29782pt x 42.94572pt.
+<figs/6new/pl002_mlp1.pdf, id=458, 522.16057pt x 378.84033pt>
 File: figs/6new/pl002_mlp1.pdf Graphic file (type pdf)
 <use figs/6new/pl002_mlp1.pdf>
-Package pdftex.def Info: figs/6new/pl002_mlp1.pdf  used on input line 1457.
+Package pdftex.def Info: figs/6new/pl002_mlp1.pdf  used on input line 1147.
 (pdftex.def)             Requested size: 117.29782pt x 85.10243pt.
-File: example-image.pdf Graphic file (type pdf)
-<use example-image.pdf>
-Package pdftex.def Info: example-image.pdf  used on input line 1464.
-(pdftex.def)             Requested size: 117.29782pt x 87.97371pt.
-<figs/6new/pl002_hash2.pdf, id=476, 522.16057pt x 418.00465pt>
+<figs/6new/pl002_mlp1_q.pdf, id=459, 433.24973pt x 158.9167pt>
+File: figs/6new/pl002_mlp1_q.pdf Graphic file (type pdf)
+<use figs/6new/pl002_mlp1_q.pdf>
+Package pdftex.def Info: figs/6new/pl002_mlp1_q.pdf  used on input line 1154.
+(pdftex.def)             Requested size: 117.29782pt x 43.02448pt.
+<figs/6new/pl002_hash2.pdf, id=460, 522.16057pt x 418.00465pt>
 File: figs/6new/pl002_hash2.pdf Graphic file (type pdf)
 <use figs/6new/pl002_hash2.pdf>
-Package pdftex.def Info: figs/6new/pl002_hash2.pdf  used on input line 1473.
+Package pdftex.def Info: figs/6new/pl002_hash2.pdf  used on input line 1163.
 (pdftex.def)             Requested size: 117.29782pt x 93.90028pt.
-File: example-image.pdf Graphic file (type pdf)
-<use example-image.pdf>
-Package pdftex.def Info: example-image.pdf  used on input line 1480.
-(pdftex.def)             Requested size: 117.29782pt x 87.97371pt.
-<figs/6new/pl002_mlp2.pdf, id=477, 522.16057pt x 419.51129pt>
+<figs/6new/pl002_hash2_q.pdf, id=461, 452.84079pt x 369.04878pt>
+File: figs/6new/pl002_hash2_q.pdf Graphic file (type pdf)
+<use figs/6new/pl002_hash2_q.pdf>
+Package pdftex.def Info: figs/6new/pl002_hash2_q.pdf  used on input line 1170.
+(pdftex.def)             Requested size: 117.29782pt x 95.59001pt.
+<figs/6new/pl002_mlp2.pdf, id=462, 522.16057pt x 419.51129pt>
 File: figs/6new/pl002_mlp2.pdf Graphic file (type pdf)
 <use figs/6new/pl002_mlp2.pdf>
-Package pdftex.def Info: figs/6new/pl002_mlp2.pdf  used on input line 1487.
+Package pdftex.def Info: figs/6new/pl002_mlp2.pdf  used on input line 1177.
 (pdftex.def)             Requested size: 117.29782pt x 94.23872pt.
-File: example-image.pdf Graphic file (type pdf)
-<use example-image.pdf>
-Package pdftex.def Info: example-image.pdf  used on input line 1494.
-(pdftex.def)             Requested size: 117.29782pt x 87.97371pt.
- [10]
-
-Package natbib Warning: There were undefined citations.
-
-[11 <./figs/6new/pl002_hash1.pdf> <c:/texlive/2026/texmf-dist/tex/latex/mwe/exa
-mple-image.pdf> <./figs/6new/pl002_mlp1.pdf> <./figs/6new/pl002_hash2.pdf> <./f
-igs/6new/pl002_mlp2.pdf>] (./aipsamp.aux)
+<figs/6new/pl002_mlp2_q.pdf, id=463, 437.1pt x 364.39938pt>
+File: figs/6new/pl002_mlp2_q.pdf Graphic file (type pdf)
+<use figs/6new/pl002_mlp2_q.pdf>
+Package pdftex.def Info: figs/6new/pl002_mlp2_q.pdf  used on input line 1184.
+(pdftex.def)             Requested size: 117.29782pt x 97.78864pt.
+ [11 <./figs/6new/smoothloss1.pdf> <./figs/6new/smoothloss2.pdf>] [12 <./figs/6
+new/pl002_hash1.pdf> <./figs/6new/pl002_hash1_q.pdf> <./figs/6new/pl002_mlp1.pd
+f> <./figs/6new/pl002_mlp1_q.pdf> <./figs/6new/pl002_hash2.pdf> <./figs/6new/pl
+002_hash2_q.pdf> <./figs/6new/pl002_mlp2.pdf> <./figs/6new/pl002_mlp2_q.pdf>] (
+./aipsamp.bbl [13]) [14] (./aipsamp.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8202 strings out of 467525
- 124151 string characters out of 5423209
- 571439 words of memory out of 5000000
- 36952 multiletter control sequences out of 15000+600000
- 710828 words of font info for 185 fonts, out of 8000000 for 9000
+ 8336 strings out of 467525
+ 127442 string characters out of 5423209
+ 579765 words of memory out of 5000000
+ 37085 multiletter control sequences out of 15000+600000
+ 710595 words of font info for 184 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,12n,79p,1193b,632s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 71i,12n,79p,1840b,632s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
 live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2026
 /texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb><c:/texlive/2026/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2026/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1
-/public/lm/lmss17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/rsfs/rsfs1
-0.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfso0900.pfb><c:/
-texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb><c:/texlive/20
-26/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb><c:/texlive/2026/texmf-d
-ist/fonts/type1/public/cm-super/sfsx0900.pfb><c:/texlive/2026/texmf-dist/fonts/
-type1/public/cm-super/sfsx1440.pfb><c:/texlive/2026/texmf-dist/fonts/type1/publ
-ic/cm-super/sftt1000.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/symbol/usy
-r.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2
-026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2026/texmf-dist/fon
-ts/type1/urw/times/utmbi8a.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/time
-s/utmr8a.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on aipsamp.pdf (11 pages, 73187156 bytes).
+/public/rsfs/rsfs10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super
+/sfso0900.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.
+pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb><c:/te
+xlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx0900.pfb><c:/texlive/2026
+/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/texlive/2026/texmf-dis
+t/fonts/type1/urw/symbol/usyr.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/s
+ymbol/usyr.pfb><c:/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:
+/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2026/texm
+f-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on aipsamp.pdf (14 pages, 90883798 bytes).
 PDF statistics:
- 581 PDF objects out of 1000 (max. 8388607)
- 246 compressed objects within 3 object streams
+ 589 PDF objects out of 1000 (max. 8388607)
+ 245 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
