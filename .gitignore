@@ -1,0 +1,56 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# LaTeX build directories
+/build/
+/output/
+/tmp_fig_preview/
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Generated root-level paper outputs
+/aipsamp.pdf
+/page-*.png
+/pdflatex*.fls
+
+# Local backups and temporary drawing files
+*.bak
+*.bkp
+*.dtmp
+*.tmp
+
+# Python/cache artifacts from local helpers
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Large generated media exports
+*.mp4
+*.mov
+*.avi
